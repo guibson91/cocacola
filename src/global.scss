@@ -1,0 +1,210 @@
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+@import "swiper/css";
+@import "swiper/css/effect-coverflow";
+@import "swiper/css/pagination";
+
+//Personalized Theme
+@import "./theme/fonts.scss";
+@import "./theme/ripple.scss";
+@import "./theme/input.scss";
+@import "./theme/general.scss";
+@import "./theme/button.scss";
+@import "./theme/accordion.scss";
+@import "./theme/form.scss";
+@import "./theme/swipper.scss";
+
+//Modal Styles
+@import "./theme/modal.scss"; //Modal Default
+
+:host(.radio-label-placement-end) .label-text-wrapper {
+  margin-inline: 0px 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+::ng-deep .swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important;
+}
+
+::ng-deep {
+  .swiper-button-next.swiper-button-disabled,
+  .swiper-button-prev.swiper-button-disabled {
+    display: none !important;
+  }
+}
+
+:host .swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important;
+}
+
+:host {
+  .swiper-button-next.swiper-button-disabled,
+  .swiper-button-prev.swiper-button-disabled {
+    display: none !important;
+  }
+}
+
+::ng-deep swiper-container .swiper-button-prev.swiper-button-disabled,
+::ng-deep swiper-container .swiper-button-next.swiper-button-disabled {
+  display: none !important;
+}
+
+section.default {
+  background-color: white;
+  border-radius: 16px;
+  margin: 1em;
+  margin-bottom: 2em;
+  padding: 1em;
+}
+
+.radius {
+  border-radius: 16px;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+ion-checkbox {
+  --border-color: var(--ion-color-medium);
+  --border-width: 1px;
+  margin: 0;
+  margin-right: 9px;
+}
+
+ion-accordion-group {
+  ion-accordion {
+    .ion-accordion-toggle-icon {
+      font-size: 15px;
+    }
+  }
+}
+
+.loading-wrapper {
+  border-radius: 8px !important;
+  font-weight: 600;
+  color: var(--ion-color-medium);
+
+  ion-spinner {
+    color: var(--ion-color-medium);
+  }
+}
+
+//QRCODE styles
+// Hide all elements
+body.barcode-scanner-active {
+  visibility: hidden;
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+// Show only the barcode scanner modal
+.barcode-scanner-modal {
+  visibility: visible;
+}
+
+@media (prefers-color-scheme: dark) {
+  .barcode-scanner-modal {
+    --background: transparent;
+    --ion-background-color: transparent;
+  }
+}
+
+.web {
+  .zoom-effect {
+    transition: transform 0.4s ease;
+  }
+
+  .zoom-effect:hover {
+    transform: scale(1.08);
+  }
+
+  .hover-effect {
+    transition: background-color 0.3s ease;
+    transition: --background 0.3s ease;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+
+  .hover-effect:hover {
+    background-color: var(--ion-color-secondary-tint) !important;
+    --background: var(--ion-color-secondary-tint) !important;
+
+    h1,
+    p {
+      color: white !important;
+    }
+
+    &.round {
+      border-radius: 8px !important;
+    }
+  }
+}
+
+body {
+  -webkit-min-logical-height: -webkit-fill-available;
+}
+
+ion-header {
+  // padding-top: constant(safe-area-inset-top, 20px);
+  // padding-top: env(safe-area-inset-top, 20px);
+  padding-top: 1em;
+
+  &.my-ios {
+    // padding-top: 2.2em;
+  }
+}
+
+.container-header.my-ios {
+  padding-top: 2.5em;
+}
+
+section.my-ios {
+  margin-top: 4em !important;
+}
+
+ion-tabs.my-ios {
+  // padding-bottom: constant(safe-area-inset-bottom, 20px);
+  // padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-bottom: 1em;
+  background: white;
+  --background: white;
+}
+
+ion-range {
+  padding-top: 0 !important;
+  --knob-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --bar-border-radius: 15px;
+  --knob-size: 22px;
+  --knob-background: var(--ion-color-primary);
+  --bar-height: 5px;
+  --bar-background: var(--ion-color-light);
+}
+
+ion-tab-button::part(native) {
+  padding: 0;
+}
+ion-tab-button::ng-deep .button-native {
+  padding: 0 !important;
+}

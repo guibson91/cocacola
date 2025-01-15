@@ -1,0 +1,30 @@
+form {
+  .container-terms-privacy {
+    display: flex;
+    align-items: center;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    font-size: 0.9em;
+    margin-top: 32px !important;
+
+    ion-checkbox {
+      --border-color: var(--ion-color-medium);
+      --border-width: 1px;
+      margin: 0;
+      margin-right: 9px;
+    }
+
+    p {
+      font-size: 0.74em;
+      color: var(--ion-color-medium);
+      span {
+        color: var(--ion-color-primary);
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+  ion-button {
+    margin-top: 1em !important;
+  }
+}

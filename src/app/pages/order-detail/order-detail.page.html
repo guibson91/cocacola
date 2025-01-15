@@ -1,0 +1,111 @@
+<app-header
+  [title]="order && order.status === 'delivered' ? order.orderId ? 'Pedido ' + order.orderId   : 'Pedido Realizado' :'Acompanhe o pedido'"
+  [primary]="true"
+  (back)="customBack()"
+  *ngIf="!shared.web"
+></app-header>
+
+<ion-content *ngIf="order" [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web"></app-header-web>
+  <div class="extends-header" *ngIf="shared.web"></div>
+
+  <div class="container-title" *ngIf="shared.web">
+    <h1>{{order && order.status === 'delivered' ? order.orderId ? 'Pedido ' + order.orderId : 'Pedido Realizado' :'Acompanhe o pedido'}}</h1>
+  </div>
+  <div class="container-primary" *ngIf="!order.canceled">
+    <p *ngIf="order.status !== 'delivered'">Previsão de entrega</p>
+    <h1 class="title" *ngIf="order.status !== 'delivered' && order.delivery">
+      {{order.delivery.deliveryDate | date:'dd' }} de {{order.delivery.deliveryDate | date:'MMMM' }} de {{order.delivery.deliveryDate | date:'y'}}
+    </h1>
+  </div>
+
+  <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container">
+    <div class="container-check-circle" *ngIf="order.status === 'delivered' || order.status === 'returned' || order.canceled">
+      <img src="assets/svgs/check-circle-large.svg" />
+    </div>
+    <div class="order-delivery-date" *ngIf="order.status === 'delivered' || order.status === 'returned' || order.canceled">
+      <p *ngIf="order.status === 'delivered' && !order.canceled">Pedido entregue em</p>
+      <p *ngIf="order.status === 'returned' && !order.canceled" class="danger">Pedido devolvido em</p>
+      <p *ngIf="order.canceled" class="danger">Pedido cancelado em</p>
+      <!-- Previsão de entrega -->
+      <h1 *ngIf="!order.effectiveDate">
+        {{order.delivery.deliveryDate | date:'dd' }} de {{order.delivery.deliveryDate | date:'MMMM' }} de {{order.delivery.deliveryDate | date:'y'}}
+      </h1>
+      <!-- Efetiva entrega -->
+      <h1 *ngIf="order.effectiveDate">{{order.effectiveDate | date:'dd' }} de {{order.effectiveDate | date:'MMMM' }} de {{order.effectiveDate | date:'y'}}</h1>
+    </div>
+    <section class="default rate-order shadow ion-activatable ripple-parent" *ngIf="order.status === 'delivered' && loadingRating === false" tappable (click)="openRatingModal()">
+      <h1>Avalie seu pedido</h1>
+      <div class="container-stars">
+        <app-star [rating]="orderRating ?? 0"></app-star>
+      </div>
+      <p>Escolha de 1 a 5 estrelas</p>
+      <ion-ripple-effect *ngIf="!orderRating"></ion-ripple-effect>
+    </section>
+
+    <div class="container-stepper shadow" *ngIf="order.status !== 'delivered' && order.status !== 'returned' && !order.canceled">
+      <app-stepper [stepIndex]="currentIndexStatus" [labels]="labels"></app-stepper>
+    </div>
+
+    <section class="default shadow address" *ngIf="order?.user?.address && order?.user?.fantasyName">
+      <p>Entrega em</p>
+      <h1 class="title">{{order.user.fantasyName}}</h1>
+      <p>{{order.user.address}}</p>
+    </section>
+
+    <section class="default products">
+      <h1 class="title">Detalhes do pedido</h1>
+      <p class="order-number">{{order.orderId ? 'Pedido nº ' + order.orderId : 'Pedido realizado'}}</p>
+      <p class="points" *ngIf="order.totalPoints">Ganhou {{order.totalPoints}} pontos Orbitta nesse pedido</p>
+      <div *ngIf="shared.web">
+        <app-products type="summary" [products]="order.cartProducts" [flat]="true"></app-products>
+      </div>
+      <div *ngIf="!shared.web">
+        <div class="product" *ngFor="let product of order.cartProducts" [ngClass]="{'cancelled': product.rejectionMessage}">
+          <aside class="top">
+            <h1 class="product-name">{{product.label}}</h1>
+            <p>{{product.attributes?.quantityPerPackage}} un • {{product.attributes?.capacityLabel }}</p>
+          </aside>
+          <aside class="bottom">
+            <div class="left" *ngIf="product.currentScalable">
+              <p *ngIf="product.currentScalable.unitPrice">
+                <span>R$ {{product.currentScalable.price / 100 | number:'1.2-2'}}</span> R$ {{product.currentScalable.unitPrice / 100 | number:'1.2-2'}}/unidade
+              </p>
+              <p class="points-description" *ngIf="product.currentScalable.points">
+                Você ganha
+                <span>{{product.currentScalable.points}} pontos</span>
+              </p>
+              <p class="rejectionMessage" *ngIf="product.rejectionMessage">{{product.rejectionMessage}}</p>
+            </div>
+            <div class="left" *ngIf="!product.currentScalable">
+              <p class="free">GRÁTIS</p>
+            </div>
+            <div class="right">
+              <ion-badge color="primary">{{product.quantity}}</ion-badge>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <app-order-summary [items]="summaryItems"></app-order-summary>
+    </section>
+    <div class="container-buttons">
+      <div *ngIf="order.payment?.paymentMethod === 'pix'">
+        <ion-button expand="block" color="primary" fill="solid" (click)="handlePixPayment()" [disabled]="order.status !== 'review'">Pagar com PIX</ion-button>
+        <p class="status" *ngIf="order.status !== 'delivered'" [ngClass]="{'danger': order.info && order.info.status !== 'APPROVED'}">
+          {{order.info && order.info.status !== 'APPROVED' ? 'Pagamento não realizado' : 'Pagamento realizado'}}
+        </p>
+      </div>
+      <div *ngIf="system.enableEditOrder && order.editable && order.editableUntil">
+        <ion-button expand="block" color="primary" fill="solid" (click)="editOrder()">Editar pedido</ion-button>
+        <p class="status danger" *ngIf="order.editableUntil">Pedidos editáveis até {{order.editableUntil | date:'dd/MM/yyyy'}} às {{order.editableUntil | date:'HH:mm'}}</p>
+      </div>
+      <ion-button expand="block" color="primary" fill="solid" (click)="rebuy()" *ngIf="order.status === 'delivered'"> Comprar novamente</ion-button>
+      <ion-button expand="block" color="dark" fill="outline" (click)="openSupport()">Preciso de ajuda </ion-button>
+      <ion-button expand="block" color="dark" fill="outline" (click)="askCancelOrder()" *ngIf="order.cancelIsAllowed && !order.canceled">Cancelar pedido</ion-button>
+    </div>
+  </div>
+</ion-content>

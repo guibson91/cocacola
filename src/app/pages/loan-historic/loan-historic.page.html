@@ -1,0 +1,10 @@
+<app-header title="Financiamento" [showBack]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Histórico de financiamento"></app-header-web>
+  <app-container-with-menu type="financial" description="Veja aqui todas as soluções ligadas a parte financeira do seu negócio.">
+    <app-section-invoices title="Histórico de financiamento" description="Veja os últimos financiamentos realizados" label="Nº do financ." type="loan">
+      <ion-button fill="outline" expand="clear" color="dark" expand="block">Ver todos</ion-button>
+    </app-section-invoices>
+  </app-container-with-menu>
+</ion-content>

@@ -1,0 +1,5 @@
+<div class="content ion-activatable ripple-parent zoom-effect" (click)="openCategory(category)" tappable>
+  <app-bg-image [image]="category.image" width="85px" height="100px"></app-bg-image>
+  <p>{{ category.label | fixLabel | fixCategory }}</p>
+  <ion-ripple-effect></ion-ripple-effect>
+</div>

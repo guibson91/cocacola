@@ -1,0 +1,24 @@
+<ion-content>
+  <div class="container-modal" [ngClass]="{ web: shared.web }">
+    <app-card-user *ngIf="!shared.web"></app-card-user>
+    <ion-toolbar *ngIf="shared.web">
+      <ion-title slot="start" color="primary">Menu</ion-title>
+      <ion-button (click)="closeModal()" slot="end" fill="clear" class="close">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+    <app-search [filters]="['label', 'description']" placeholder="Busque o que você precisa" [list]="menu" (filterList)="filterList($event)"></app-search>
+    <div class="container">
+      <h1>Atalhos</h1>
+      <p>Acesse rapidamente o que você precisa.</p>
+      <div class="container-shortcut">
+        <div class="item ion-activatable ripple-parent" *ngFor="let shortcut of shortcuts" (click)="openItem(shortcut, closeModal.bind(this))">
+          <img [src]="shortcut.image" />
+          <p>{{ shortcut.label }}</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+      <app-menu-items [items]="filteredItems" (clickedItem)="itemWasClicked()"></app-menu-items>
+    </div>
+  </div>
+</ion-content>

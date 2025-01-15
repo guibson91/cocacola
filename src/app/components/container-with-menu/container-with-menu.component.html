@@ -1,0 +1,13 @@
+<div class="container" [ngClass]="{ web: shared.web, center: hideMenu }" [ngStyle]="{ 'padding-top': paddingTop }">
+  <section class="menu" *ngIf="shared.web && !hideMenu">
+    <div>
+      <p class="description" *ngIf="description">{{ description }}</p>
+    </div>
+    <div class="container-menu-items">
+      <app-menu-items [items]="menu" [showBusiness]="false" [primary]="primary" [type]="type"></app-menu-items>
+    </div>
+  </section>
+  <section class="content">
+    <ng-content></ng-content>
+  </section>
+</div>

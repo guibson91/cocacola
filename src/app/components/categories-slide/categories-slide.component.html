@@ -1,0 +1,28 @@
+<section *ngIf="categories && categories.length > 0 && !shared.web">
+  <div class="container-title">
+    <h1>{{ title }}</h1>
+    <ion-button fill="clear" (click)="seeAll()">Ver tudo</ion-button>
+  </div>
+  <div class="categories" [ngClass]="{ solid: isPP }">
+    <div class="category ion-activatable ripple-parent" *ngFor="let category of categories" (click)="openProductAttribute(category)">
+      <div class="content">
+        <app-bg-image [image]="category.image" [width]="isPP ? '80px' : '90px'" [height]="isPP ? '80px' : '90px'"></app-bg-image>
+        <p>{{ category.label | fixLabel | fixCategory }}</p>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+</section>
+<section *ngIf="shared.web">
+  <div class="container-title-web" *ngIf="categories && categories.length > 0">
+    <h1>{{ title }}</h1>
+    <ion-button fill="clear" (click)="seeAll()">Ver tudo</ion-button>
+  </div>
+  <div class="categories-web" [ngClass]="{ solid: isPP }">
+    <swiper-container #swiper2 class="categories" [slidesPerView]="slidesPerView" [spaceBetween]="20" [centeredSlides]="false" [watchOverflow]="true" (afterinit)="swiperReady2()">
+      <swiper-slide class="category" *ngFor="let category of categories">
+        <app-category-item [category]="category" (selectProductAttr)="openProductAttribute(category)"></app-category-item>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</section>

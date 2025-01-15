@@ -1,0 +1,120 @@
+.container-header {
+  background-color: var(--ion-color-primary);
+  padding-bottom: 1.1em;
+  h1,
+  h2,
+  p,
+  ion-button,
+  span {
+    color: white;
+    --color: white;
+    margin: 0;
+  }
+
+  .top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid #ffffff73;
+
+    img {
+      margin-right: 5px;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+  }
+
+  .bottom-home {
+    padding: 1em;
+
+    p.hello {
+      padding-top: 0.5em;
+      padding-bottom: 1em;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .container-balance {
+      padding-bottom: 1em;
+
+      p {
+        font-size: 0.8em;
+        font-weight: bold;
+      }
+
+      h1 {
+        font-weight: bold;
+        font-size: 1.5em;
+      }
+    }
+
+    .container-buttons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      ion-button {
+        --background: white;
+        min-width: 10em;
+        margin-right: 1em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+
+        p {
+          color: var(--ion-color-primary);
+          --color: var(--ion-color-primary);
+          font-size: 0.9em;
+        }
+
+        ion-icon {
+          color: var(--ion-color-primary);
+          --color: var(--ion-color-primary);
+          font-size: 1.4em;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    --background: var(--ion-color-primary);
+    ion-toolbar {
+      --background: var(--ion-color-primary);
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+
+      ion-buttons {
+        ion-button {
+          ion-icon {
+            color: white;
+            padding-top: 6px;
+            font-size: 1.5em;
+          }
+        }
+      }
+
+      .container-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: calc(100% - 51px);
+
+        h1 {
+          font-size: 1.4em;
+          font-weight: bolder;
+          text-align: center;
+        }
+        p {
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+}

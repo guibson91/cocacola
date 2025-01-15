@@ -1,0 +1,54 @@
+<app-header title="Pagamentos" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Pagamentos"></app-header-web>
+  <app-container-with-menu type="financial" description="Veja aqui todas as soluções ligadas a parte financeira do seu negócio.">
+    <app-section-loading message="Verificando dívidas e títulos a vencer" [loading]="loadingDebts"> </app-section-loading>
+    <section class="empty" *ngIf="debts && debts.length === 0">
+      <h1>Você não possui nenhum débito em aberto.</h1>
+      <p>Caso utilize boleto para suas compras, verifique a opção 2ª via de boleto.</p>
+      <div class="container-buttons">
+        <ion-button fill="solid" color="primary" expand="block" (click)="open2via()" [disabled]="loadingDebts">2ª via de boleto</ion-button>
+        <ion-button fill="outline" color="dark" expand="block" (click)="back()" [disabled]="loadingDebts">Voltar ao início</ion-button>
+      </div>
+    </section>
+    <section class="default" *ngIf="debts && debts.length > 0">
+      <div class="container-title">
+        <h1 class="title">Pagar dívidas</h1>
+        <p>Selecione quais gostaria de efetuar o pagamento</p>
+      </div>
+      <ion-item class="item no-border" lines="none" text-wrap *ngFor="let debt of debts; let i = index">
+        <ion-checkbox justify="start" labelPlacement="end" mode="md" color="success" slot="start" [(ngModel)]="debt.selected" (ionChange)="changeDebts()" [disabled]="loadingPaymentConditions">
+          <div class="content-checkbox">
+            <p class="code ellipsis">Nº do documento: <span>{{debt.detbId}}</span></p>
+            <p class="value">
+              Valor: <span>R$ {{debt.amount / 100 | number:'1.2-2'}}</span> <span *ngIf="debt.debt" class="debt"> (Dívida)</span>
+              <span *ngIf="!debt.debt" class="title"> (Título)</span>
+            </p>
+            <p class="date">Data: <span>{{debt.dueDate}}</span></p>
+          </div>
+        </ion-checkbox>
+      </ion-item>
+      <app-payment-methods
+        *ngIf="hasActiveDebts && paymentConditions"
+        [paymentConditions]="paymentConditions"
+        [loading]="loadingPaymentConditions"
+        [debts]="true"
+        (update)="changeDebts($event)"
+        (selectPayment)="selectPayment($event)"
+      >
+      </app-payment-methods>
+    </section>
+    <ion-button
+      *ngIf="hasActiveDebts && !loadingPaymentConditions"
+      fill="solid"
+      color="primary"
+      expand="block"
+      (click)="finish()"
+      [disabled]="loadingDebts || loadingPayment || !selectedPayment"
+      class="continue"
+    >
+      {{loadingPayment ? 'Processando' : 'Continuar'}}</ion-button
+    >
+  </app-container-with-menu>
+</ion-content>

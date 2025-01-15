@@ -1,0 +1,9 @@
+<div class="container" [ngClass]="{ mobile: !shared.web, web: shared.web }">
+  <img src="assets/images/walkthrough/art-top.svg" *ngIf="shared.web" class="top" />
+  <div class="content-container">
+    <div class="real-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <img src="assets/images/walkthrough/art-bottom.svg" class="bottom" *ngIf="shared.web" />
+</div>

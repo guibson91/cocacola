@@ -1,0 +1,13 @@
+<section class="mobile" *ngIf="product && product.scalablePrices && !(shared.web && !details)" [ngClass]="{ fullWidth: details }">
+  <div class="product" *ngFor="let scalablePrice of product.scalablePrices; let i = index">
+    <app-scalable-content [product]="product" [scalablePrice]="scalablePrice" [index]="i"> </app-scalable-content>
+  </div>
+</section>
+
+<section class="web" *ngIf="product && product.scalablePrices && shared.web && !details" [ngClass]="{ fullWidth: details }">
+  <swiper-container [slidesPerView]="2" [loop]="false" [autoplay]="false" mode="ios">
+    <swiper-slide class="product" *ngFor="let scalablePrice of product.scalablePrices; let i = index">
+      <app-scalable-content [product]="product" [scalablePrice]="scalablePrice" [index]="i"> </app-scalable-content>
+    </swiper-slide>
+  </swiper-container>
+</section>

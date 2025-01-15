@@ -1,0 +1,93 @@
+default_platform(:ios)
+
+platform :ios do
+  version_env_path = File.expand_path('../../../version.env', __dir__)
+  if File.exist?(version_env_path)
+    env_file_content = File.read(version_env_path)
+    env_file_content.each_line do |line|
+      key, value = line.strip.split('=')
+      if key && value
+        ENV[key] = value
+      end
+    end
+    puts 'Successfully loaded version.env first try'
+  else
+    puts 'version.env file not found, proceeding without it'
+  end
+  puts "Loaded environment variables: #{ENV.to_h}"
+
+  desc "Incrementar o número de build automaticamente"
+  lane :my_increment_build_number do
+    build_number = latest_testflight_build_number(
+      app_identifier: "br.com.sorocabarefrescos"
+    ) + 1
+
+    increment_build_number(
+      xcodeproj: "../App/App.xcodeproj",
+      build_number: build_number
+    )
+  end
+
+  desc "Incrementar a versão"
+  lane :my_increment_version do
+    version_number = ENV['iOS_MARKETING_VERSION']
+    puts 'Loaded iOS_MARKETING_VERSION from environment: ' + version_number.to_s
+    puts "iOS_MARKETING_VERSION: #{version_number}"
+    if version_number.nil? || version_number.empty?
+      UI.user_error!("iOS_MARKETING_VERSION is not set in version.env")
+    elsif version_number =~ /^\d+(\.\d+){0,2}$/
+      increment_version_number(
+        version_number: version_number,
+        xcodeproj: "../App/App.xcodeproj"
+      )
+    else
+      UI.user_error!("iOS_MARKETING_VERSION does not respect the format A, A.B, or A.B.C. Current value: #{version_number}")
+    end
+  end
+
+  desc "Enviar uma nova versão para a App Store"
+  lane :release do |options|
+    environment = options[:environment]
+    
+    # Configuration for authentication with App Store Connect
+    app_store_connect_api_key(
+      key_id: "L6TUZL64WF",
+      issuer_id: "0407d037-9638-468d-a713-44ed1621816c",
+      key_filepath: "#{ENV['BITBUCKET_CLONE_DIR']}/authkey.p8",
+      in_house: false,
+    )
+
+    # Increment version and build number
+    my_increment_version
+    my_increment_build_number
+
+    # Environment description
+    environment_description = case environment
+    when "homolog"
+      "AMBIENTE HOMOLOGAÇÃO"
+    when "hext"
+      "AMBIENTE HOMOLOGAÇÃO EXTERNA"
+    else
+      "AMBIENTE DESENVOLVIMENTO"
+    end
+
+    testflight_changelogs = <<~NOTES
+      #{environment_description}
+      #{File.read("#{ENV['BITBUCKET_CLONE_DIR']}/changelog.txt")}
+    NOTES
+
+    # Build App
+    build_app(
+      scheme: "App",
+      export_method: "app-store"
+    )
+
+    # Upload to TestFlight and make it immediately available to testers
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,  # Skip waiting for processing
+      distribute_external: true,                # Distribute to external testers
+      changelog: testflight_changelogs,
+      uses_non_exempt_encryption: false
+    )
+  end
+end

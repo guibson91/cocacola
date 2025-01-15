@@ -1,0 +1,4 @@
+<ion-app [ngClass]="{ web: shared.web }">
+  <app-loading [hidden]="!loading"></app-loading>
+  <ion-router-outlet [ngClass]="{ blur: system.blur }" [hidden]="loading"></ion-router-outlet>
+</ion-app>

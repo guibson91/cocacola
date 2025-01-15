@@ -1,0 +1,81 @@
+<app-header title="Pagamento e Frete" [primary]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <ion-refresher *ngIf="!shared.web" slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-header-web *ngIf="shared.web"></app-header-web>
+  <div class="extends-header"></div>
+
+  <div class="container">
+    <section class="delivery" *ngIf="cartData.deliveries && cartData.deliveries.length > 0">
+      <div class="container-title" *ngIf="shared.web">
+        <h1>Pagamento e Frete</h1>
+      </div>
+
+      <h1>Escolha o tipo de entrega</h1>
+      <p>Selecione pelo menos 1 das opções</p>
+      <ion-radio-group [value]="selectedDeliveryHash" mode="md">
+        <div class="delivery" *ngFor="let delivery of cartData.deliveries" tappable (click)="changeDelivery(delivery)">
+          <ion-radio justify="start" mode="md" labelPlacement="end" [value]="delivery.hash" [disabled]="loadingDeliveries">
+            <h1 class="bold">{{delivery.label}}</h1>
+            <p>{{delivery.description}}</p>
+          </ion-radio>
+          <div class="container-price">
+            <p class="value" *ngIf="delivery.price">R$ {{ delivery.price / 100 | number:'1.2-2' }}</p>
+            <p class="value" *ngIf="!delivery.price">Grátis</p>
+          </div>
+        </div>
+      </ion-radio-group>
+    </section>
+
+    <div class="divider" *ngIf="!shared.web"></div>
+
+    <section class="payment" *ngIf="cartData.paymentMethods">
+      <h1>Formas de Pagamento*</h1>
+      <p>Este campo é obrigatório</p>
+      <app-payment-methods [loading]="loadingInstallments" (update)="changeInstallments($event)" (selectPayment)="selectPayment($event)"></app-payment-methods>
+    </section>
+
+    <div class="divider" *ngIf="!shared.web"></div>
+
+    <section class="values" *ngIf="cartData">
+      <div class="line first" *ngIf="cartData.subtotal">
+        <p>Subtotal</p>
+        <p>R$ {{cartData.subtotal / 100 | number:'1.2-2'}}</p>
+      </div>
+      <div class="line" *ngIf="cartData.remainingBalance">
+        <p>Saldo Disponível</p>
+        <p>R$ {{cartData.remainingBalance / 100 | number:'1.2-2'}}</p>
+      </div>
+      <div class="line">
+        <p>Taxa de entrega</p>
+        <p *ngIf="cartData.shipping">R$ {{cartData.shipping / 100 | number:'1.2-2'}}</p>
+        <p *ngIf="!cartData.shipping">Grátis</p>
+      </div>
+      <div class="line total" *ngIf="shared.web">
+        <p>Total</p>
+        <p *ngIf="cartData.total">R$ {{cartData.total / 100 | number:'1.2-2'}}</p>
+        <p *ngIf="!cartData.total">Grátis</p>
+      </div>
+    </section>
+
+    <div class="points" *ngIf="cartData.totalPoints && shared.web">
+      <p *ngIf="cartData.totalPoints">Você ganhará {{cartData.totalPoints | number:'1.0'}} pontos Orbitta</p>
+    </div>
+
+    <ion-button expand="block" color="primary" fill="solid" (click)="next()" *ngIf="shared.web" class="continue"> Continuar</ion-button>
+  </div>
+</ion-content>
+
+<app-footer-cart
+  *ngIf="!shared.web"
+  (action)="next()"
+  [labelButton]="system.enableEditOrder && cartData.isEditing ?  'Finalizar edição de pedido' : 'Continuar'"
+  label="Total"
+  [value]="cartData.total"
+  [points]="cartData.totalPoints"
+  [disabled]="!selectedPayment || !selectedDeliveryHash || loadingDeliveries || (selectedPayment.paymentMethod === 'credit' && !this.selectedCard)"
+>
+</app-footer-cart>

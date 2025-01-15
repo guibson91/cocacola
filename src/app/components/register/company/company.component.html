@@ -1,0 +1,109 @@
+<app-header-form title="" subtitle=""></app-header-form>
+
+<form [formGroup]="form" (ngSubmit)="nextClick()">
+  <ion-item [ngClass]="{ error: form.controls.tradingName.invalid && form.controls.tradingName.touched }">
+    <ion-input [readonly]="false" type="text" inputmode="text" formControlName="tradingName" placeholder="Nome do estabelecimento"></ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.tradingName.errors?.required && form.controls.tradingName.touched" class="danger">Nome do estabelecimento é obrigatório</p>
+
+  <ion-accordion-group #accordionGroup (ionChange)="accordionGroupChange($event)">
+    <ion-accordion value="industry" [ngClass]="{ active: industrySelected }">
+      <ion-item mode="md" slot="header" class="no-border">
+        <p>{{ industrySelected ? industrySelected : "Área de atuação" }}</p>
+      </ion-item>
+      <ion-item
+        mode="md"
+        slot="content"
+        class="ion-activatable ripple-parent no-border"
+        *ngFor="let industryType of industryTypes"
+        (click)="selectIndustry(industryType)"
+        [class.active]="industrySelected === industryType"
+      >
+        <p>{{ industryType }}</p>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-item>
+    </ion-accordion>
+    <ion-accordion value="business" [ngClass]="{ active: businessSelected }">
+      <ion-item mode="md" slot="header" class="no-border">
+        <p>{{ businessSelected ? businessSelected.description : "Tipo do estabelecimento" }}</p>
+      </ion-item>
+      <ion-item
+        mode="md"
+        slot="content"
+        class="ion-activatable ripple-parent no-border"
+        *ngFor="let businessType of businessTypes"
+        (click)="selectBusiness(businessType)"
+        [class.active]="businessSelected === businessType"
+      >
+        <p>{{ businessType.description }}</p>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-item>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <div style="margin-top: 1em" formGroupName="address">
+    <!-- CEP -->
+    <ion-item [ngClass]="{ error: form.get('address.postalCode')?.touched && (form.get('address.postalCode')?.invalid || errorCep) }">
+      <ion-input
+        [maskito]="cepMask"
+        [maskitoElement]="maskPredicate"
+        type="tel"
+        inputmode="tel"
+        formControlName="postalCode"
+        placeholder="CEP"
+        (ionInput)="handleCepChange($event)"
+        maxlength="10"
+      ></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.postalCode')?.errors?.required && form.get('address.postalCode')?.touched" class="danger">CEP é obrigatório</p>
+    <p *ngIf="form.get('address.postalCode')?.touched && errorCep" class="danger">CEP inválido</p>
+
+    <!-- Rua -->
+    <ion-item [ngClass]="{ error: form.get('address.street')?.invalid && form.get('address.street')?.touched }">
+      <ion-input type="text" inputmode="text" formControlName="street" placeholder="Endereço de entrega (rua, avenida, travessa)"></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.street')?.errors?.required && form.get('address.street')?.touched" class="danger" style="margin-top: 2px">Endereço é obrigatório</p>
+
+    <!-- Número -->
+    <ion-item [ngClass]="{ error: form.get('address.streetNumber')?.invalid && form.get('address.streetNumber')?.touched, readonly: notNumber }" style="margin-bottom: 0">
+      <ion-input type="tel" inputmode="tel" formControlName="streetNumber" placeholder="Número" [disabled]="notNumber"></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.streetNumber')?.errors?.required && form.get('address.streetNumber')?.touched" class="danger">Número é obrigatório</p>
+
+    <ion-item class="no-border checkbox-not-number">
+      <ion-checkbox slot="start" color="medium" [(ngModel)]="notNumber" [ngModelOptions]="{ standalone: true }" (ionChange)="changeNotNumber()"></ion-checkbox>
+      <ion-label>Endereço sem número</ion-label>
+    </ion-item>
+
+    <!-- Complemento -->
+    <ion-item [ngClass]="{ error: form.get('address.complement')?.invalid && form.get('address.complement')?.touched }" style="margin-top: 0">
+      <ion-input type="text" inputmode="text" formControlName="complement" placeholder="Complemento (apartamento, bloco)"></ion-input>
+    </ion-item>
+
+    <!-- Ponto de referência -->
+    <ion-item [ngClass]="{ error: form.get('address.reference')?.invalid && form.get('address.reference')?.touched }">
+      <ion-input type="text" inputmode="text" formControlName="reference" placeholder="Ponto de referência"></ion-input>
+    </ion-item>
+
+    <!-- Bairro -->
+    <ion-item [ngClass]="{ error: form.get('address.neighborhood')?.invalid && form.get('address.neighborhood')?.touched }">
+      <ion-input type="text" formControlName="neighborhood" placeholder="Bairro"></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.neighborhood')?.errors?.required && form.get('address.neighborhood')?.touched" class="danger">Bairro é obrigatório</p>
+
+    <!-- Cidade -->
+    <ion-item class="readonly" [ngClass]="{ error: form.get('address.city')?.invalid && form.get('address.city')?.touched }">
+      <ion-input [readonly]="true" type="text" inputmode="text" formControlName="city" placeholder="Cidade"></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.city')?.errors?.required && form.get('address.city')?.touched" class="danger">Cidade é obrigatória</p>
+
+    <!-- Estado -->
+    <ion-item class="readonly" [ngClass]="{ error: form.get('address.state')?.invalid && form.get('address.state')?.touched }">
+      <ion-input [readonly]="true" type="text" inputmode="text" formControlName="state" placeholder="Estado" maxlength="2"></ion-input>
+    </ion-item>
+    <p *ngIf="form.get('address.state')?.errors?.required && form.get('address.state')?.touched" class="danger">Estado é obrigatório</p>
+  </div>
+
+  <ion-button type="submit" expand="block" color="primary" [disabled]="!form.valid">Continuar</ion-button>
+  <ion-button expand="block" color="dark" fill="outline" (click)="cancelRegister(register.cpfCnpj)" class="cancel" style="margin-top: 0.5em">Cancelar</ion-button>
+</form>

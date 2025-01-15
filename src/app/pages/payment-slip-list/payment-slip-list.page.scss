@@ -1,0 +1,45 @@
+ion-content {
+  section {
+    h1.title {
+      font-size: 1.4em;
+      margin-bottom: 1em;
+      margin-top: 0.1em;
+      font-weight: bolder;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--ion-color-light);
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+      p {
+        font-size: 0.8em;
+        line-height: 1.7em;
+        span {
+          font-weight: bold;
+        }
+      }
+      .left {
+        max-width: 77%;
+        p.code {
+          span {
+            color: var(--ion-color-primary);
+          }
+        }
+      }
+
+      .right {
+        display: flex;
+        ion-button {
+          min-height: 2em;
+          --border-radius: 8px;
+          font-weight: bold;
+        }
+      }
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+<ion-content [ngClass]="{'web': shared.web}">
+  <app-header-orbitta-club [home]="true" *ngIf="!shared.web" [customer]="customer" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club>
+    <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <img src="assets/images/my-business/cartao.png" alt="Descrição da Imagem" class="top-image" *ngIf="!shared.web" />
+
+    <app-banner [isPP]="true" *ngIf="showBanners"></app-banner>
+
+    <section *ngIf="benefits && benefits.length > 0 && !shared.web">
+      <div class="container-title">
+        <h1>Resgates e benefícios</h1>
+      </div>
+      <div class="categories">
+        <div class="category ion-activatable ripple-parent" *ngFor="let benefit of benefits" (click)="openBenefit(benefit)">
+          <div class="content">
+            <app-bg-image [image]="benefit.image" width="90px" height="90px"></app-bg-image>
+            <p class="inner-top">{{benefit.labelTop}}</p>
+            <p class="inner-bottom">{{benefit.labelBottom}}</p>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </section>
+
+    <section *ngIf="benefits && benefits.length > 0 && shared.web">
+      <div class="container-title">
+        <div class="top center">
+          <h1>Resgates e Benefícios</h1>
+        </div>
+        <div class="bottom">
+          <p class="description"></p>
+        </div>
+      </div>
+
+      <div class="categories-web" *ngIf="benefits && benefits.length > 0">
+        <div class="item" *ngFor="let benefit of benefits">
+          <div class="content ion-activatable ripple-parent zoom-effect" (click)="openBenefit(benefit)">
+            <app-bg-image [image]="benefit.image" width="70px" height="56px"></app-bg-image>
+            <p class="inner-top">{{benefit.labelTop}}</p>
+            <p class="inner-bottom">{{benefit.labelBottom}}</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-sections-web">
+      <!-- <section>
+        <div class="container-title">
+          <div class="top">
+            <img src="assets/svgs/bag.svg" />
+            <h1>Catálogo de Resgate</h1>
+          </div>
+          <div class="bottom">
+            <p class="description">Use seus pontos Orbitta para comprar eletrodomésticos, eletrônicos, combustível e muito mais</p>
+          </div>
+        </div>
+
+        <div class="container-banner">
+          <app-bg-image image="assets/images/mock/banner-eletro.png" width="100%" height="163px"></app-bg-image>
+        </div>
+      </section> -->
+
+      <section *ngIf="bannerFixed">
+        <div class="container-title">
+          <div class="top">
+            <img src="assets/svgs/meus-pontos-active.svg" />
+            <h1>Resgate produtos Coca Cola</h1>
+          </div>
+          <div class="bottom">
+            <p class="description">Use seus pontos Orbitta para comprar produtos Sorocaba Refrescos.</p>
+          </div>
+        </div>
+        <app-banner [simpleBanner]="bannerFixed" [isPP]="true"></app-banner>
+        <!-- <div class="container-banner" tappable (click)="openCatalog()">
+          <app-bg-image [image]="bannerFixed.image" width="100%" height="175px"></app-bg-image>
+        </div> -->
+      </section>
+    </div>
+
+    <p class="rules link" tappable (click)="openRules()"><a>Clique aqui e consulte o nosso regulamento e termos de uso.</a></p>
+  </app-content-orbitta-club>
+</ion-content>

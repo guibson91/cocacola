@@ -1,0 +1,119 @@
+ion-content {
+  &.pp {
+    --padding-bottom: 4em;
+  }
+  &.web {
+    .container-categories-pp {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    .container-categories {
+      justify-content: flex-start;
+      margin-left: 6em;
+      margin-right: 6em;
+
+      .category-web {
+        min-width: 16em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    }
+
+    .container-title {
+      width: 100%;
+      text-align: center;
+
+      h1 {
+        font-weight: bold;
+        font-size: 1.4em;
+      }
+    }
+  }
+
+  section {
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 8px;
+  }
+
+  .container-categories {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: calc(100% - 2em);
+    margin-left: 1em;
+    margin-right: 1em;
+
+    .category {
+      background-color: white;
+      padding: 1em;
+      min-width: 48%;
+      max-width: 48%;
+      height: 152px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      h1 {
+        font-family: Gotham;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 13px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin-top: 0.5em;
+      }
+
+      img {
+        width: 90%;
+        height: 90%;
+      }
+    }
+
+    p.empty {
+      text-align: center;
+      width: 100%;
+      font-size: 0.9em;
+      color: gray;
+      background: white;
+      padding: 1em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.container-categories-pp {
+  margin-left: 1em;
+  .category {
+    width: calc(100% - 1em);
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      h1 {
+        font-size: 1em;
+        font-weight: 700;
+        margin-left: 1em;
+      }
+
+      ion-icon {
+        font-size: 1.2em;
+        color: var(--ion-color-dark);
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+ion-header {
+  h1 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+  }
+}
+.content {
+  overflow-y: scroll !important;
+  height: 90%;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  .address {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    h1 {
+      font-size: 0.9em;
+      color: var(--ion-color-primary);
+      font-weight: 600;
+    }
+    p {
+      margin-top: 0.5em;
+      line-height: 15px;
+      font-size: 0.82em !important;
+      white-space: normal !important;
+      color: var(--ion-color-text) !important;
+    }
+  }
+  .container-status {
+    border: 2px solid var(--ion-color-medium);
+    border-radius: 14px;
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: space-between;
+    p.label {
+      color: var(--ion-color-primary);
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+    p.status {
+      color: var(--ion-color-success);
+      font-weight: bold;
+    }
+  }
+  .item {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    &:last-of-type {
+      border-bottom: none !important;
+    }
+    h1.brand {
+      color: var(--ion-color-primary);
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 6px;
+    }
+    .container-description {
+      display: flex;
+      justify-content: space-between;
+      p {
+        color: var(--color-text);
+        font-size: 0.8em;
+        max-width: 190px;
+      }
+      p.points {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// .content {
+//   overflow-y: scroll !important;
+//   height: 90%;
+//   margin-bottom: 1em;
+//   margin-left: 1em;
+//   margin-right: 1em;
+//   section {
+//     text-align: justify;
+//     max-height: 50vh;
+//     font-weight: 300;
+//     font-size: 0.75em;
+//   }
+// }
+
+.content::-webkit-scrollbar {
+  overflow-y: scroll !important;
+  width: 7px !important;
+}
+
+.content::-webkit-scrollbar-thumb {
+  overflow-y: scroll !important;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5); /* Cor da barra de rolagem */
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); /* Sombra opcional */
+}

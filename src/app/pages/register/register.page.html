@@ -1,0 +1,24 @@
+<app-header *ngIf="steps[currentIndex] && !shared.web" [title]="steps[currentIndex].title" (back)="back()"></app-header>
+
+<ion-content>
+  <app-container-web>
+    <h1 *ngIf="shared.web" class="title-web">
+      {{steps[currentIndex].id === 'confirmation' ? 'Cadastro Confirmação' : steps[currentIndex].id === 'logistics' ? 'Visita e Entrega' : 'Cadastro'}}
+    </h1>
+    <!-- <p *ngIf="steps[currentIndex].id === 'confirmation' && shared.web" class="description-web">Qual o código enviado por SMS?</p> -->
+    <div class="container-step" *ngIf="steps[currentIndex] && steps[currentIndex].stepIndex >= 0 && stepLabels">
+      <app-stepper [stepIndex]="steps[currentIndex].stepIndex" [labels]="stepLabels"></app-stepper>
+    </div>
+    <div *ngIf="steps[currentIndex]" class="container" [ngClass]="{'fix-height': steps[currentIndex].stepIndex >= 0, 'web': shared.web}">
+      <app-company-name (next)="next()" [hidden]="steps[currentIndex].id !== 'companyName'"></app-company-name>
+      <app-personal-info (next)="next()" [hidden]="steps[currentIndex].id !== 'personalInfo'"></app-personal-info>
+      <app-contact-info (next)="next()" [hidden]="steps[currentIndex].id !== 'contactInfo'"></app-contact-info>
+      <app-confirmation (next)="next()" *ngIf="steps[currentIndex].id === 'confirmation'"></app-confirmation>
+      <app-password (next)="next()" [hidden]="steps[currentIndex].id !== 'password'"></app-password>
+      <app-company (next)="next()" [hidden]="steps[currentIndex].id !== 'company'"></app-company>
+      <app-documents (next)="next()" [hidden]="steps[currentIndex].id !== 'documents'"></app-documents>
+      <app-logistics (next)="next()" [hidden]="steps[currentIndex].id !== 'logistics'"></app-logistics>
+      <app-contact-box></app-contact-box>
+    </div>
+  </app-container-web>
+</ion-content>

@@ -1,0 +1,159 @@
+ion-toolbar {
+  padding: 0.4em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.center-title {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5px;
+  .left {
+    margin-right: 2em;
+  }
+  img {
+    width: 150px;
+    height: auto;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.first-toolbar {
+  .inner-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      color: white;
+      font-size: 0.8em;
+      margin-left: 0.5em;
+    }
+  }
+
+  ion-buttons {
+    ion-icon {
+      font-size: 1.8em;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    img {
+      width: 24px;
+      height: auto;
+      margin-left: 1em;
+      margin-right: 1em;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &.cart {
+        width: 28px;
+      }
+    }
+
+    .container-orbitta {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin-left: 4px;
+        font-weight: bold;
+        font-size: 0.7em;
+        color: white;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  ion-buttons[slot="end"] {
+    margin-right: 1em !important;
+
+    .mark {
+      width: 8px;
+      height: 8px;
+      background-color: var(--ion-color-secondary);
+      border-radius: 50%;
+      top: 8px;
+      right: 5px;
+      position: absolute;
+      z-index: 10;
+    }
+  }
+}
+
+.second-toolbar {
+  padding-bottom: 2em;
+  margin-top: 0;
+  padding-top: 0;
+  ion-title {
+    font-weight: 500;
+  }
+
+  ion-title,
+  p,
+  h1 {
+    color: white;
+  }
+
+  p {
+    font-size: 1.1em;
+    span {
+      font-weight: bold;
+    }
+
+    &.sub {
+      font-weight: normal;
+      font-size: 0.9em;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  }
+
+  ion-button {
+    color: var(--ion-color-primary);
+    --background: white;
+    min-width: 11em;
+    margin-right: 1em;
+    justify-content: flex-start;
+    ion-icon {
+      color: var(--ion-color-primary);
+    }
+    p {
+      margin: auto;
+      color: var(--ion-color-primary);
+    }
+  }
+}
+
+.container-title {
+  margin-left: 1em;
+  margin-right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
+  margin-bottom: 2em;
+
+  &.pp {
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+  }
+
+  h1 {
+    font-size: 1.7em;
+    font-weight: bold;
+  }
+}

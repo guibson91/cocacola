@@ -1,0 +1,65 @@
+form {
+  ion-item {
+    &.readonly {
+      --background: lightgray;
+      color: var(--ion-color-medium);
+    }
+    &.checkbox-not-number {
+      margin: 0;
+      --padding-start: 2px;
+    }
+  }
+  ion-accordion-group {
+    margin-top: 1em;
+    ion-accordion {
+      border-radius: 8px;
+      border: 1px solid var(--ion-color-medium);
+      margin-bottom: 5px;
+      background-color: var(--ion-color-background) !important;
+
+      p {
+        margin-left: 1em;
+        font-size: 1em;
+        font-weight: 400;
+        color: var(--ion-color-medium);
+      }
+
+      ion-item {
+        font-weight: bold;
+        --padding-start: 0px;
+        --padding-end: 0;
+        --inner-padding-end: 0;
+        margin-bottom: 0;
+
+        p {
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+
+        &.active {
+          --background: lightgray;
+        }
+      }
+
+      &.active {
+        ion-item[slot="header"] {
+          p {
+            color: var(--ion-color-dark);
+          }
+        }
+      }
+      ion-item[slot="content"] {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        border-top: 1px solid var(--ion-color-medium);
+        border-radius: 0;
+      }
+
+      &:last-child {
+        margin-top: 1em;
+      }
+    }
+  }
+}

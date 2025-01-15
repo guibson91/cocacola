@@ -1,0 +1,49 @@
+ion-content,
+ion-footer,
+ion-item {
+  --background: var(--ion-color-background);
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Gotham", sans-serif;
+  margin: 0;
+  color: #0d0d0d;
+}
+
+.margin-top {
+  margin-top: 0.5em;
+}
+.margin-bottom {
+  margin-bottom: 0.5em;
+}
+.margin-left {
+  margin-left: 0.5em;
+}
+.margin-right {
+  margin-right: 0.5em;
+}
+.margin {
+  margin: 0.5em;
+}
+
+.extends-header {
+  background-color: var(--ion-color-primary);
+  height: 5em;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(91, 75, 75, 0.2);
+}
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content::webkit-scrollbar {
+  display: none !important;
+}

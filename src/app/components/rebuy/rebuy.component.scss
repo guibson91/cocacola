@@ -1,0 +1,94 @@
+.container {
+  &.web {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    &.order {
+      section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        .container-flex {
+          justify-content: space-between;
+          .left {
+            max-width: 250px;
+          }
+          ion-button {
+            min-width: 250px !important;
+          }
+        }
+      }
+    }
+    section {
+      width: 438px;
+      h1,
+      p {
+        text-align: left;
+      }
+      h1 {
+        font-size: 1.2em !important;
+      }
+      p {
+        font-size: 0.9em !important;
+        font-weight: normal !important;
+      }
+      ion-button.add {
+        min-width: 95px !important;
+        min-height: 2.5em !important;
+        font-size: 13px !important;
+      }
+    }
+  }
+
+  section {
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 8px;
+    padding-left: 1em;
+    margin: 1em;
+    position: relative;
+
+    ion-button.close {
+      --padding-start: 0.5em;
+      --padding-end: 0.5em;
+      font-size: 1em;
+      margin: 0;
+      position: absolute;
+      color: var(--ion-color-medium);
+      top: 0;
+      right: 0;
+    }
+
+    .container-flex {
+      display: flex;
+      align-items: center;
+      margin-right: 1.75em;
+
+      .left {
+        margin-right: 0.5em;
+
+        h1 {
+          font-size: 0.9em;
+          font-weight: bold;
+          margin-bottom: 5px;
+          color: black;
+        }
+
+        p {
+          color: black;
+          font-size: 0.8em;
+          font-weight: 400;
+        }
+      }
+
+      ion-button {
+        min-height: 2.5em;
+        font-size: 10px;
+        min-width: 73px;
+      }
+    }
+  }
+}

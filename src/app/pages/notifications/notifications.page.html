@@ -1,0 +1,8 @@
+<app-header title="Notificações" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{'web': shared.web}">
+  <ion-refresher *ngIf="!shared.web" slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <app-notification-content></app-notification-content>
+</ion-content>

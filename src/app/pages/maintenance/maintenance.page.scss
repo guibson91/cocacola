@@ -1,0 +1,50 @@
+ion-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --background: var(--ion-color-background);
+  --overflow: hidden;
+  height: 100vh; /* Altura da viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-content {
+  overflow: hidden !important;
+}
+
+ion-button {
+  margin-top: 4em;
+  min-width: 20em;
+}
+
+.no-scroll {
+  --overflow: hidden; /* Ionic 4+ */
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+  flex-direction: column;
+  margin-left: 1em;
+  margin-right: 1em;
+  img {
+    margin-top: 1em;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 1.8em;
+    color: var(--ion-color-primary);
+    margin-bottom: 1em;
+  }
+  p {
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #303030;
+    line-height: 20px;
+    margin-bottom: 1em;
+  }
+}

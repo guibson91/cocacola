@@ -1,0 +1,11 @@
+<app-header-form title="Bem-vindo ao Orbitta!" subtitle="Primeiramente informe aqui a Razão Social da empresa" [bigger]="true" [forceWebTitle]="true"></app-header-form>
+
+<form [formGroup]="form" (ngSubmit)="nextClick()">
+  <ion-item [ngClass]="{ error: form.controls.name.invalid && form.controls.name.touched }">
+    <ion-input type="text" inputmode="text" formControlName="name" placeholder="Razão social*"></ion-input>
+  </ion-item>
+
+  <p *ngIf="form.controls.name.errors?.required && form.controls.name.touched" class="danger">Razão social é obrigatória</p>
+  <p class="obs-required">(*) Este campo é obrigatório</p>
+  <ion-button type="submit" expand="block" color="primary" [disabled]="!form.valid">Continuar</ion-button>
+</form>

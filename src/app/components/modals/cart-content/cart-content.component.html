@@ -1,0 +1,31 @@
+<ion-content>
+  <div class="container-modal" [ngClass]="{ web: shared.web, primary: primary }">
+    <ion-toolbar *ngIf="shared.web">
+      <ion-title slot="start" color="primary">{{ title }}</ion-title>
+      <ion-button (click)="closeModal()" slot="end" fill="clear" class="close">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+
+    <ion-refresher *ngIf="!shared.web" slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="tarja" *ngIf="cartData && cartData.remainingMinimumOrder && !isEmpty">
+      <p>Faltam R$ {{ cartData.remainingMinimumOrder / 100 | number : "1.2-2" }} para o pedido mínimo</p>
+    </div>
+
+    <div style="margin-top: 1em" class="container-products">
+      <p class="empty-message" *ngIf="isEmpty">Você ainda não adicionou nenhum produto no carrinho.</p>
+      <app-products type="cart" view="vertical" *ngIf="!isEmpty"></app-products>
+    </div>
+
+    <ion-button (click)="goHome()" expand="block" class="add-more-items" *ngIf="!shared.web">Adicionar mais itens </ion-button>
+
+    <app-suggested-order label="Aproveite e compre também" labelSize="1.3em" *ngIf="!shared.web && !isEmpty"> </app-suggested-order>
+
+    <div *ngIf="shared.web && !isEmpty" style="margin-top: 2em">
+      <app-footer-cart (action)="next()" label="Subtotal" [value]="cartData.subtotal" [points]="cartData.totalPoints" [disabled]="isEmpty"></app-footer-cart>
+    </div>
+  </div>
+</ion-content>

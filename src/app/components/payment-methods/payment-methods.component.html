@@ -1,0 +1,114 @@
+<ion-accordion-group id="top-accordion" #accordionGroup (ionChange)="changePaymentGroup($event)" [disabled]="disabledAccordion" (click)="openModalCard()" [ngClass]="{ web: shared.web }">
+  <div *ngIf="paymentConditions && !loading">
+    <ion-accordion value="pix" [ngClass]="{ active: selectedPayment && selectedPayment.paymentMethod === 'pix' }" class="no-icon" *ngIf="paymentConditions['pix']">
+      <ion-item mode="md" slot="header">
+        <div class="content">
+          <div class="left">
+            <img src="assets/svgs/pix.svg" />
+            <ion-label>{{ paymentConditions["pix"].paymentMethodDescription }}</ion-label>
+          </div>
+          <div class="right" *ngIf="paymentConditions['pix'] && paymentConditions['pix'].totalAmount">
+            <p class="lbl-total">Total</p>
+            <p class="value-total">R$ {{ paymentConditions["pix"].totalAmount / 100 | number: "1.2-2" }}</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-accordion>
+    <ion-accordion value="employees" [ngClass]="{ active: selectedPayment && selectedPayment.paymentMethod === 'employees' }" class="no-icon" *ngIf="paymentConditions['employees']">
+      <ion-item mode="md" slot="header">
+        <div class="content">
+          <div class="left">
+            <img src="assets/svgs/employees.svg" class="employee" />
+            <ion-label>{{ paymentConditions["employees"].paymentMethodDescription }}</ion-label>
+          </div>
+          <div class="right" *ngIf="paymentConditions['employees'] && paymentConditions['employees'].totalAmount">
+            <p class="lbl-total">Total</p>
+            <p class="value-total">R$ {{ paymentConditions["employees"].totalAmount / 100 | number: "1.2-2" }}</p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-accordion>
+    <ion-accordion value="bankSlip" [ngClass]="{ active: selectedPayment && selectedPayment.paymentMethod === 'bankSlip' }" class="no-icon" *ngIf="paymentConditions['bankSlip']">
+      <ion-item mode="md" slot="header">
+        <div class="content">
+          <div class="left">
+            <img src="assets/svgs/invoice.svg" />
+            <ion-label>Boleto</ion-label>
+          </div>
+          <div class="right" *ngIf="selectedPayment && selectedPayment.paymentMethod === 'bankSlip'">
+            <p class="lbl-total">Total</p>
+            <p class="value-total" *ngIf="selectedPayment && selectedPayment.totalAmount">R$ {{ selectedPayment.totalAmount / 100 | number: "1.2-2" }}</p>
+            <p class="obs-total">Venc. {{ selectedPayment.days }} dias</p>
+          </div>
+          <div class="right" *ngIf="!selectedPayment || selectedPayment.paymentMethod !== 'bankSlip'">
+            <p class="lbl-total">Total</p>
+            <p class="value-total" *ngIf="paymentConditions && paymentConditions['bankSlip'] && paymentConditions['bankSlip'][0].totalAmount">
+              R$
+              {{ paymentConditions["bankSlip"][0].totalAmount / 100 | number: "1.2-2" }}
+            </p>
+            <p class="obs-total">Venc. {{ paymentConditions["bankSlip"][0].days }} dias</p>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item mode="md" slot="content" class="ion-activatable ripple-parent" *ngFor="let bankSlip of paymentConditions['bankSlip']" (click)="clickPayment(bankSlip)">
+        <div class="content">
+          <div class="left">
+            <p>
+              Vencimento em <span>{{ bankSlip.days }} dias</span>
+            </p>
+          </div>
+          <div class="right">
+            <p class="value-total" *ngIf="bankSlip && bankSlip.totalAmount">
+              <span>R$ {{ bankSlip.totalAmount / 100 | number: "1.2-2" }}</span>
+            </p>
+          </div>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-item>
+    </ion-accordion>
+    <ion-accordion value="credit" [ngClass]="{ active: selectedPayment && selectedPayment.paymentMethod === 'credit' }" class="no-icon" *ngIf="paymentConditions['credit']">
+      <ion-item mode="md" slot="header">
+        <div class="content">
+          <div class="left">
+            <img src="assets/svgs/card.svg" />
+            <div class="container-label-card">
+              <ion-label>Cartão de Crédito</ion-label>
+              <p *ngIf="selectedCard">FINAL {{ selectedCard.lastDigits }}</p>
+            </div>
+          </div>
+          <div class="right" *ngIf="selectedPayment && selectedPayment.paymentMethod === 'credit'">
+            <p class="lbl-total">Total</p>
+            <p class="value-total" *ngIf="selectedPayment && selectedPayment.totalAmount">R$ {{ selectedPayment.totalAmount / 100 | number: "1.2-2" }}</p>
+            <p class="obs-total" *ngIf="selectedPayment && selectedPayment.partialAmount">{{ selectedPayment.installments }}x de R$ {{ selectedPayment.partialAmount / 100 | number: "1.2-2" }}</p>
+          </div>
+          <div class="right" *ngIf="!selectedPayment || selectedPayment.paymentMethod !== 'credit'">
+            <p class="lbl-total">Total</p>
+            <p class="value-total" *ngIf="paymentConditions['credit'] && paymentConditions['credit'][0].totalAmount">R$ {{ paymentConditions["credit"][0].totalAmount / 100 | number: "1.2-2" }}</p>
+            <p class="obs-total" *ngIf="paymentConditions['credit'] && paymentConditions['credit'][0].partialAmount">
+              {{ paymentConditions["credit"][0].installments }}x de R$ {{ paymentConditions["credit"][0].partialAmount / 100 | number: "1.2-2" }}
+            </p>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item mode="md" slot="content" class="ion-activatable ripple-parent" *ngFor="let paymentCredit of paymentConditions['credit']" (click)="clickPayment(paymentCredit)">
+        <div class="content">
+          <div class="left">
+            <p *ngIf="paymentCredit && paymentCredit.partialAmount">
+              <span>{{ paymentCredit.installments }}x</span> de R$
+              {{ paymentCredit.partialAmount / 100 | number: "1.2-2" }}
+            </p>
+          </div>
+          <div class="right">
+            <p class="value-total" *ngIf="paymentCredit && paymentCredit.totalAmount">
+              <span>R$ {{ paymentCredit.totalAmount / 100 | number: "1.2-2" }}</span>
+            </p>
+          </div>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-item>
+    </ion-accordion>
+  </div>
+  <div style="margin-top: 1.5em">
+    <app-loading-message [loading]="loading" message="Carregando condições de pagamento"> </app-loading-message>
+  </div>
+</ion-accordion-group>

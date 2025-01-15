@@ -1,0 +1,94 @@
+<ion-content [ngClass]="{'web': shared.web}">
+  <app-header-orbitta-club title="Sacola" [subtitle]="subtitle" paddingBottom="2em" *ngIf="!shared.web"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club *ngIf="cartData && !isEmpty" [margin]="true">
+    <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <section class="section-card-user" style="margin-top: -1.5em">
+      <app-card-user *ngIf="!shared.web" [hideCart]="true" [points]="true"></app-card-user>
+    </section>
+
+    <section class="default delivery" *ngIf="cartData && cartData.deliveries && cartData.deliveries.length > 0">
+      <div class="container-title" *ngIf="shared.web">
+        <h1>Pagamento e Frete</h1>
+      </div>
+
+      <h1>Escolha o tipo de entrega</h1>
+      <p>Selecione pelo menos 1 das opções</p>
+      <ion-radio-group [value]="selectedDeliveryHash" mode="md">
+        <div class="delivery" *ngFor="let delivery of cartData.deliveries" tappable (click)="changeDelivery(delivery)">
+          <ion-radio justify="start" mode="md" labelPlacement="end" [value]="delivery.hash" [disabled]="loadingDeliveries">
+            <h1 class="bold">{{delivery.label}}</h1>
+            <p>{{delivery.description}}</p>
+          </ion-radio>
+          <div class="container-price">
+            <p class="value" *ngIf="delivery.points">{{ delivery.points }} pts</p>
+            <p class="value" *ngIf="!delivery.points">Grátis</p>
+          </div>
+        </div>
+      </ion-radio-group>
+    </section>
+
+    <section class="default">
+      <div class="item-product" *ngFor="let product of cartData.cartProducts">
+        <div class="top">
+          <div class="left">
+            <h1>{{product.name ?? product.label}}</h1>
+            <p>{{ product.attributes?.quantityPerPackage }} un • {{ product.attributes?.capacityLabel }}</p>
+          </div>
+          <div class="right">
+            <div class="container-trash ion-activatable ripple-parent" tappable (click)="removeItem(product)">
+              <img class="remove" src="assets/svgs/trash-cart.svg" />
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <p>Subtotal: <b>{{product.redeemPoints ?? 0 | number:'1.0-0'}} pontos</b></p>
+          <app-plus-minus [product]="product" type="cart" [isPP]="true"></app-plus-minus>
+        </div>
+      </div>
+    </section>
+
+    <section class="default resume">
+      <div class="resume-item">
+        <p>Subtotal:</p>
+        <p class="primary">{{cartData.subtotalRedeemPoints ?? 0 | number:'1.0-0'}} pontos</p>
+      </div>
+      <div class="resume-item" *ngIf="currentDelivery">
+        <p>Subtotal Frete <span>({{currentDelivery.description}})</span>:</p>
+        <p class="primary" *ngIf="cartData.shippingPoints">{{cartData.shippingPoints | number:'1.0-0'}} pontos</p>
+        <p class="primary" *ngIf="!cartData.shippingPoints">Grátis</p>
+      </div>
+      <div class="resume-item">
+        <p>Total do pedido:</p>
+        <p class="primary">{{cartData.totalRedeemPoints ?? 0 | number:'1.0-0'}} pontos</p>
+      </div>
+    </section>
+
+    <section class="default address" *ngIf="cartData.shippingInfo && cartData.shippingInfo.document">
+      <h1>Dados para Resgate</h1>
+      <p><b>{{cartData.shippingInfo.fantasyName}}</b></p>
+      <p>{{cartData.shippingInfo.document | formatCpfCnpj}}</p>
+    </section>
+
+    <section class="default address">
+      <h1>Endereço de entrega</h1>
+      <p>
+        {{cartData.shippingInfo?.street}}, {{cartData.shippingInfo?.number}}<br />
+        {{cartData.shippingInfo?.neighborhood}}, {{cartData.shippingInfo?.city}}, {{cartData.shippingInfo?.uf}} - {{cartData.shippingInfo?.zipCode}}
+      </p>
+    </section>
+
+    <ion-button (click)="continue()" expand="block" style="margin-left: 1em; margin-right: 1em; margin-bottom: 2em">Continuar</ion-button>
+  </app-content-orbitta-club>
+
+  <app-content-orbitta-club *ngIf="isEmpty">
+    <div style="margin-top: 1em; text-align: center">
+      <p class="empty-message" *ngIf="isEmpty">Você ainda não adicionou nenhum produto no carrinho do programa de pontos</p>
+    </div>
+    <ion-button (click)="goHomePP()" expand="block" class="add-more-items">Adicionar mais itens </ion-button>
+  </app-content-orbitta-club>
+</ion-content>

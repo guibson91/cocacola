@@ -1,0 +1,3 @@
+app_identifier("br.com.sorocabarefrescos") # O identificador do seu app
+apple_id("cocacola.sorocaba@gmail.com") # Seu e-mail de desenvolvedor da Apple
+team_id("9J556ANA9Q") # O ID da sua equipe de desenvolvimento

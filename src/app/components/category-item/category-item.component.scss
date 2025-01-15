@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  align-items: center;
+  min-width: 14em;
+  max-width: 14em;
+  p {
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 8px;
+    font-weight: bold;
+    padding-right: 1.2em;
+    padding-left: 2em;
+    margin-left: -22px;
+    z-index: -1;
+    min-width: 9em;
+    margin-top: 22px;
+  }
+  img {
+    width: auto;
+    height: 100px;
+  }
+}

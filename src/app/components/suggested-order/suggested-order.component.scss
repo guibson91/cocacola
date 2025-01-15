@@ -1,0 +1,36 @@
+section {
+  margin-top: 1em;
+
+  &.web {
+    .container-title {
+      width: calc(100% - 2em) !important;
+      text-align: center;
+
+      h1 {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  .container-title {
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    ion-button {
+      font-weight: bold;
+    }
+  }
+
+  .container-products {
+    margin-left: 0.5em;
+  }
+}

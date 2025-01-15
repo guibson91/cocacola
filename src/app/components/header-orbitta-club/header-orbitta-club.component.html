@@ -1,0 +1,45 @@
+<div class="container-header" [ngStyle]="{ 'padding-bottom': paddingBottom }" [ngClass]="{'my-ios': shared.ios}">
+  <div class="top">
+    <img src="assets/svgs/coca-white.svg" />
+    <h1>Clube Orbitta</h1>
+  </div>
+  <div class="bottom-home" *ngIf="home">
+    <p class="hello">
+      Olá, <span>{{ user.responsible?.firstName }} {{ user.responsible?.lastName }}</span>
+    </p>
+    <div class="container-balance">
+      <div *ngIf="customer && customer.balanceAvailable >= 0" style="margin-bottom: 0.5em">
+        <p>Saldo</p>
+        <h1>{{ customer.balanceAvailable || 0 | number : "1.0-0" }} pontos</h1>
+      </div>
+      <div *ngIf="customer && customer.balanceProcessed >= 0">
+        <p>Pontos a receber</p>
+        <h1 style="font-size: 1.2em" *ngIf="customer.balanceProcessed">{{ customer.balanceProcessed || 0 | number : "1.0-0" }} pontos</h1>
+        <h1 *ngIf="!customer.balanceProcessed">0 pontos</h1>
+      </div>
+    </div>
+    <div class="container-buttons" *ngIf="system.enablePP">
+      <ion-button (click)="openExtract()">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <p>Meu extrato</p>
+      </ion-button>
+      <ion-button (click)="openRedemption()">
+        <ion-icon name="swap-horizontal-outline"></ion-icon>
+        <p>Meus resgates</p>
+      </ion-button>
+    </div>
+  </div>
+  <div class="bottom" *ngIf="!home">
+    <ion-toolbar mode="ios" color="primary">
+      <ion-buttons slot="start">
+        <ion-button (click)="back()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <div class="container-title">
+        <h1>{{ title }}</h1>
+        <p *ngIf="subtitle">{{ subtitle }}</p>
+      </div>
+    </ion-toolbar>
+  </div>
+</div>

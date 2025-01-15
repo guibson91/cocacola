@@ -1,0 +1,23 @@
+<div class="container-search">
+  <ion-searchbar [debounce]="400"
+    [placeholder]="'Busque o produto que você deseja'" mode="ios"
+    (ionInput)="filterList($event)" type="text"></ion-searchbar>
+  <ion-list [@fadeOut]="fadeOutState" (@fadeOut.done)="animationDone($event)">
+    <div
+      *ngFor="let product of filteredProducts | slice: 0 : 5; let last = last"
+      class="item ion-activatable ripple-parent"
+      (click)="selectFilterdItem(product)">
+      <img [src]="product.image" />
+      <div class="right">
+        <h1>{{ product.label }}</h1>
+        <p>{{ product.attributes?.quantityPerPackage }} unidades • {{
+          product.attributes?.capacityLabel }}</p>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+    <app-loading-message message="Carregando produtos"
+      [loading]="loading"></app-loading-message>
+    <app-empty-message [message]="'&quot;' + q + '&quot; não foi encontrado'"
+      [show]="!loading && filteredProducts.length === 0"></app-empty-message>
+  </ion-list>
+</div>

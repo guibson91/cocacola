@@ -1,0 +1,37 @@
+.container-modal {
+  &.web {
+    height: 100%;
+    background-color: var(--ion-color-background);
+    padding-top: 1em;
+    ion-toolbar {
+      ion-title {
+        font-weight: bold;
+        color: var(--ion-color-primary);
+      }
+      ion-button {
+        ion-icon {
+          font-weight: 300;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+
+  .item {
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 0.5em;
+    h1 {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: var(--ion-color-dark);
+    }
+    p {
+      font-size: 0.8em;
+      margin-left: 1px;
+      margin-top: 1px;
+      font-weight: 500;
+      color: var(--ion-color-medium);
+    }
+  }
+}

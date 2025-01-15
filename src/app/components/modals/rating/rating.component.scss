@@ -1,0 +1,36 @@
+.content {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 2em);
+  p.ask {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  p.description {
+    color: var(--ion-color-medium);
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
+  .container-stars {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+  }
+  ion-textarea {
+    --padding-top: 0.5em;
+    border: 1px solid var(--ion-color-medium);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-top: 0.5em;
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  small {
+    float: right;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,118 @@
+<div
+  class="container"
+  [ngClass]="{
+    scalable: product.attributes?.scalable,
+    web: shared.web,
+    catalog: type === 'products',
+    summary: type === 'summary',
+    flat: flat === true,
+    cancelled: product.rejectionMessage
+  }"
+>
+  <div class="container-product" [ngClass]="{ summary: type === 'summary' }" *ngIf="product">
+    <div class="product">
+      <p
+        class="round-quantity"
+        *ngIf="type === 'summary'"
+        [ngClass]="{
+          'two-decimals': product.inputQuantity > 9 && product.inputQuantity <= 99,
+          'three-decimals': product.inputQuantity > 99,
+          'number-one': product.quantity.toString().includes('1'),
+        }"
+        tappable
+        (click)="openProductDetails(product, type, isPP)"
+      >
+        {{ product.quantity }}
+      </p>
+      <div class="container-img" tappable (click)="openProductDetails(product, type, isPP)">
+        <p *ngIf="product.attributes && product.attributes.scalable && type !== 'summary'">
+          Leve <span>+</span> pague
+          <span>-</span>
+        </p>
+        <app-bg-image
+          [showLoadingSpinner]="true"
+          [width]="type === 'summary' ? '90px' : '112px'"
+          [height]="type === 'summary' && !flat ? '155px' : type === 'summary' && flat ? '90px' : '180px'"
+          [image]="product.image"
+          [type]="product.attributes && product.attributes.scalable && type !== 'summary' ? 'square-round-bottom' : 'square-round'"
+        >
+        </app-bg-image>
+      </div>
+      <div class="content" [ngClass]="{ pp: isPP, summary: type === 'summary' }">
+        <div class="container-title" tappable (click)="openProductDetails(product, type, isPP)">
+          <div class="left">
+            <h1 class="title">
+              {{ product.label }}
+            </h1>
+            <p class="unit" *ngIf="product.attributes && product.attributes.quantityPerPackage">
+              {{ product.attributes.quantityPerPackage }} un • {{ product.attributes.capacityLabel }}
+            </p>
+            <p class="rejectionMessage" *ngIf="product.rejectionMessage">{{ product.rejectionMessage }}</p>
+          </div>
+          <div class="container-trash ion-activatable ripple-parent" tappable (click)="removeProduct(product)" *ngIf="type === 'cart' && !product.promotional">
+            <img class="remove" src="assets/svgs/trash-cart.svg" />
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isPP; else PP">
+          <div (click)="openProductDetails(product, type, isPP)" style="margin-bottom: 0.5em" *ngIf="!product.promotional">
+            <p class="label-payment">{{ product.paymentConditionDescription }}</p>
+            <div class="container-payment" [ngClass]="{ summary: type === 'summary' }">
+              <div class="container-main-price" *ngIf="product.currentScalable">
+                <p
+                  class="price-old"
+                  *ngIf="type === 'summary' && product.scalablePrices && product.scalablePrices[0] && product.scalablePrices[0].price !== product.currentScalable.price"
+                >
+                  R$
+                  {{ product.scalablePrices[0].price / 100 | number : "1.2-2" }}
+                </p>
+                <div class="container-bottom-price">
+                  <p class="price-payment">
+                    R$
+                    {{ product.currentScalable.price / 100 | number : "1.2-2" }}
+                  </p>
+                  <p class="price-unit" *ngIf="product.currentScalable && product.currentScalable.unitPrice">
+                    R$
+                    {{ product.currentScalable.unitPrice / 100 | number : "1.2-2" }}/unidade
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="points" *ngIf="product.currentScalable && product.currentScalable.points">
+              Você ganha
+              <span>{{ product.currentScalable.points | number : "1.0" }} pontos</span>
+            </p>
+          </div>
+          <div *ngIf="product.promotional" class="container-promotional">
+            <p>GRÁTIS</p>
+          </div>
+          <app-plus-minus [product]="product" *ngIf="type !== 'summary' && !product.promotional" [quantity]="product.inputQuantity" [type]="type"></app-plus-minus>
+        </ng-container>
+        <ng-template #PP>
+          <div class="pp">
+            <div class="container-total">
+              <p>Total</p>
+              <h1>{{ product.redeemPoints ?? 0 | number : "1.0-0" }} pontos</h1>
+            </div>
+            <ion-button *ngIf="!product.quantity || !cartIsRedeemable" fill="solid" color="primary" [disabled]="isLoading" (click)="addProductPP(product)">{{
+              isLoading ? "Processando" : "Adicionar"
+            }}</ion-button>
+            <ion-button *ngIf="product.quantity && cartIsRedeemable" fill="solid" color="primary" class="disabled-primary" [ngClass]="{ mobile: !shared.web }"
+              ><ion-icon name="checkmark-outline"></ion-icon
+            ></ion-button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="tarja-scalable" *ngIf="product.attributes && product.attributes.scalable && type !== 'summary' && product.quantity > 0">
+      <p *ngIf="product.nextScalable && product.nextScalable.minimumQuantity && product.nextScalable.unitPrice">
+        Adicione mais
+        {{ product.nextScalable.minimumQuantity - (product.quantity || 0) }} e pague R$ {{ product.nextScalable.unitPrice / 100 | number : "1.2-2" }} na unidade
+      </p>
+      <p *ngIf="!product.nextScalable && product.currentScalable && product.currentScalable.unitPrice">
+        Você está pagando R$ {{ product.currentScalable.unitPrice / 100 | number : "1.2-2" }} na unidade
+      </p>
+    </div>
+  </div>
+</div>

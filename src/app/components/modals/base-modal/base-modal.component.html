@@ -1,0 +1,8 @@
+<ion-toolbar>
+  <ion-button (click)="closeModal()" slot="end" fill="clear" class="close" *ngIf="showClose">
+    <ion-icon name="close"></ion-icon>
+  </ion-button>
+</ion-toolbar>
+<div style="height: 100%; margin-bottom: 1.5em">
+  <ng-content></ng-content>
+</div>

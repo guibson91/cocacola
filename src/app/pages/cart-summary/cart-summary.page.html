@@ -1,0 +1,46 @@
+<app-header title="Resumo do Pedido" [primary]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <ion-refresher *ngIf="!shared.web" slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-header-web *ngIf="shared.web" [showCart]="false"></app-header-web>
+  <div class="extends-header" *ngIf="shared.web"></div>
+
+  <div class="container">
+    <div class="top-content">
+      <div class="container-title" *ngIf="shared.web">
+        <h1>Resumo do Pedido</h1>
+        <p *ngIf="checkout">Confira os detalhes do seu pedido antes de fechar a sua compra</p>
+        <p *ngIf="loading && !checkout">Estamos verificando os itens do seu pedido. Por favor, aguarde um instante.</p>
+        <p *ngIf="!loading && !checkout">Oops! Sem checkout no momento. Você precisa adicionar produtos ao carrinho.</p>
+      </div>
+    </div>
+
+    <div class="container-empty" *ngIf="loading || !checkout">
+      <app-section-loading message="Carregando checkout" [loading]="loading"></app-section-loading>
+      <ion-button *ngIf="!loading && !checkout" expand="block" color="dark" fill="outline" (click)="back()"> Voltar para o carrinho </ion-button>
+    </div>
+
+    <section class="points" *ngIf="checkout && checkout.cartProducts">
+      <p *ngIf="checkout.totalPoints">Você ganhará {{checkout.totalPoints | number:'1.0'}} pontos Orbitta</p>
+      <app-products type="summary" [products]="checkout.cartProducts"></app-products>
+    </section>
+
+    <section class="values" *ngIf="checkout">
+      <app-order-summary [items]="summaryItems"></app-order-summary>
+    </section>
+    <div class="container-total" *ngIf="checkout">
+      <p>Total:</p>
+      <div class="right">
+        <h1 *ngIf="checkout.amount">R$ {{checkout.amount / 100 | number:'1.2-2'}}</h1>
+        <h2 *ngIf="checkout.payment && checkout.payment.description">{{checkout.payment.description}}</h2>
+      </div>
+    </div>
+
+    <ion-button expand="block" color="primary" fill="solid" (click)="next()" *ngIf="shared.web" class="continue">Efetuar Pedido</ion-button>
+  </div>
+</ion-content>
+
+<app-footer-cart *ngIf="checkout && !shared.web" (action)="next()" labelButton="Efetuar Pedido" label="Total" [value]="checkout.amount" [hidden]="!checkout"> </app-footer-cart>

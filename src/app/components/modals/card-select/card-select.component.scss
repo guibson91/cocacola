@@ -1,0 +1,49 @@
+.content {
+  text-align: center;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-top: 0.5em;
+  max-height: 19em;
+  overflow-y: auto;
+  ion-radio-group {
+    .card {
+      border-bottom: 1px solid var(--ion-color-light);
+      padding-bottom: 1em;
+      padding-top: 1em;
+      ion-radio {
+        width: 100%;
+        text-align: left;
+        h1 {
+          font-size: 0.9em;
+          font-weight: bold;
+        }
+      }
+    }
+    .card:last-of-type {
+      border-bottom: none !important;
+    }
+  }
+  .container-buttons {
+    width: 100%;
+    ion-button {
+      font-weight: bold;
+      min-height: 3.2em;
+      &.register {
+        margin-top: 0.5em;
+      }
+    }
+  }
+  .empty {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    p {
+      color: var(--ion-color-medium);
+      font-size: 0.86em;
+    }
+  }
+}

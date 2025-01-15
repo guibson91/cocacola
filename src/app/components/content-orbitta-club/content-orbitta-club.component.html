@@ -1,0 +1,5 @@
+<div [ngClass]="{ web: shared.web, content: contentOrbitta }">
+  <div class="sub-content" [ngClass]="{ margin: margin }" [ngStyle]="{ 'margin-top': marginTop }">
+    <ng-content></ng-content>
+  </div>
+</div>

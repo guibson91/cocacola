@@ -1,0 +1,57 @@
+<app-base-modal>
+  <h1 class="title">Cadastrar novo cartão</h1>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="registerCard()">
+      <div class="content-form">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item [ngClass]="{ error: form.controls.name.invalid && form.controls.name.touched }">
+              <ion-input type="text" inputmode="text" formControlName="name" placeholder="Nome do titular igual ao do cartão"></ion-input>
+            </ion-item>
+            <p *ngIf="form.controls.name.invalid && form.controls.name.touched" class="danger">Nome do titular do cartão é obrigatório</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item [ngClass]="{ error: form.controls.cardNumber.invalid && form.controls.cardNumber.touched }">
+              <ion-input type="tel" inputmode="tel" formControlName="cardNumber" [maskito]="cardMask" [maskitoElement]="maskPredicate" placeholder="Número do cartão" maxlength="19"></ion-input>
+            </ion-item>
+            <p *ngIf="form.controls.cardNumber.errors?.required && form.controls.cardNumber.touched" class="danger">Número do cartão é obrigatório</p>
+            <p *ngIf="form.controls.cardNumber.errors?.invalidCardNumber && form.controls.cardNumber.touched && !form.controls.cardNumber.errors?.required" class="danger">Número do cartão inválido</p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="flex">
+          <ion-col size="5">
+            <ion-item [ngClass]="{ error: form.controls.expirationDate.invalid && form.controls.expirationDate.touched }">
+              <ion-input type="tel" inputmode="tel" [maskito]="dateMask" [maskitoElement]="maskPredicate" formControlName="expirationDate" placeholder="MM/AAAA" maxlength="7"></ion-input>
+            </ion-item>
+            <p *ngIf="form.controls.expirationDate.errors?.required && form.controls.expirationDate.touched" class="danger">Data de expiração é obrigatória</p>
+            <p *ngIf="form.controls.expirationDate.errors?.invalidDate && form.controls.expirationDate.touched && !form.controls.expirationDate.errors?.required" class="danger">
+              Data de expiração inválida
+            </p>
+          </ion-col>
+          <ion-col size="5">
+            <ion-item [ngClass]="{ error: form.controls.securityCode.invalid && form.controls.securityCode.touched }">
+              <ion-input type="tel" inputmode="tel" formControlName="securityCode" mask="000" placeholder="CVV" maxlength="4"></ion-input>
+            </ion-item>
+            <p *ngIf="form.controls.securityCode.invalid && form.controls.securityCode.touched" class="danger">CVV é obrigatório</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item [ngClass]="{ error: form.controls.cpfCnpj.invalid && form.controls.cpfCnpj.touched }">
+              <ion-input type="tel" inputmode="tel" formControlName="cpfCnpj" [maskito]="cpfCnpjMask" [maskitoElement]="maskPredicate" placeholder="CPF ou CNPJ do titular"></ion-input>
+            </ion-item>
+            <p *ngIf="form.controls.cpfCnpj.errors?.required && form.controls.cpfCnpj.touched" class="danger">CPF ou CNPJ é obrigatório</p>
+            <p *ngIf="form.controls.cpfCnpj.errors?.invalidCPF && form.controls.cpfCnpj.touched" class="danger">CPF inválido</p>
+            <p *ngIf="form.controls.cpfCnpj.errors?.invalidCNPJ && form.controls.cpfCnpj.touched" class="danger">CNPJ inválido</p>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="container-buttons">
+        <ion-button color="dark" fill="outline" expand="block" (click)="closeModal()">Cancelar </ion-button>
+        <ion-button type="submit" color="primary" fill="solid" expand="block" [disabled]="!form.valid">Cadastrar cartão</ion-button>
+      </div>
+    </form>
+  </div>
+</app-base-modal>

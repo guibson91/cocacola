@@ -1,0 +1,19 @@
+.content {
+  margin-top: -2em;
+  padding-top: 1.5em;
+  background: var(--ion-color-background);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  &.web {
+    position: relative;
+    margin-top: -1em;
+    z-index: 100;
+    box-sizing: border-box;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    .sub-content.margin {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+  }
+}

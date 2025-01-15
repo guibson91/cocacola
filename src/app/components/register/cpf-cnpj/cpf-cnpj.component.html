@@ -1,0 +1,12 @@
+<app-header-form title="Vamos nessa!" subtitle="Cliente Pessoa Jurídica, favor informar o seu CNPJ. Para Cliente Pessoa Física, favor informar o seu CPF" [forceWebTitle]="true"></app-header-form>
+
+<form [formGroup]="form" (ngSubmit)="nextClick()">
+  <ion-item [ngClass]="{ error: form.controls.cpfCnpj.invalid && form.controls.cpfCnpj.touched }">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-input type="tel" inputmode="tel" formControlName="cpfCnpj" [maskito]="cpfCnpjMask" [maskitoElement]="maskPredicate" placeholder="Insira seu CPF / CNPJ"></ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.cpfCnpj.errors?.required && form.controls.cpfCnpj.touched" class="danger">CPF ou CNPJ é obrigatório</p>
+  <p *ngIf="form.controls.cpfCnpj.errors?.invalidCPF && form.controls.cpfCnpj.touched" class="danger">CPF inválido</p>
+  <p *ngIf="form.controls.cpfCnpj.errors?.invalidCNPJ && form.controls.cpfCnpj.touched" class="danger">CNPJ inválido</p>
+  <ion-button type="submit" expand="block" color="primary" [disabled]="!form.valid">Continuar</ion-button>
+</form>

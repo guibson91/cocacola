@@ -1,0 +1,11 @@
+<ion-content [ngClass]="{'web': shared.web, 'no-scroll': !shared.web}">
+  <app-container-web>
+    <img class="enfeite" src="assets/images/walkthrough/enfeite.png" *ngIf="!shared.web" />
+    <div class="container">
+      <h1>Aplicativo em manutenção!</h1>
+      <p>Não se preocupe, o aplicativo Orbitta está passando por uma manutenção. Em breve estaremos de volta!</p>
+      <img src="assets/svgs/maintenance.svg" />
+      <ion-button fill="outline" (click)="retry()">Tentar novamente</ion-button>
+    </div>
+  </app-container-web>
+</ion-content>

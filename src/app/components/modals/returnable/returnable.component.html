@@ -1,0 +1,22 @@
+<app-base-modal>
+  <h1 class="title">Produto Retornável</h1>
+  <div class="content">
+    <p class="danger">Necessário possuir todos os vasilhames para finalizar a
+      compra</p>
+    <div class="container-image">
+      <app-bg-image width="46px" height="126px"
+        image="assets/svgs/coke.svg"></app-bg-image>
+    </div>
+    <p class="msg" *ngIf="product?.attributes?.returnableMessage">
+      {{ product.attributes?.returnableMessage }}
+    </p>
+    <p class="msg" *ngIf="!product?.attributes?.returnableMessage">
+      Lembre-se de separar os vasilhames vazios para que possamos realizar a
+      troca durante a entrega do seu pedido. Solicitamos que você faça o pedido
+      de vasilhames levando em conta a quantidade,
+      sabor e tamanho dos vasilhames vazios disponíveis em seu estabelecimento.
+    </p>
+    <ion-button color="dark" fill="outline" expand="block"
+      (click)="closeModal('confirm')">Possuo todos os vasilhames</ion-button>
+  </div>
+</app-base-modal>

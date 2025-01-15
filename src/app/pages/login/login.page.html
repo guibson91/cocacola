@@ -1,0 +1,42 @@
+<ion-content [ngClass]="{web: shared.web}">
+  <app-container-web>
+    <div class="container">
+      <img class="enfeite" src="assets/images/walkthrough/enfeite.png" *ngIf="!shared.web" />
+      <div class="container-title">
+        <h1>Login</h1>
+        <p *ngIf="environment && environment !== 'production'">({{environment.toUpperCase()}})</p>
+      </div>
+      <form [formGroup]="form" class="form">
+        <div class="top">
+          <ion-item *ngIf="!hasCpfCnpj">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input placeholder="E-mail ou CPF/CNPJ" formControlName="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
+          </ion-item>
+        </div>
+        <p class="danger" style="margin-top: 0.5em; margin-bottom: 0.5em" *ngIf="errorMessage" [innerHtml]="errorMessage"></p>
+        <div class="bottom">
+          <ion-item class="no-border" *ngIf="!showBiometric">
+            <ion-checkbox slot="start" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"> </ion-checkbox>
+            <ion-label>Lembre-me depois</ion-label>
+          </ion-item>
+          <div class="container-forgot ion-activatable ripple-parent">
+            <p tappable class="link" (click)="openRecoveryPassword()">Esqueci minha senha</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </div>
+      </form>
+      <div class="btns" [ngClass]="{'biometric': showBiometric}">
+        <ion-item *ngIf="showBiometric">
+          <ion-toggle labelPlacement="start" [(ngModel)]="enableBiometric"> Ativar acesso com biometria </ion-toggle>
+        </ion-item>
+        <ion-button fill="solid" color="primary" expand="block" (click)="login()" [disabled]="form.invalid">Entrar</ion-button>
+        <ion-button fill="outline" color="dark" expand="block" (click)="openIntro()">Cadastrar </ion-button>
+      </div>
+      <p *ngIf="buildTime" class="update-time">Última atualização {{buildTime}}</p>
+    </div>
+  </app-container-web>
+</ion-content>

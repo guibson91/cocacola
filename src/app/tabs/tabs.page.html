@@ -1,0 +1,30 @@
+<ion-tabs #tabs mode="md" [ngClass]="{'my-ios': shared.ios}">
+  <ion-tab-bar slot="bottom" mode="md" *ngIf="!shared.web" [ngClass]="{'my-ios': shared.ios}">
+    <ion-tab-button tab="home" mode="md">
+      <img src="assets/svgs/home.svg" *ngIf="selectedTab !== 'home'" />
+      <img src="assets/svgs/home-active.svg" *ngIf="selectedTab === 'home'" />
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="catalog" mode="md">
+      <img src="assets/svgs/catalog.svg" *ngIf="selectedTab !== 'catalog'" />
+      <img src="assets/svgs/catalog-active.svg" *ngIf="selectedTab === 'catalog'" />
+      <ion-label>Comprar</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="pp" mode="md" *ngIf="system.enablePP">
+      <img src="assets/svgs/meus-pontos.svg" *ngIf="selectedTab !== 'pp'" />
+      <img src="assets/svgs/meus-pontos-active.svg" *ngIf="selectedTab === 'pp'" />
+      <ion-label>Clube<br/>Orbitta</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="cart" mode="md">
+      <div class="mark" *ngIf="hasItems"></div>
+      <img src="assets/svgs/order.svg" *ngIf="selectedTab !== 'cart'" />
+      <img src="assets/svgs/order-active.svg" *ngIf="selectedTab === 'cart'" />
+      <ion-label>Carrinho</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="menu" mode="md">
+      <img src="assets/svgs/menu.svg" *ngIf="selectedTab !== 'menu'" />
+      <img src="assets/svgs/menu-active.svg" *ngIf="selectedTab === 'menu'" />
+      <ion-label>Menu</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

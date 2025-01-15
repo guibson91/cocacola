@@ -1,0 +1,13 @@
+<div class="container-items radius" [ngClass]="{ primary: primary }">
+  <div class="item ion-activatable ripple-parent zoom-effect" *ngFor="let item of items" tappable (click)="openItem(item, undefined, type)">
+    <div class="left" *ngIf="item.image">
+      <img [src]="item.image" />
+    </div>
+    <div class="right">
+      <h1>{{ item.label }}</h1>
+      <p>{{ item.description }}</p>
+    </div>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+  <p class="empty" *ngIf="items?.length === 0">Não foi encontrado opções</p>
+</div>

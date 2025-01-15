@@ -1,0 +1,42 @@
+<app-header title="Configuração" [showBack]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Configuração"></app-header-web>
+  <app-container-with-menu [menu]="menuItems" [primary]="true">
+    <div class="container">
+      <app-section-info title="Dados de Login" description="Veja seus dados de login" [margin]="shared.web ? '0' : '1em'">
+        <app-item-info
+          *ngIf="user?.responsible?.firstName"
+          title="Nome e sobrenome"
+          [description]="user?.responsible?.firstName + ' ' + user?.responsible?.lastName"
+          [showButton]="false"
+        ></app-item-info>
+        <app-item-info *ngIf="user?.responsible?.email" title="E-mail" [description]="user?.responsible?.email" [showButton]="false"> </app-item-info>
+        <app-item-info
+          *ngIf="user?.responsible?.cellphone"
+          title="Número de celular"
+          [description]="user?.responsible?.cellphone | formatPhone"
+          [showButton]="true"
+          (clickEvent)="openChangeResponsible()"
+        >
+        </app-item-info>
+        <app-item-info *ngIf="user?.responsible?.comercialPhone" title="Número comercial" [description]="user?.responsible?.comercialPhone | formatPhone" [showButton]="false"> </app-item-info>
+        <app-item-info title="Senha" description="***********" [showButton]="true" [showBorder]="buildTime ? true : false" (clickEvent)="openRecoveryPassword()"></app-item-info>
+        <app-item-info *ngIf="buildTime" title="Última atualização" [description]="buildTime" [showButton]="false" [showBorder]="false"></app-item-info>
+      </app-section-info>
+
+      <!-- <app-section-info title="Atendimento" description="Veja como você quer seu atendimento">
+        <app-item-info title="Gostaria de receber a visita de um representante SR?" description="SIM" [showButton]="true"></app-item-info>
+        <app-item-info title="Qual o status do seu estabelecimento" description="Abre em até 30 dias" [showButton]="true"></app-item-info>
+        <app-item-info title="Quais os dias que está disponível para o recebimento" description="Quinta, Sexta, Sábado e Domingo" [showButton]="true"></app-item-info>
+        <app-item-info title="Qual o horário disponível para entrega" description="Manhã e Tarde" [showButton]="true"></app-item-info>
+        <app-item-info title="Número comercial" description="(85) 99623-2160" [showButton]="true"></app-item-info>
+        <app-item-info title="Senha" description="***********" [showButton]="true" [showBorder]="false"></app-item-info>
+      </app-section-info> -->
+
+      <section *ngIf="!shared.web">
+        <app-menu-items [items]="menuItems" [primary]="true"></app-menu-items>
+      </section>
+    </div>
+  </app-container-with-menu>
+</ion-content>

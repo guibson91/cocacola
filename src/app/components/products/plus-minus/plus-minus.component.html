@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="container-minus ion-activatable ripple-parent" [ngClass]="{ inactive: product.inputQuantity === 0 || isLoading }">
+    <p (click)="minus(product)" [attr.tappable]="product.inputQuantity > 0 && !isLoading ? null : ''">-</p>
+    <ion-ripple-effect *ngIf="product.inputQuantity > 0 && !isLoading"></ion-ripple-effect>
+  </div>
+  <ion-input [(ngModel)]="quantity" type="tel" inputmode="numeric" (ionInput)="handleInputChange(product)" (ionFocus)="getFocus()" [disabled]="isLoading"> </ion-input>
+  <div class="container-plus ion-activatable ripple-parent" [ngClass]="{ inactive: isLoading }">
+    <p (click)="plus(product)" [attr.tappable]="isLoading ? null : ''">+</p>
+    <ion-ripple-effect *ngIf="!isLoading"></ion-ripple-effect>
+  </div>
+</div>

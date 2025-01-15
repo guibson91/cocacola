@@ -1,0 +1,151 @@
+image: node:22
+
+definitions:
+  caches:
+    gradle: .gradle
+    gradle-wrapper: ~/.gradle
+    npm: $HOME/.npm
+    android-sdk: cmdline-tools
+    android-platforms: cmdline-tools/platforms
+    android-build-tools: cmdline-tools/build-tools
+    node: node_modules
+  steps:
+    build-and-deploy: &build-and-deploy
+      name: Build and Send APK Debug
+      caches:
+        - gradle
+        - gradle-wrapper
+        - npm
+        - android-sdk
+        - android-platforms
+        - android-build-tools
+        - node
+      script:
+        - >
+          if [ "${BITBUCKET_BRANCH}" = "master" ] || [ "${BITBUCKET_BRANCH}" = "main" ] || [ "${BITBUCKET_BRANCH}" = "rollback" ]; then
+            export ENVIRONMENT=production
+          else
+            export ENVIRONMENT=${BITBUCKET_BRANCH}
+          fi
+        - echo "ENVIRONMENT is set to $ENVIRONMENT"
+        - npm config set cache $(pwd)/.npm-cache --global
+        - npm cache clean --force
+        - rm -rf node_modules
+        - apt-get update
+        - apt-get install -y openjdk-17-jdk wget unzip
+        - wget https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
+        - unzip commandlinetools-linux-6609375_latest.zip -d cmdline-tools
+        - mkdir -p cmdline-tools/cmdline-tools
+        - mv cmdline-tools/tools cmdline-tools/cmdline-tools/2.1
+        - export PATH=$PATH:$PWD/cmdline-tools/cmdline-tools/2.1/bin
+        - yes | sdkmanager --licenses
+        - mkdir -p $PWD/cmdline-tools/licenses || true
+        - sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        - export ANDROID_HOME=$PWD/cmdline-tools
+        - export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/2.1/bin
+        - wget https://services.gradle.org/distributions/gradle-8.9-bin.zip
+        - unzip gradle-8.9-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-8.9
+        - export PATH=$PATH:$GRADLE_HOME/bin
+        - npm i -g @ionic/cli firebase-tools
+        - npm install --legacy-peer-deps
+        - npm install aws-sdk nodemailer twilio --legacy-peer-deps
+        - npm run build --env=$ENVIRONMENT
+        - firebase target:apply hosting development orbitta-development
+        - firebase target:apply hosting homolog orbitta-homolog
+        - firebase target:apply hosting hext orbitta-hext
+        - firebase target:apply hosting production orbitta-production
+        - firebase deploy --only hosting:$ENVIRONMENT
+        - export NEW_APK_NAME="orbitta-$ENVIRONMENT-$BITBUCKET_BUILD_NUMBER.apk"
+        - echo "NEW_APK_NAME is set to $NEW_APK_NAME"
+        - echo "Listando diretÃƒÂ³rio de APKs..."
+        - ls -l android/app/build/outputs/apk/debug/
+        - mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/$NEW_APK_NAME
+        - export DOWNLOAD_LINK=$(node scripts/upload_to_s3.js android/app/build/outputs/apk/debug/$NEW_APK_NAME)
+        - echo "DOWNLOAD_LINK is set to $DOWNLOAD_LINK"
+        - node scripts/send_email.js "$DOWNLOAD_LINK"
+        - node scripts/send_whatsapp.js "$DOWNLOAD_LINK"
+
+    publish-to-play-store: &publish-to-play-store
+      name: Publish to Google Play Store
+      caches:
+        - gradle
+        - gradle-wrapper
+        - npm
+        - android-sdk
+        - android-platforms
+        - android-build-tools
+        - node
+      script:
+        - npm config set cache $(pwd)/.npm-cache --global
+        - npm cache clean --force
+        - rm -rf node_modules
+        - apt-get update
+        - apt-get install -y openjdk-17-jdk wget unzip
+        - wget https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
+        - unzip commandlinetools-linux-6609375_latest.zip -d cmdline-tools
+        - mkdir -p cmdline-tools/cmdline-tools
+        - mv cmdline-tools/tools cmdline-tools/cmdline-tools/2.1
+        - export PATH=$PATH:$PWD/cmdline-tools/cmdline-tools/2.1/bin
+        - yes | sdkmanager --licenses
+        - mkdir -p $PWD/cmdline-tools/licenses || true
+        - sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        - export ANDROID_HOME=$PWD/cmdline-tools
+        - export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/2.1/bin
+        - wget https://services.gradle.org/distributions/gradle-8.9-bin.zip
+        - unzip gradle-8.9-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-8.9
+        - export PATH=$PATH:$GRADLE_HOME/bin
+        - npm i -g @ionic/cli firebase-tools
+        - npm install --legacy-peer-deps
+        - npm install aws-sdk nodemailer twilio semver googleapis --legacy-peer-deps
+        - node scripts/incrementVersion.js
+        - npm run build-android
+        - cd android
+        - chmod +x ./gradlew
+        - ./gradlew bundleRelease -Pandroid.injected.signing.store.file=$BITBUCKET_CLONE_DIR/sr-carteira.keystore -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD -Pandroid.injected.signing.key.alias=$KEY_ALIAS -Pandroid.injected.signing.key.password=$KEY_PASSWORD
+        - cd ..
+        - export RELEASE_NOTES=$(cat changelog.txt)
+        - node scripts/publish_aab.js android/app/build/outputs/bundle/release/app-release.aab credentials-publish.json "$RELEASE_NOTES"
+
+  publish-to-testflight: &publish-to-testflight
+    name: Publish to Apple App Store
+    runs-on:
+      - self.hosted
+      - macos
+    script:
+      - >
+        if [ "${BITBUCKET_BRANCH}" = "master" ] || [ "${BITBUCKET_BRANCH}" = "main" ] || [ "${BITBUCKET_BRANCH}" = "rollback" ]; then
+          export ENVIRONMENT=production
+        else
+          export ENVIRONMENT=${BITBUCKET_BRANCH}
+        fi
+      - npm install --legacy-peer-deps
+      - npm run build-ios --env=$ENVIRONMENT
+      - cd ios/App
+      - rm -f Podfile.lock
+      - pod install || arch -x86_64 pod install
+      - pod repo update
+      - pod update OneSignalXCFramework
+      - pod repo update
+      - fastlane release environment:$ENVIRONMENT
+
+pipelines:
+  branches:
+    development:
+      - step: *build-and-deploy
+      - step: *publish-to-testflight
+    homolog:
+      - step: *build-and-deploy
+      - step: *publish-to-testflight
+    hext:
+      - step: *build-and-deploy
+      - step: *publish-to-testflight
+    master:
+      - step: *build-and-deploy
+      - step: *publish-to-play-store
+      - step: *publish-to-testflight
+    # rollback:
+    # - step: *build-and-deploy
+    # - step: *publish-to-play-store
+    # - step: *publish-to-testflight

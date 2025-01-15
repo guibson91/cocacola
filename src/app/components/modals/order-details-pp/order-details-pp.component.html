@@ -1,0 +1,25 @@
+<app-base-modal>
+  <h1 class="title">Pedido nº {{ order.id }}</h1>
+  <div class="content" *ngIf="order && order.cartProducts">
+    <div class="item" *ngFor="let product of order.cartProducts">
+      <!-- <h1 class="brand">Apple</h1> -->
+      <div class="container-description">
+        <p class="description">{{ product.label }} ({{ product.quantity }} un.)</p>
+        <p class="points">{{ product.redeemPoints | number }} pontos</p>
+      </div>
+    </div>
+    <app-order-summary-points [items]="summaryItems"></app-order-summary-points>
+    <div class="default address">
+      <h1>Endereço de entrega</h1>
+      <p>{{ order.user.address }}</p>
+    </div>
+    <div class="container-status">
+      <p class="label">Status do pedido:</p>
+      <p class="status">{{ statusName }}</p>
+    </div>
+    <ion-button fill="outline" expand="block" color="dark" (click)="openSupport()">Preciso de ajuda</ion-button>
+  </div>
+  <div class="content" *ngIf="summaryItems === undefined">
+    <app-loading-message [loading]="summaryItems === undefined" [message]="'Carregando detalhes do pedido'"></app-loading-message>
+  </div>
+</app-base-modal>

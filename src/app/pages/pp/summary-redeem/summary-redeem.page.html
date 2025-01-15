@@ -1,0 +1,117 @@
+<ion-content [ngClass]="{'web': shared.web}">
+  <app-header-orbitta-club title="Resgate" *ngIf="!shared.web" subtitle="Revise seu resgate" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club [margin]="true">
+    <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <section class="section-card-user" style="margin-top: -1.5em">
+      <app-card-user *ngIf="!shared.web" [hideCart]="true" [points]="true"></app-card-user>
+    </section>
+
+    <section class="default products">
+      <div class="item-product" *ngFor="let product of cartData.cartProducts">
+        <div class="left">
+          <h1>{{product.name ?? product.label}}</h1>
+          <p>{{ product.attributes?.quantityPerPackage }} un • {{ product.attributes?.capacityLabel }}</p>
+        </div>
+        <div class="right">
+          <p class="price">{{product.redeemPoints ?? 0 | number:'1.0-0'}} pontos</p>
+        </div>
+      </div>
+      <div class="resume-item">
+        <p class="primary">Subtotal:</p>
+        <p>{{cartData.subtotalRedeemPoints ?? 0 | number:'1.0-0'}} pontos</p>
+      </div>
+      <div class="resume-item" *ngIf="currentDelivery">
+        <p class="primary">Subtotal Frete <span>({{currentDelivery.description}})</span>:</p>
+        <p *ngIf="cart.data.shippingPoints">{{cart.data.shippingPoints | number:'1.0-0'}} pontos</p>
+        <p *ngIf="!cart.data.shippingPoints">Grátis</p>
+      </div>
+      <div class="resume-item">
+        <p class="primary">Total:</p>
+        <p>{{cart.data.totalRedeemPoints ?? 0 | number:'1.0-0'}} pontos</p>
+      </div>
+
+      <div class="inner-section payment-form">
+        <h1>Formas de pagamento</h1>
+        <p>Use a barra para ajustar o valor da sua compra</p>
+
+        <ion-range (ionChange)="changeRange($event)" [(ngModel)]="rangeValue" [pin]="true" [min]="min" [max]="max"></ion-range>
+
+        <p class="or">Ou</p>
+
+        <div class="super-container-inputs">
+          <div class="container-inputs">
+            <p class="total">Total:</p>
+            <div style="text-align: center">
+              <ion-input
+                type="number"
+                inputmode="numeric"
+                pattern="\d*"
+                [ngClass]="{'error': errorOutOfRange}"
+                [(ngModel)]="points"
+                (ionInput)="changePoints()"
+                (ionFocus)="focusPoints()"
+                min="0"
+              >
+                <p slot="start" aria-hidden="true" class="prefix">PTS</p>
+              </ion-input>
+              <p class="subtitle">(pontos)</p>
+            </div>
+
+            <p class="plus">+</p>
+
+            <div style="text-align: center">
+              <ion-input type="text" inputmode="numeric" pattern="\d*" [ngClass]="{'error': errorOutOfRange}" [(ngModel)]="value" [readonly]="true">
+                <p slot="start" aria-hidden="true" class="prefix">R$</p>
+              </ion-input>
+              <p class="subtitle">(cartão de crédito)</p>
+            </div>
+          </div>
+
+          <p class="danger" *ngIf="errorOutOfRange">Quantidade de pontos superior ao total do usuário</p>
+        </div>
+
+        <form>
+          <ion-item>
+            <ion-select (ionChange)="changeCard($event)" label="Cartão" placeholder="Selecione aqui seu cartão">
+              <ion-select-option [value]="card.id" *ngFor="let card of cards">{{card.brand | uppercase}} ****.{{card.lastDigits}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="installments && installments.length > 0">
+            <ion-select (ionChange)="changeInstallment($event)" label="Parcelamento" placeholder="Parcelamento">
+              <ion-select-option [value]="installment.paymentCondition" *ngFor="let installment of installments">{{installment.description}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+      </div>
+
+      <div class="inner-section" *ngIf="cartData.shippingInfo">
+        <h1>Dados para resgate</h1>
+        <div class="content">
+          <p class="name">{{cartData.shippingInfo.fantasyName}}</p>
+          <p class="cpf">{{cartData.shippingInfo.document | formatCpfCnpj}}</p>
+        </div>
+      </div>
+
+      <div class="inner-section no-border">
+        <h1>Endereço de entrega</h1>
+        <div class="content">
+          <p class="address">
+            {{cartData.shippingInfo?.street}}, {{cartData.shippingInfo?.number}}<br />
+            {{cartData.shippingInfo?.neighborhood}}, {{cartData.shippingInfo?.city}}, {{cartData.shippingInfo?.uf}} - {{cartData.shippingInfo?.zipCode}}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-buttons" style="margin-left: 1em; margin-right: 1em; margin-bottom: 2em">
+      <ion-button (click)="confirmRedeem()" expand="block" [disabled]="loadingInstallments || loadingDeliveries || loading">
+        {{loadingInstallments || loadingDeliveries || loading ? 'Processando': 'Confirmar resgate'}}</ion-button
+      >
+      <ion-button (click)="editRedeem()" expand="block" color="dark" fill="outline" style="margin-top: 0.5em">Corrigir resgate</ion-button>
+    </div>
+  </app-content-orbitta-club>
+</ion-content>

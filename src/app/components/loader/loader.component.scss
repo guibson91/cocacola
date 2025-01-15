@@ -1,0 +1,16 @@
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  margin-top: 2em;
+  p {
+    color: gray;
+    text-align: center;
+  }
+  ion-spinner {
+    width: 16px;
+    color: gray;
+    margin-right: 0.5em;
+  }
+}

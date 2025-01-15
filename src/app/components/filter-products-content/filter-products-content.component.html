@@ -1,0 +1,14 @@
+<div class="content" *ngIf="flavors" [ngClass]="{ web: shared.web }">
+  <ion-radio-group [(ngModel)]="selectedFlavor" mode="md">
+    <div class="item" *ngFor="let flavor of flavors">
+      <ion-radio justify="start" mode="md" labelPlacement="end" [value]="flavor">
+        <p class="bold">{{ flavor.label }}</p>
+      </ion-radio>
+    </div>
+  </ion-radio-group>
+  <div class="footer-buttons" style="margin-top: 1em">
+    <ion-button color="primary" fill="solid" expand="block" (click)="filter()" [disabled]="!selectedFlavor">Filtrar </ion-button>
+    <ion-button color="dark" style="margin-top: 0.9em" fill="outline" expand="block" (click)="cleanFilter()">Limpar filtro</ion-button>
+  </div>
+</div>
+<app-section-loading message="Carregando sabores" [loading]="!flavors"> </app-section-loading>

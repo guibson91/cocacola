@@ -1,0 +1,20 @@
+swiper-container.walkthrough {
+  --swiper-navigation-color: var(--ion-color-primary);
+  --swiper-navigation-size: 60px;
+  --swiper-navigation-top-offset: 39%;
+}
+
+swiper-container.banners {
+  --swiper-navigation-color: var(--ion-color-primary);
+  --swiper-navigation-size: 0px;
+  --swiper-navigation-top-offset: 50%;
+  --swiper-navigation-sides-offset: 5px;
+}
+
+::ng-deep .swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-disabled {
+  display: none !important;
+}

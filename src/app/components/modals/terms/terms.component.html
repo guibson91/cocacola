@@ -1,0 +1,16 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button (click)="closeModal()" slot="end" fill="clear" class="close" *ngIf="showClose">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <h1>{{ title }}</h1>
+</ion-header>
+
+<div class="content">
+  <section [innerHTML]="content"></section>
+</div>
+
+<ion-footer class="ion-no-border">
+  <ion-button fill="solid" expand="block" color="primary" (click)="closeModal()">Voltar</ion-button>
+</ion-footer>

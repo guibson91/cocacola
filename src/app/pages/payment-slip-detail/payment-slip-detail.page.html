@@ -1,0 +1,25 @@
+<app-header title="2ª Via de Boleto" [showBack]="false" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="2ª Via de Boleto"></app-header-web>
+  <app-container-with-menu type="financial" description="Veja aqui todas as soluções ligadas a parte financeira do seu negócio.">
+    <section class="default" *ngIf="invoice">
+      <h1 class="title">Boleto {{invoice.code}}</h1>
+      <p class="value" *ngIf="invoice.updatedValue">R$ {{invoice.updatedValue / 100 | number:'1.2-2'}}</p>
+      <p class="status">aguardando pagamento</p>
+      <div class="container-expiration">
+        <p class="title">Vencimento</p>
+        <p class="date">{{invoice.date | date:'dd/MM/yyyy'}}</p>
+      </div>
+      <ion-button color="dark" fill="outline" expand="block" class="code" (click)="copyBarcode()">
+        <p slot="start" class="truncate">{{invoice.barCode}}</p>
+        <ion-icon name="copy-outline" slot="end"></ion-icon>
+      </ion-button>
+      <ion-button color="dark" fill="outline" expand="block" class="view" (click)="openPaymentSlip()"> Visualizar boleto</ion-button>
+    </section>
+
+    <app-section-loading message="Carregando boleto" [loading]="!invoice"></app-section-loading>
+
+    <ion-button expand="block" color="primary" style="margin: -0.5em 1.1em; font-weight: bold" (click)="back()">Voltar</ion-button>
+  </app-container-with-menu>
+</ion-content>

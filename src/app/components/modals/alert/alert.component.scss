@@ -1,0 +1,50 @@
+h1.title {
+  font-family: Gotham;
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 1.1em;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-left: 2em;
+  margin-right: 2em;
+  &.warn {
+    color: var(--ion-color-danger);
+  }
+  &.default {
+    color: var(--ion-color-dark);
+  }
+}
+
+.content {
+  text-align: center;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  p.msg {
+    font-family: Gotham;
+    font-weight: 400;
+    line-height: 0.9em;
+    letter-spacing: 0em;
+    text-align: center;
+    font-size: 0.83em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: var(--ion-color-black);
+  }
+  .container-image {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+  }
+  .footer-buttons {
+    margin-bottom: 1em;
+    ion-button {
+      font-weight: bold;
+      margin-top: 1em;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+ion-accordion-group {
+  ion-accordion {
+    .ion-accordion-toggle-icon {
+      margin-right: 6px;
+      margin-left: 6px;
+    }
+
+    &.no-icon {
+      .ion-accordion-toggle-icon {
+        font-size: 0;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+ion-accordion-group.rules {
+  background: transparent;
+  ion-accordion {
+    background: transparent;
+  }
+}

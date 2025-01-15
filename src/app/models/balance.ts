@@ -1,0 +1,33 @@
+export interface CreditLimit {
+  channel: string;
+  code: string;
+  cokenet: string;
+  channelDescription: string;
+  subchannelDescription: string;
+  availableLimit: number;
+  edi: string;
+  financialStatus: string;
+  phone1: string;
+  salesmanPhone: string;
+  salesmanPlannerPhone: string;
+  phone2: string;
+  salesmanPhone2: string;
+  salesmanPlannerPhone2: string;
+  cutoffTime: string;
+  latitude: string;
+  limit: number;
+  longitude: string;
+  message: string;
+  minOrderAmount: number;
+  partners: any[];
+  subchannel: string;
+  spentAmount: number;
+  salesman: string;
+  salesmanPlanner: string;
+  visitDay: string;
+  visitKonnect: string;
+  visitDate: Date;
+  salesVisitDate: Date;
+  salesPlannerVisitDate: Date;
+  remainingBalance?: number;
+}

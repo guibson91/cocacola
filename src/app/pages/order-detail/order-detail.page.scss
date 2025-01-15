@@ -1,0 +1,257 @@
+ion-content {
+  &.web {
+    --padding-bottom: 2em;
+    .container {
+      padding-left: 20%;
+      padding-right: 20%;
+    }
+    .extends-header {
+      background-color: var(--ion-color-primary);
+      height: 7em;
+    }
+
+    .container-title {
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      margin-top: -5em;
+      margin-bottom: 3em;
+
+      h1 {
+        font-weight: bold;
+        font-size: 1.7em;
+        color: white;
+      }
+    }
+
+    .container-primary {
+      margin-top: -2px;
+      padding-left: calc(20% + 1.1em);
+    }
+  }
+
+  .container-primary {
+    background-color: var(--ion-color-primary);
+    padding: 1em;
+    padding-bottom: 4em;
+    padding-top: 0;
+
+    // padding-top: .5em;
+    h1,
+    p {
+      color: white;
+    }
+
+    p {
+      font-size: 0.8em;
+      font-weight: bold;
+      line-height: 2em;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+
+  .order-delivery-date {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0.8em;
+
+    p,
+    h1 {
+      font-weight: bold;
+      font-size: 0.9em;
+
+      &.danger {
+        color: var(--ion-color-danger) !important;
+      }
+    }
+
+    p {
+      font-size: 0.9em;
+      margin-bottom: 0.4em;
+      color: var(--ion-color-dark);
+    }
+
+    h1 {
+      font-size: 1.5em;
+    }
+  }
+
+  section.rate-order {
+    h1 {
+      font-size: 1.25em;
+      font-weight: bold;
+      color: var(--ion-color-black);
+    }
+
+    .container-stars {
+      margin-top: 0.5em;
+      width: 11em;
+    }
+
+    p {
+      margin-top: 0.5em;
+    }
+  }
+
+  .container-stepper {
+    margin-top: -2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: 8px;
+  }
+
+  .container-check-circle {
+    text-align: center;
+    margin-top: -3.2em;
+  }
+
+  section {
+    border-radius: 8px;
+    margin-bottom: 1em;
+
+    &.products {
+      padding-bottom: 0;
+
+      p.order-number {
+        font-weight: bold;
+        margin-bottom: 1em;
+      }
+    }
+
+    p {
+      color: var(--ion-color-medium);
+      font-size: 0.8em;
+    }
+
+    h1.title {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+
+    .points {
+      background-color: var(--ion-color-success);
+      color: white;
+      padding: 0.5em 2px;
+      border-radius: 12px;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.8em;
+    }
+
+    .product {
+      border-bottom: 1px solid var(--ion-color-light);
+      margin-bottom: 0.8em;
+      padding-bottom: 0.8em;
+
+      &.cancelled {
+        .product-name {
+          text-decoration: line-through;
+        }
+
+        .bottom {
+          .left {
+            p {
+              text-decoration: line-through;
+            }
+
+            p.rejectionMessage {
+              color: var(--ion-color-danger);
+              font-weight: bold;
+              margin-top: 2px;
+              margin-bottom: 0.5em;
+              text-decoration: none !important;
+            }
+          }
+        }
+      }
+
+      aside.top {
+        margin-bottom: 1em;
+
+        h1 {
+          font-size: 1em;
+          font-weight: bold;
+        }
+      }
+
+      aside.bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .left {
+          p {
+            color: var(--ion-color-dark);
+
+            span {
+              font-weight: bolder;
+              font-size: 1.3em;
+            }
+
+            &.free {
+              color: var(--ion-color-success) !important;
+              font-weight: bold;
+            }
+          }
+
+          p.points-description {
+            color: var(--ion-color-success);
+            font-size: 0.8em;
+            margin-top: 2px;
+
+            span {
+              font-weight: bold;
+              font-size: 1em;
+            }
+          }
+        }
+
+        .right {
+          ion-badge {
+            border-radius: 50%;
+            padding: 5px 8px;
+          }
+        }
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .container-buttons {
+    margin-bottom: 2em;
+    margin-top: 2em;
+
+    ion-button {
+      margin-left: 1.1em;
+      margin-right: 1.1em;
+      font-weight: bold;
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+
+    p.status {
+      color: var(--ion-color-success);
+      text-align: center;
+      width: 100%;
+      font-size: 0.7em;
+      font-weight: bold;
+      margin-top: -0.7em;
+      margin-bottom: -0.4em;
+
+      &.danger {
+        color: var(--ion-color-danger);
+      }
+    }
+  }
+}

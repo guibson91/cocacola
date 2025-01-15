@@ -1,0 +1,4 @@
+<div class="container" [ngClass]="{ bigger: bigger, web: shared.web }">
+  <h1 *ngIf="(title && !shared.web) || forceWebTitle">{{ title }}</h1>
+  <p *ngIf="subtitle">{{ subtitle }}</p>
+</div>

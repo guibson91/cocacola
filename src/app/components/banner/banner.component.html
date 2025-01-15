@@ -1,0 +1,29 @@
+<div class="container-banners" [ngClass]="{ web: shared.web }" *ngIf="banners && banners.length > 0">
+  <swiper-container
+    #swiper
+    class="banners"
+    [pagination]="true"
+    [navigation]="true"
+    [slidesPerView]="1"
+    [loop]="shared.web ? false : true"
+    [autoplay]="true"
+    mode="ios"
+    [disableOnInteraction]="false"
+    [disableoninteraction]="false"
+    (touchend)="onSwiperInteraction()"
+    (afterinit)="swiperReady()"
+  >
+    <swiper-slide *ngFor="let banner of banners" class="ion-activatable ripple-parent" tappable (click)="openBanner(banner)">
+      <img [src]="banner.image" />
+      <ion-ripple-effect></ion-ripple-effect>
+    </swiper-slide>
+  </swiper-container>
+  <div class="btns-slides" *ngIf="shared.web && banners && banners.length > 0">
+    <ion-button color="primary" fill="clear" (click)="slidePrev()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button color="primary" fill="clear" (click)="slideNext()">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
+</div>

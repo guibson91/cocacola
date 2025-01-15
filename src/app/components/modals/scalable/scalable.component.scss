@@ -1,0 +1,49 @@
+.content {
+  max-height: 83vh;
+  overflow-y: auto;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  text-align: center;
+
+  .container-scalable {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    width: 100%;
+    &.web {
+      display: inline-block;
+    }
+  }
+
+  p.danger {
+    font-weight: bold;
+    font-size: 0.88em;
+    color: var(--ion-color-primary);
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  h2 {
+    margin-bottom: 1em;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  .container-message {
+    margin-top: 1em;
+    h1 {
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+    p.full-msg {
+      font-size: 0.8em;
+      margin-top: 0.5em;
+    }
+    p.danger {
+      font-size: 0.8em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
+}

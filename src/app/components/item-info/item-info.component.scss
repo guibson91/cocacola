@@ -1,0 +1,42 @@
+.item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1p;
+  .left {
+    max-width: 96%;
+    .title {
+      font-weight: normal;
+      font-size: 0.8em;
+      margin-bottom: 4px;
+      color: var(--ion-color-medium);
+    }
+    .description {
+      font-weight: bold;
+      font-size: 0.85em;
+      &.longWord {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+      }
+    }
+  }
+  .right {
+    // min-width: 4em;
+  }
+  &.border {
+    border-bottom: 1px solid var(--ion-color-light);
+  }
+  ion-button {
+    min-height: 2.5em;
+    border-radius: 50%;
+    --border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.7em;
+  }
+}

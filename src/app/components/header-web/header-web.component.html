@@ -1,0 +1,67 @@
+<ion-toolbar color="primary" mode="ios" class="first-toolbar">
+  <ion-buttons slot="start">
+    <ion-icon name="menu-outline" class="zoom-effect" tappable (click)="openMenu()"></ion-icon>
+  </ion-buttons>
+  <ion-title>
+    <div class="inner-title" *ngIf="environment !== 'production'">
+      <img src="assets/svgs/logo.svg" tappable (click)="goHome()" class="zoom-effect" />
+      <p>({{ environment }})</p>
+    </div>
+    <img *ngIf="environment === 'production'" src="assets/svgs/logo.svg" tappable (click)="goHome()" class="zoom-effect" />
+  </ion-title>
+  <ion-buttons slot="end">
+    <div class="container-notitification-icon">
+      <img src="assets/svgs/notification-web.svg" class="notification zoom-effect" tappable (click)="openNotifications()" *ngIf="!hasNotifications" />
+      <img src="assets/svgs/notification-web-new.svg" class="notification" tappable (click)="openNotifications()" *ngIf="hasNotifications" />
+    </div>
+    <div class="container-cart-icon" *ngIf="showCart">
+      <img src="assets/svgs/cart-web.svg" class="cart zoom-effect" tappable (click)="openCartWeb()" />
+      <div class="mark" *ngIf="hasItems"></div>
+    </div>
+  </ion-buttons>
+</ion-toolbar>
+<ion-toolbar color="primary" mode="ios" class="second-toolbar" *ngIf="showClubOrbitta && shared.web && system.enablePP">
+  <div class="left" slot="start" *ngIf="shared.user?.responsible?.firstName">
+    <p>
+      Olá, <span>{{ shared.user?.responsible?.firstName }} {{ shared.user?.responsible?.lastName }}</span>
+    </p>
+  </div>
+  <div class="center-title">
+    <div class="left">
+      <p>Saldo</p>
+      <p>
+        <span *ngIf="customer && customer.balanceAvailable; else noAvailable">{{ customer.balanceAvailable | number : "1.0-0" }}</span
+        ><ng-template #noAvailable>0</ng-template> pts
+      </p>
+    </div>
+    <div class="right">
+      <div>
+        <p>Pontos a receber <span></span></p>
+        <p>
+          <span *ngIf="customer && customer.balanceProcessed; else noProcessed">{{ customer.balanceProcessed | number : "1.0-0" }}</span
+          ><ng-template #noProcessed>0</ng-template> pts
+        </p>
+      </div>
+    </div>
+  </div>
+  <ion-buttons slot="end" *ngIf="!isHome">
+    <ion-button (click)="openExtract()">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <p>Ver extrato</p>
+    </ion-button>
+    <ion-button (click)="openRedemption()">
+      <ion-icon name="swap-horizontal-outline"></ion-icon>
+      <p>Meus resgates</p>
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end" *ngIf="isHome">
+    <ion-button (click)="openOrbittaClub()">
+      <ion-icon name="swap-horizontal-outline"></ion-icon>
+      <p>Clube Orbitta</p>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<div class="container-title" *ngIf="title" [ngClass]="{ pp: isPP }">
+  <h1 *ngIf="!isPP">{{ title }}</h1>
+</div>

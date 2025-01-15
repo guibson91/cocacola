@@ -1,0 +1,35 @@
+ion-content {
+  &.web {
+    section {
+      margin: 0 !important;
+    }
+  }
+  section {
+    h1 {
+      font-size: 1.4em;
+      font-weight: bolder;
+      margin-bottom: 0.5em;
+      margin-top: 5px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--ion-color-light);
+      padding-bottom: 5px;
+      padding-top: 5px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      .left {
+        font-weight: bold;
+        font-size: 0.9em;
+      }
+    }
+    .item:last-of-type {
+      border-bottom: none;
+    }
+    ion-button.register {
+      margin-top: 1em;
+    }
+  }
+}

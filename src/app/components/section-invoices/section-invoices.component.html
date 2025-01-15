@@ -1,0 +1,30 @@
+<section class="default">
+  <div class="container-title">
+    <h1 class="title">{{ title }}</h1>
+    <p *ngIf="description">{{ description }}</p>
+  </div>
+  <div *ngIf="invoices && invoices.length > 0">
+    <div class="item" *ngFor="let invoice of invoices">
+      <div class="left">
+        <p class="code ellipsis">
+          {{ label }}: <span>{{ invoice.code }}</span>
+        </p>
+        <p class="value" *ngIf="invoice.updatedValue">
+          Valor: <span>R$ {{ invoice.updatedValue / 100 | number: "1.2-2" }}</span>
+        </p>
+        <p class="date" *ngIf="invoice.dueDate">
+          Data:
+          <span>{{ invoice.date | date: "dd/MM/yyyy" }}</span>
+        </p>
+      </div>
+      <div class="right">
+        <ion-button size="small" fill="outline" color="dark" (click)="openDocument(invoice)">Ver </ion-button>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </div>
+  <div style="padding-top: 0.5em; padding-bottom: 1em">
+    <app-loading-message message="Carregando boletos" [loading]="!invoices"></app-loading-message>
+    <app-empty-message [message]="errorMessage" [show]="!!(invoices && invoices.length === 0)"> </app-empty-message>
+  </div>
+</section>

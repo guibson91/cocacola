@@ -1,0 +1,30 @@
+section {
+  border: 1px solid var(--ion-color-medium);
+  border-radius: 8px;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  .left {
+    display: flex;
+    img {
+      margin-right: 1em;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 100%;
+      h1 {
+        font-size: 0.8em;
+        margin-bottom: 3px;
+        font-weight: 500;
+        color: var(--ion-color-dark);
+      }
+      p {
+        font-size: 0.7em;
+        color: var(--ion-color-medium);
+      }
+    }
+  }
+}

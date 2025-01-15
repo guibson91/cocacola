@@ -1,0 +1,19 @@
+<ion-content>
+  <div class="container">
+    <section>
+      <h1 class="title" [ngClass]="{ warn: type === 'warn' || type === 'none' || !type, default: type === 'default' }">APP Desatualizado</h1>
+      <div class="content">
+        <div class="container-image" *ngIf="image">
+          <img [src]="image" />
+        </div>
+        <p class="msg">
+          Você precisa acessar a loja para atualizar o APP Orbitta com a última versão. <br />
+          Após isso seu acesso será liberado normalmente.
+        </p>
+        <div class="footer-buttons">
+          <ion-button color="primary" fill="solid" expand="block" (click)="verify()"> Verificar novamente </ion-button>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

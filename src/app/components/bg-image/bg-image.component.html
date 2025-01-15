@@ -1,0 +1,21 @@
+<div class="container-super" [ngStyle]="{ width: width, height: height }">
+  <div
+    *ngIf="realImage"
+    tappable
+    class="container"
+    (click)="openImage()"
+    [ngClass]="{
+      small: size === 'small',
+      padding: padding,
+      loading: loading && showLoadingSpinner,
+      round: type === 'round',
+      square: type === 'square',
+      'square-round': type === 'square-round',
+      'square-round-bottom': type === 'square-round-bottom',
+    }"
+    [ngStyle]="{ width: width, height: height }"
+  >
+    <div class="background-image" [bgImg]="realImage" [ngStyle]="{ width: width, height: height }"></div>
+  </div>
+  <!-- <ion-spinner *ngIf="loading && showLoadingSpinner"></ion-spinner> -->
+</div>

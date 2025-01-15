@@ -1,0 +1,110 @@
+ion-accordion-group {
+  margin-top: 1em;
+
+  &.web {
+    ion-label {
+      font-size: 0.9em !important;
+    }
+  }
+
+  ion-accordion {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 8px;
+    --background: white;
+    border: 2px solid var(--ion-color-light);
+    border-radius: 8px;
+
+    ion-item {
+      font-weight: bold;
+      --padding-start: 0px;
+      --padding-end: 0;
+      --inner-padding-end: 0;
+      --background: white;
+
+      p {
+        span {
+          font-weight: bold;
+          color: var(--ion-color-primary);
+        }
+      }
+
+      img {
+        margin-right: 0.3em;
+
+        &.employee {
+          margin-left: 5px !important;
+          margin-right: 11px !important;
+        }
+      }
+
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-left: 0.4em;
+        padding-right: 4px;
+        min-height: 3.5em;
+
+        .left {
+          display: flex;
+          align-items: center;
+
+          .container-label-card {
+            display: flex;
+            flex-direction: column;
+
+            ion-label {
+              font-size: 0.8em;
+            }
+
+            p {
+              font-size: 0.6em;
+              color: var(--ion-color-medium);
+              font-weight: 500;
+              margin-top: 3px;
+            }
+          }
+        }
+
+        .right {
+          min-width: 100px;
+
+          p.lbl-total {
+            font-size: 0.7em;
+            font-weight: 600;
+            color: black;
+          }
+
+          p.value-total {
+            font-size: 0.82em;
+            font-weight: 700;
+            color: black;
+            margin-top: 0;
+          }
+
+          p.obs-total {
+            margin-top: 0;
+            font-size: 0.7em;
+            color: var(--ion-color-medium);
+          }
+        }
+      }
+
+      &[slot="content"] {
+        border-top: 2px solid var(--ion-color-medium);
+
+        p {
+          font-size: 0.8em;
+          font-weight: 400;
+          padding-right: 1em;
+        }
+      }
+    }
+
+    &.active {
+      border-color: var(--ion-color-primary);
+    }
+  }
+}

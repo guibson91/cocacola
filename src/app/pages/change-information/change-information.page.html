@@ -1,0 +1,19 @@
+<ion-content [ngClass]="{web: shared.web}">
+  <app-container-web>
+    <img class="enfeite" src="assets/images/walkthrough/enfeite.png" *ngIf="!shared.web" />
+    <div class="center form">
+      <h1>Alterar número de celular</h1>
+      <form [formGroup]="form" (ngSubmit)="changeResponsible()">
+        <ion-item [ngClass]="{ error: form.controls.cellphone.invalid && form.controls.cellphone.touched }">
+          <ion-input type="tel" inputmode="tel" formControlName="cellphone" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="Novo número de celular"></ion-input>
+        </ion-item>
+        <p *ngIf="form.controls.cellphone.errors?.required && form.controls.cellphone.touched" class="danger">Celular é obrigatório</p>
+        <p *ngIf="form.controls.cellphone.errors?.invalidCellphone && form.controls.cellphone.touched" class="danger">Celular inválido</p>
+        <div class="container-buttons">
+          <ion-button color="primary" fill="solid" expand="block" type="submit">Alterar celular</ion-button>
+          <ion-button color="dark" fill="outline" expand="block" (click)="back()" class="btn-back">Voltar</ion-button>
+        </div>
+      </form>
+    </div>
+  </app-container-web>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-content class="mobile" *ngIf="!shared.web">
+  <div class="container">
+    <swiper-container #swiper [pagination]="true" (slidechange)="slideChanged()" (afterinit)="swiperReady()" class="walkthrough">
+      <swiper-slide *ngFor="let step of steps; let i = index">
+        <div class="container-slide" [ngClass]="{'extra-margin': i === 3}">
+          <div class="superior">
+            <p>Parceiro Sorocaba Refrescos</p>
+            <h1>Que bom ter você aqui!!!</h1>
+          </div>
+          <div class="central">
+            <img class="bg" src="assets/images/walkthrough/bg.png" />
+            <img class="main" [src]="step.image" [ngClass]="{'calendar': i === 2, 'basket': i === 0}" />
+          </div>
+          <div class="inferior" [ngClass]="{last: i === 3}">
+            <div class="content">
+              <h1>{{step.title}}</h1>
+              <p>{{step.description}}</p>
+              <div class="btns" *ngIf="currentIndex === 3">
+                <ion-button fill="solid" color="primary" (click)="openHome()">Acessar o app </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>
+
+<ion-content class="web" *ngIf="shared.web">
+  <div class="container-new">
+    <img class="bg-red" src="assets/svgs/fundo-web.svg" />
+    <swiper-container #swiper [pagination]="true" [navigation]="true" (slidechange)="slideChanged()" (afterinit)="swiperReady()">
+      <swiper-slide *ngFor="let step of steps; let i = index">
+        <div class="container-slide">
+          <div class="superior">
+            <p>Parceiro Sorocaba Refrescos</p>
+            <h1>Que bom ter você aqui!!!</h1>
+          </div>
+          <div class="central">
+            <img class="bg" src="assets/images/walkthrough/s1.png" *ngIf="i === 0" />
+            <img class="bg" src="assets/images/walkthrough/s2.png" *ngIf="i === 1" />
+            <img class="bg" src="assets/images/walkthrough/s3.png" *ngIf="i === 2" />
+            <img class="bg" src="assets/images/walkthrough/s4.png" *ngIf="i === 3" />
+          </div>
+          <div class="inferior" [ngClass]="{last: i === 3}">
+            <div class="content">
+              <h1>{{step.title}}</h1>
+              <p>{{step.description}}</p>
+              <div class="btns" *ngIf="currentIndex === 3">
+                <ion-button fill="solid" color="primary" (click)="openHome()">Acessar o app </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>

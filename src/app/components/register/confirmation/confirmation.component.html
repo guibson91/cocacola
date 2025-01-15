@@ -1,0 +1,26 @@
+<app-header-form *ngIf="!shared.web && phoneMask" title="Confirme o código SMS enviado para o celular {{ phoneMask }}: "></app-header-form>
+<app-header-form *ngIf="!shared.web && emailMask && !phoneMask" title="Confirme o código enviado para o e-mail {{ emailMask }}: "></app-header-form>
+<app-header-form *ngIf="!shared.web && !emailMask && !phoneMask" title="Qual o código enviado por SMS?"></app-header-form>
+
+<div class="container-title">
+  <p *ngIf="shared.web && phoneMask" class="description-web">Confirme o código SMS enviado para o celular {{ phoneMask }}:</p>
+  <p *ngIf="shared.web && emailMask && !phoneMask" class="description-web">Confirme o código enviado para o e-mail {{ emailMask }}:</p>
+  <p *ngIf="shared.web && !emailMask && !phoneMask" class="description-web">Qual o código enviado por SMS?</p>
+</div>
+<form [formGroup]="form">
+  <ion-item>
+    <ion-input type="tel" inputmode="tel" formControlName="code" placeholder="Código SMS" maxlength="4" (ionInput)="changeInput()"></ion-input>
+  </ion-item>
+
+  <p class="danger" *ngIf="invalidCode">Código incorreto, favor solicitar novamente</p>
+
+  <p class="msg bigger center" *ngIf="!invalidCode">Caso não tenha recebido o código no seu celular, clique abaixo para reenviar.</p>
+  <div class="container-buttons">
+    <ion-button expand="block" color="primary" [disabled]="blocked" (click)="resend('sms')">Reenviar SMS</ion-button>
+    <p class="msg center request-again" *ngIf="time > 0">
+      Você poderá solicitar novamente em <span> {{ formattedTime }} min</span>
+    </p>
+    <p class="msg center request-again" *ngIf="time <= 0">Não chegou o código? Solicite novamente</p>
+    <ion-button expand="block" color="primary" [disabled]="blocked" (click)="resend('email')">Enviar por e-mail</ion-button>
+  </div>
+</form>

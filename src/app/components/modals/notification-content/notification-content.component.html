@@ -1,0 +1,20 @@
+<div class="container-modal" [ngClass]="{ web: shared.web }">
+  <ion-toolbar *ngIf="shared.web">
+    <ion-title slot="start" color="primary">Notificações</ion-title>
+    <ion-button (click)="closeModal()" slot="end" fill="clear" class="close">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <section class="default" *ngIf="notifications && notifications.length > 0">
+    <div class="item" *ngFor="let notification of notifications; let i = index">
+      <h1 *ngIf="notification.title">{{ notification.title }}</h1>
+      <p *ngIf="notification.description">{{ notification.description }}</p>
+    </div>
+  </section>
+
+  <app-section-loading [loading]="!notifications" message="Carregando notificações"> </app-section-loading>
+
+  <section class="default" *ngIf="notifications && notifications.length === 0">
+    <app-empty-message [show]="notifications && notifications.length === 0" message="Você não possui notificações"></app-empty-message>
+  </section>
+</div>

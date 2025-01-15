@@ -1,0 +1,10 @@
+.ion-activatable.activated {
+  background-color: transparent !important;
+  color: rgb(226, 226, 226) !important;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}

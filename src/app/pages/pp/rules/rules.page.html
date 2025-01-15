@@ -1,0 +1,15 @@
+<ion-content>
+  <app-header-orbitta-club title="Regulamento" *ngIf="!shared.web" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club>
+    <app-loading-message message="Carregando regulamento" emptyMessage="Regulamento não encontrado" [loading]="(rules === undefined)"> </app-loading-message>
+    <ion-accordion-group class="rules" *ngIf="rules?.length > 0">
+      <ion-accordion [value]="rule" *ngFor="let rule of rules; let i = index">
+        <ion-item slot="header">
+          <ion-label>{{i + 1}}. {{rule.title}}</ion-label>
+        </ion-item>
+        <div class="ion-padding text" slot="content">- {{rule.description}}</div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </app-content-orbitta-club>
+</ion-content>

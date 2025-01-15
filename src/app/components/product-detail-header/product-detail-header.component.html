@@ -1,0 +1,19 @@
+<div class="container-title" *ngIf="product" [ngClass]="{ web: !showImage, 'pp': isPP }">
+  <ng-container *ngIf="!isPP">
+    <h1 class="title">{{ product.label }}</h1>
+    <p class="subtitle">{{ product.attributes?.quantityPerPackage }} un • {{ product.attributes?.capacityLabel }}</p>
+  </ng-container>
+  <div class="container-image" [ngClass]="{ scalable: product.attributes?.scalable }" *ngIf="showImage">
+    <p *ngIf="product.attributes?.scalable">
+      Leve <span>+</span> pague
+      <span>-</span>
+    </p>
+    <img [src]="product.image" />
+  </div>
+  <div class="pp" *ngIf="isPP">
+    <h1 class="title pp">{{ product.label }}</h1>
+    <p class="subtitle pp" *ngIf="product.categories">{{ product.categories[0].label }}</p>
+    <p class="points">{{ product.redeemPoints | number }} <span>pontos</span></p>
+    <p class="obs-points">Se precisar, complete com o seu cartão de crédito</p>
+  </div>
+</div>

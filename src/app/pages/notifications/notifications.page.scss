@@ -1,0 +1,28 @@
+ion-content {
+  section {
+    background-color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 8px;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    .item {
+      border-bottom: 1px solid var(--ion-color-light);
+      padding-bottom: 1em;
+      padding-top: 0.5em;
+      h1 {
+        font-size: 1em;
+        font-weight: bold;
+      }
+      p {
+        font-weight: normal;
+        color: var(--ion-color-medium);
+      }
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+  }
+}

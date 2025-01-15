@@ -1,0 +1,32 @@
+<app-header-form title=""></app-header-form>
+
+<form [formGroup]="form" (ngSubmit)="nextClick()">
+  <ion-item [ngClass]="{ error: form.controls.email.invalid && form.controls.email.touched }">
+    <ion-input type="email" inputmode="email" formControlName="email" placeholder="Seu e-mail*"> </ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.email.errors?.required && form.controls.email.touched" class="danger">E-mail é obrigatório</p>
+  <p *ngIf="form.controls.email.errors?.email && form.controls.email.touched" class="danger">E-mail inválido</p>
+
+  <ion-item [ngClass]="{ error: form.controls.cellphone.invalid && form.controls.cellphone.touched }">
+    <ion-input type="tel" inputmode="tel" formControlName="cellphone" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="Seu número de celular*"></ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.cellphone.errors?.required && form.controls.cellphone.touched" class="danger">Celular é obrigatório</p>
+  <p *ngIf="form.controls.cellphone.errors?.invalidCellphone && form.controls.cellphone.touched" class="danger">Celular inválido</p>
+
+  <ion-item>
+    <ion-input type="tel" inputmode="tel" formControlName="comercialPhone" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="Seu número comercial"></ion-input>
+  </ion-item>
+
+  <p class="obs-required">(*) Este campo é obrigatório</p>
+
+  <div class="container-terms-privacy no-border">
+    <ion-checkbox class="default-checkbox" slot="start" [(ngModel)]="checkTerms" [ngModelOptions]="{ standalone: true }"></ion-checkbox>
+    <p>
+      Li e aceito os
+      <span (click)="openTerms()" class="link">Termos de Uso</span> e
+      <span (click)="openPrivacy()" class="link">Política de Privacidade</span>
+    </p>
+  </div>
+
+  <ion-button type="submit" expand="block" color="primary" [disabled]="!form.valid || !checkTerms"> Continuar</ion-button>
+</form>

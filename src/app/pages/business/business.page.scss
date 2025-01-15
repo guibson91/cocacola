@@ -1,0 +1,127 @@
+ion-header {
+  --background: var(--ion-color-primary) !important;
+  background: var(--ion-color-primary) !important;
+
+  &.my-ios {
+    padding-top: 2em !important;
+  }
+
+  img {
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% + 50px);
+    z-index: 10;
+    width: 85px;
+  }
+
+  ion-toolbar {
+    padding-top: 0.5em;
+    padding-bottom: 1em;
+    --background: var(--ion-color-primary) !important;
+    background: var(--ion-color-primary) !important;
+
+    ion-buttons {
+      ion-button {
+        ion-icon {
+          color: var(--ion-color-dark);
+          padding-top: 6px;
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    .container-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(100% - 100px);
+
+      h1 {
+        font-size: 1.4em;
+        font-weight: bolder;
+
+        span {
+          border-bottom: 1px solid var(--ion-color-primary);
+          padding-bottom: 6px;
+        }
+      }
+    }
+  }
+
+  &.primary {
+    ion-toolbar {
+      --background: var(--ion-color-primary);
+
+      ion-buttons {
+        ion-button {
+          ion-icon {
+            color: white;
+          }
+        }
+      }
+    }
+
+    .container-title {
+      h1 {
+        span {
+          color: white;
+          border-color: white !important;
+        }
+      }
+    }
+  }
+}
+
+ion-content {
+  &.mobile {
+    section {
+      margin: 1em !important;
+    }
+  }
+  section {
+    background-color: white;
+    border-radius: 16px;
+    padding: 1em;
+    margin-bottom: 2em;
+  }
+}
+
+.graph {
+  h2 {
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 0.5em;
+  }
+}
+
+ion-content.web {
+  .header {
+    position: absolute;
+    top: 1em;
+    width: 100%;
+    padding-top: 2em;
+    h1,
+    span {
+      color: white !important;
+      border-bottom: 1px solid white;
+    }
+  }
+
+  .container-sections {
+    padding-top: 5em;
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    .left {
+      min-width: 400px;
+      margin-right: 2em;
+    }
+    .right {
+      width: 100%;
+    }
+  }
+}

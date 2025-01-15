@@ -1,0 +1,9 @@
+<div class="item" [ngClass]="{ border: showBorder }" *ngIf="title && description">
+  <div class="left">
+    <p class="title">{{ title }}</p>
+    <p class="description" [ngClass]="{ longWord: isLong }">{{ description }}</p>
+  </div>
+  <div class="right" *ngIf="showButton" (click)="clickBtn()" [ngStyle]="{ minWidth: minWidth }">
+    <ion-button size="small" round="true" fill="outline" color="dark">{{ labelButton }}</ion-button>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="loading" *ngIf="loading">
+  <ion-spinner></ion-spinner>
+  <p>{{ message }}</p>
+</div>
+<div class="loading" *ngIf="!loading && empty">
+  <p>{{ emptyMessage }}</p>
+</div>

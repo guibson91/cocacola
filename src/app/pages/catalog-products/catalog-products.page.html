@@ -1,0 +1,65 @@
+<app-header [title]="cart.currentBrand.label | fixLabel" *ngIf="!shared.web && cart.currentBrand?.label && !isPP"></app-header>
+<app-header title="Produtos" *ngIf="!shared.web && !cart.currentBrand?.label && !isPP"></app-header>
+
+<ion-content [ngClass]="{web: shared.web, pp: isPP}">
+  <app-header-web *ngIf="shared.web && !isPP"></app-header-web>
+  <app-header-orbitta-club title="Marca" [subtitle]="cart.currentBrand.label" *ngIf="!shared.web && isPP" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web && isPP"></app-header-web>
+  <app-content-orbitta-club [contentOrbitta]="isPP" [marginTop]="isPP ? '-2em' : '0'">
+    <div class="container-cart-alive" style="margin-bottom: 2em" *ngIf="cartIsAlive && shared.web && !isPP">
+      <app-notification-cart-alive (eventClose)="closeCartAlive()"></app-notification-cart-alive>
+    </div>
+
+    <app-see-more-brands [brands]="brands" *ngIf="shared.web && !isPP" (selectBrand)="selectBrand($event)"> </app-see-more-brands>
+
+    <section [ngClass]="{'my-ios': shared.ios}" class="section-card-user" style="margin-top: -1.1em; margin-bottom: 0.5em" *ngIf="isPP">
+      <app-card-user *ngIf="!shared.web" [points]="isPP ? true : false"></app-card-user>
+    </section>
+
+    <app-search-products *ngIf="!shared.web"></app-search-products>
+
+    <app-banner *ngIf="isPP && banners && banners.length > 0" [isPP]="isPP"></app-banner>
+
+    <div class="btn-filter ion-activatable ripple-parent" tappable (click)="openFilter()" *ngIf="flavors && flavors.length > 1 && !shared.web">
+      <ion-icon name="funnel-outline"></ion-icon>
+      <p>Clique aqui para filtrar os produtos desejados</p>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+
+    <div class="container-products" style="margin-bottom: 2em" *ngIf="cartIsAlive && !shared.web && !isPP">
+      <app-notification-cart-alive (eventClose)="closeCartAlive()"></app-notification-cart-alive>
+    </div>
+
+    <div class="container-title" *ngIf="shared.web">
+      <h1 *ngIf="cart.currentBrand?.label">{{cart.currentBrand.label | fixLabel}}</h1>
+      <h1 *ngIf="!cart.currentBrand?.label">Produtos</h1>
+    </div>
+
+    <div class="container-empty" *ngIf="products && products.length === 0">
+      <p class="empty">Produtos indisponíveis no momento</p>
+    </div>
+
+    <div class="container-products" *ngIf="shared.web">
+      <div class="container-flavors">
+        <div>
+          <h1>Filtro</h1>
+          <h2 *ngIf="flavors">Sabores</h2>
+          <app-filter-products-content *ngIf="flavors"></app-filter-products-content>
+        </div>
+        <app-section-loading message="Carregando filtros" [loading]="!flavors"> </app-section-loading>
+      </div>
+      <div class="container-right-products">
+        <app-section-loading message="Carregando produtos" [loading]="!products"> </app-section-loading>
+        <app-products *ngIf="products && products.length > 0" type="products" view="vertical" [isPP]="isPP"></app-products>
+      </div>
+    </div>
+
+    <div *ngIf="!shared.web">
+      <app-section-loading message="Carregando produtos" [loading]="!products"> </app-section-loading>
+      <app-products *ngIf="products && products.length > 0" type="products" view="vertical" [isPP]="isPP"></app-products>
+    </div>
+
+    <app-see-more-brands [brands]="brands" *ngIf="!shared.web" (selectBrand)="selectBrand($event)"> </app-see-more-brands>
+  </app-content-orbitta-club>
+</ion-content>
+<app-float-cart-pp *ngIf="isPP"></app-float-cart-pp>

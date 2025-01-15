@@ -1,0 +1,72 @@
+<app-header *ngIf="product && product.categories && !shared.web && !isPP" [title]="product.categories[1].label | fixLabel"> </app-header>
+
+<!-- <app-header-orbitta-club title="Resgate" [subtitle]="subtitle" *ngIf="isPP"></app-header-orbitta-club> -->
+
+<ion-content *ngIf="product" [ngClass]="{web: shared.web, pp: isPP}">
+  <!-- <app-header-web *ngIf="shared.web"></app-header-web> -->
+  <app-header-web *ngIf="shared.web && !isPP"></app-header-web>
+  <app-header-orbitta-club title="Resgate" *ngIf="!shared.web && isPP" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web && isPP"></app-header-web>
+  <app-content-orbitta-club [contentOrbitta]="!!isPP">
+    <section [ngClass]="{'my-ios': shared.ios}" class="section-card-user" *ngIf="isPP" style="margin-top: -1.5em; margin-bottom: 1em">
+      <app-card-user *ngIf="!shared.web"></app-card-user>
+    </section>
+    <div class="container">
+      <div class="left" *ngIf="shared.web" style="margin-right: 1em">
+        <app-bg-image [image]="product.image" width="500px" height="550px"></app-bg-image>
+      </div>
+      <div class="right">
+        <ng-container>
+          <app-product-detail-header [showImage]="shared.web ? false : true" [isPP]="!!isPP"> </app-product-detail-header>
+        </ng-container>
+        <div class="container-scalable">
+          <section class="product-details" *ngIf="product && product.description && !(product.attributes?.scalable || product.attributes?.returnable)">
+            <h1>Detalhes do produto</h1>
+            <p>{{product.description}}</p>
+          </section>
+
+          <section class="product-details" *ngIf="product && product.description && product.attributes?.scalable">
+            <h1 style="font-size: 1.2em; font-weight: bolder">Compre em maior quantidade</h1>
+            <p>Comprando em maior quantidade, o preço da unidade fica mais barato!</p>
+          </section>
+
+          <section class="product-details" *ngIf="product && product.description && !product.attributes?.scalable && product.attributes?.returnable">
+            <h1 style="line-height: 1em">Não se esqueça de separar seus vasilhames!</h1>
+            <p>
+              A troca dos vasilhames vazios pelos cheios será realizada no ato da entrega. Solicitamos que você faça o pedido levando em conta a quantidade, sabor e tamanho dos
+              vasilhames vazios disponíveis em seu estabelecimento.
+            </p>
+          </section>
+
+          <div class="container-inner-scalable" [ngClass]="{'scalable': product.attributes?.scalable}" *ngIf="!isPP">
+            <app-scalable-prices [details]="true"></app-scalable-prices>
+          </div>
+
+          <section class="product-details" *ngIf="product && product.description && (product.attributes?.scalable || product.attributes?.returnable)">
+            <h1>Detalhes do produto</h1>
+            <p>{{product.description}}</p>
+          </section>
+        </div>
+
+        <section class="container-plus-minus" *ngIf="!isPP">
+          <app-plus-minus *ngIf="product" [product]="product" [type]="'products'" [quantity]="product.inputQuantity"></app-plus-minus>
+          <ion-button color="dark" fill="outline" expand="block" (click)="openCart()">Ir ao carrinho </ion-button>
+        </section>
+
+        <section style="margin-bottom: 2em">
+          <ion-button *ngIf="!isPP" (click)="back()" expand="block">Adicionar mais itens</ion-button>
+          <div *ngIf="isPP" class="container-input-quantity content-form form-default">
+            <ion-input type="tel" inputmode="tel" [(ngModel)]="quantity" placeholder="Digite a quantidade necessária"></ion-input>
+            <ion-button *ngIf="isPP" (click)="addProductPP(product, true, quantity)" expand="block" [disabled]="loading">{{loading ? 'Processando' : 'Resgatar agora'}}</ion-button>
+          </div>
+          <ion-button *ngIf="isPP" (click)="addProductPP(product)" expand="block" [disabled]="loading" fill="outline" color="dark"
+            >{{loading ? 'Processando' : 'Adicionar a lista de resgate'}}</ion-button
+          >
+        </section>
+      </div>
+    </div>
+
+    <app-suggested-order *ngIf="shared.web" label="Compre também"></app-suggested-order>
+  </app-content-orbitta-club>
+</ion-content>
+<app-float-cart-pp *ngIf="isPP"></app-float-cart-pp>

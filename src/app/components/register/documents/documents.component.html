@@ -1,0 +1,7 @@
+<app-header-form title="Precisamos de alguns documentos do sócio-administrador para nossa análise." subtitle=""></app-header-form>
+
+<form (ngSubmit)="nextClick()">
+  <app-upload-file [document]="document" *ngFor="let document of documents"></app-upload-file>
+  <ion-button type="submit" expand="block" color="primary" [disabled]="disabledButton">Continuar</ion-button>
+  <ion-button expand="block" color="dark" fill="outline" (click)="goBack()" style="margin-top: 0.5em">Voltar</ion-button>
+</form>

@@ -1,0 +1,38 @@
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" [isHome]="true"
+    [showClubOrbitta]="true"></app-header-web>
+
+  <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300"
+    (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <section [ngClass]="{'my-ios': shared.ios}">
+    <app-card-user *ngIf="!shared.web" [hideCart]="true"></app-card-user>
+  </section>
+
+  <div class="debts-alert ion-activatable ripple-parent"
+    *ngIf="debtData && debtData.totalDebts > 0 && !shared.web" tappable
+    (click)="openDebts()">
+    <p>Você possui títulos vencidos de R$ {{ debtData.totalDebts / 100 |
+      number:'1.2-2'}}</p>
+    <ion-ripple-effect></ion-ripple-effect>
+  </div>
+
+  <!-- <ion-button (click)="test()">teste</ion-button> -->
+
+  <app-banner></app-banner>
+
+  <app-categories-slide *ngIf="categories && categories.length > 0"
+    [categories]="categories"></app-categories-slide>
+
+  <section class="meu-negocio ion-activatable ripple-parent"
+    (click)="openBusiness()" *ngIf="!shared.web">
+    <img src="assets/images/my-business/meu-negocio.png" />
+    <ion-ripple-effect></ion-ripple-effect>
+  </section>
+
+  <section>
+    <app-suggested-order></app-suggested-order>
+  </section>
+</ion-content>

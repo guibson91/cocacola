@@ -1,0 +1,27 @@
+.line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--ion-color-light);
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  p {
+    color: var(--ion-color-primary);
+    font-weight: 600;
+    font-size: 0.85em;
+    margin-bottom: 0.4em;
+    margin-top: 0.4em;
+  }
+  P:last-child {
+    color: black;
+  }
+  &.highlight {
+    p {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+  }
+}
+// .line:last-child {
+//   border-bottom: none !important;
+// }

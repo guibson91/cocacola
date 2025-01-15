@@ -1,0 +1,32 @@
+<ion-content *ngIf="!shared.web">
+  <img class="enfeite" [src]="shared.web ? 'assets/svgs/enfeite-web.svg' : 'assets/images/walkthrough/enfeite.png'" />
+  <div class="container not-last" *ngIf="!last">
+    <h1>Seu app mudou!</h1>
+    <p *ngIf="!shared.web">O Konnect PDV agora é <b>Orbitta</b>, o seu mais novo app de compras da Sorocaba Refrescos.</p>
+    <img src="assets/svgs/coke-happy.svg" />
+    <p *ngIf="shared.web">O Konnect PDV agora é <b>Orbitta</b>, o seu mais novo app de compras da Sorocaba Refrescos.</p>
+  </div>
+  <div class="container-cpf-cnpj" *ngIf="last">
+    <app-cpf-cnpj (next)="next()"></app-cpf-cnpj>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="!shared.web && !last" class="ion-no-border">
+  <ion-button (click)="continue()" expand="block" fill="outline">Continuar</ion-button>
+</ion-footer>
+
+<ion-content *ngIf="shared.web" class="web">
+  <div class="container not-last" *ngIf="!last">
+    <div class="container-slide first">
+      <h1 class="main-title">Seu app mudou!</h1>
+      <img src="assets/images/walkthrough/web.png" />
+      <p>O Konnect PDV agora é <b>Orbitta</b>, o seu mais novo app de compras da Sorocaba Refrescos.</p>
+      <ion-button (click)="continue()" expand="block" fill="outline" class="continue-web">Continuar</ion-button>
+    </div>
+  </div>
+  <div class="container last" *ngIf="last">
+    <app-container-web>
+      <app-cpf-cnpj (next)="next()"></app-cpf-cnpj>
+    </app-container-web>
+  </div>
+</ion-content>

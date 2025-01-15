@@ -1,0 +1,42 @@
+section {
+  margin-bottom: 1em;
+
+  .item {
+    border-bottom: 1px solid var(--ion-color-light);
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+
+    &.highlight {
+      h1 {
+        color: var(--ion-color-primary);
+        font-size: 1.5em;
+      }
+    }
+
+    h1 {
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    p {
+      color: var(--ion-color-medium);
+      font-size: 0.8em;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+}
+
+.container-bottom {
+  text-align: center;
+  margin-left: 1em;
+  margin-right: 1em;
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.7em;
+    text-align: center;
+  }
+}

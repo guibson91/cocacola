@@ -1,0 +1,59 @@
+<app-header-form title="Está quase lá!" subtitle="Com a sua empresa cadastrada no Orbitta, precisamos de dados para realização do seus pedidos" [bigger]="true"></app-header-form>
+
+<div class="form">
+  <section class="shadow" [ngClass]="{ error: showErrors && !attendanceMode }">
+    <h1>Seus pedidos devem ser feitos apenas pelo aplicativo. Mesmo assim gostaria de receber a visita de um representante SR?</h1>
+    <ion-radio-group [(ngModel)]="attendanceMode" mode="md">
+      <div class="items">
+        <ion-radio color="dark" justify="start" mode="md" labelPlacement="end" value="in-person">
+          <p class="bold">Sim</p>
+        </ion-radio>
+        <ion-radio color="dark" justify="start" mode="md" labelPlacement="end" value="digital">
+          <p class="bold">Não</p>
+        </ion-radio>
+      </div>
+    </ion-radio-group>
+    <p class="danger" *ngIf="showErrors && !attendanceMode">Definição da forma de atendimento é obrigatória</p>
+  </section>
+
+  <section class="shadow" [ngClass]="{ error: showErrors && !openingStatus }" *ngIf="!register.isClientDb">
+    <h1>Qual o status do seu estabelecimento?</h1>
+    <ion-radio-group [(ngModel)]="openingStatus" mode="md">
+      <div class="items">
+        <ion-radio color="dark" justify="start" mode="md" labelPlacement="end" value="open">
+          <p class="bold">Meu estabelecimento está aberto</p>
+        </ion-radio>
+        <ion-radio color="dark" justify="start" mode="md" labelPlacement="end" value="openingSoon">
+          <p class="bold">Meu estabelecimento vai abrir em 30 dias</p>
+        </ion-radio>
+        <ion-radio color="dark" justify="start" mode="md" labelPlacement="end" value="openingLater">
+          <p class="bold">Meu estabelecimento vai abrir em 30 dias ou mais</p>
+        </ion-radio>
+      </div>
+    </ion-radio-group>
+    <p class="danger" *ngIf="showErrors && !openingStatus">Definição da forma de atendimento é obrigatória</p>
+  </section>
+
+  <section class="shadow" [ngClass]="{ error: showErrors && !hasDayChecked }" *ngIf="!register.isClientDb">
+    <h1>Quais os dias que está disponível para o recebimento da entrega?</h1>
+    <div class="items">
+      <ion-item class="no-border" lines="none" text-wrap *ngFor="let day of days">
+        <ion-checkbox justify="start" labelPlacement="end" mode="md" color="success" slot="start" [(ngModel)]="day.checked">{{ day.label }}</ion-checkbox>
+      </ion-item>
+    </div>
+    <p class="danger" *ngIf="showErrors && !hasDayChecked">Seleção de dias é obrigatória</p>
+  </section>
+
+  <section class="shadow" [ngClass]="{ error: showErrors && !hasShiftChecked }" *ngIf="!register.isClientDb">
+    <h1>Qual o horário disponível para entrega?</h1>
+    <div class="items">
+      <ion-item class="no-border" lines="none" text-wrap *ngFor="let shift of shifts">
+        <ion-checkbox justify="start" labelPlacement="end" mode="md" color="success" slot="start" [(ngModel)]="shift.checked">{{ shift.label }}</ion-checkbox>
+      </ion-item>
+    </div>
+    <p class="danger" *ngIf="showErrors && !hasShiftChecked">Seleção de turnos é obrigatória</p>
+  </section>
+
+  <ion-button expand="block" color="primary" (click)="nextClick()" [disabled]="disabled">Finalizar</ion-button>
+  <ion-button expand="block" color="dark" fill="outline" (click)="cancelRegister(register.cpfCnpj)" class="cancel">Cancelar</ion-button>
+</div>

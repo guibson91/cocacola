@@ -1,0 +1,14 @@
+<app-header title="Alertas e Mensagens" [showBack]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Alertas e Mensagens"></app-header-web>
+  <app-container-with-menu [menu]="menuItems" [primary]="true">
+    <section class="default">
+      <p class="msg">Selecione quais alertas e mensagens deseja receber</p>
+      <div class="container-toggle">
+        <ion-toggle *ngFor="let alert of alerts" [checked]="alert.checked">{{alert.label}} </ion-toggle>
+      </div>
+      <ion-button color="dark" fill="outline" expand="block" (click)="back()" *ngIf="!shared.web">Voltar</ion-button>
+    </section>
+  </app-container-with-menu>
+</ion-content>

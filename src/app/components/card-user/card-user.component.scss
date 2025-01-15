@@ -1,0 +1,50 @@
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 1em;
+  margin-right: 1em;
+  background: white;
+  border-radius: 8px;
+  padding: 7px;
+  margin-top: 2.2em;
+  box-shadow: 0 1px 3px 0 rgba(91, 75, 75, 0.2);
+  .left {
+    display: flex;
+    ion-icon {
+      font-size: 2em;
+      color: var(--ion-color-primary);
+    }
+    .user {
+      margin-left: 1em;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        font-size: 1em;
+        color: var(--ion-color-primary);
+        span {
+          font-weight: bold;
+        }
+      }
+      p {
+        color: gray;
+        font-size: 0.8em;
+      }
+    }
+  }
+  .right {
+    .red-ball {
+      width: 7px;
+      height: 7px;
+      background-color: red;
+      border-radius: 50%;
+      position: relative;
+      top: 9px;
+      right: -15px;
+      z-index: 100;
+    }
+    ion-icon {
+      font-size: 1.7em;
+    }
+  }
+}

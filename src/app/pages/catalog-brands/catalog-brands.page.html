@@ -1,0 +1,66 @@
+<app-header [title]="currentCategory.label | fixCategory | fixLabel" *ngIf="currentCategory && currentCategory.label && !shared.web && !isPP"></app-header>
+
+<ion-content [ngClass]="{web: shared.web, pp: isPP}">
+  <app-header-orbitta-club title="Resgate" subtitle="Marcas" *ngIf="!shared.web && isPP" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web && isPP"></app-header-web>
+  <app-header-web *ngIf="shared.web && !isPP"></app-header-web>
+  <app-content-orbitta-club [contentOrbitta]="isPP" [marginTop]="isPP ? '-1.5em' : '0'">
+    <app-search placeholder="Busque a marca que você deseja" [list]="brands ?? []" (filterList)="filterList($event)" [filters]="['label']" *ngIf="!shared.web"></app-search>
+
+    <app-rebuy *ngIf="!isPP"></app-rebuy>
+
+    <div class="container-title" *ngIf="currentCategory && currentCategory.label && shared.web && !isPP">
+      <h1>{{currentCategory.label | fixCategory | fixLabel}}</h1>
+    </div>
+
+    <div class="container-title" *ngIf="shared.web && isPP">
+      <h1 style="margin-top: 1em">Marcas</h1>
+    </div>
+
+    <div class="container-brands" *ngIf="filteredBrands && filteredBrands.length > 0 && !shared.web && !isPP">
+      <div class="brand shadow ion-activatable ripple-parent" *ngFor="let brand of filteredBrands" (click)="openProducts(brand)">
+        <app-bg-image [image]="brand.image" width="63px" height="47px"></app-bg-image>
+        <div class="content">
+          <h1>{{brand.label | fixLabel }}</h1>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+
+    <div class="container-brands-web" *ngIf="filteredBrands && filteredBrands.length > 0 && shared.web && !isPP">
+      <div class="brand shadow ion-activatable ripple-parent zoom-effect" *ngFor="let brand of filteredBrands" (click)="openProducts(brand)">
+        <app-bg-image [image]="brand.image" width="120px" height="140px" [round]="true"></app-bg-image>
+        <div class="content">
+          <h1>{{brand.label | fixLabel }}</h1>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    </div>
+
+    <div class="container-brands-with-letters" *ngIf="brandsWithLetters && brandsWithLetters.length > 0 && isPP">
+      <div *ngFor="let brandWithLetter of brandsWithLetters">
+        <div class="letter">
+          <h1>{{brandWithLetter.group}}</h1>
+        </div>
+        <div class="brand shadow ion-activatable ripple-parent" *ngFor="let brand of brandWithLetter.brands" (click)="openProducts(brand)">
+          <div class="content">
+            <h1>{{brand.label | fixLabel }}</h1>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="shared.web" style="margin-top: 3em">
+      <app-suggested-order></app-suggested-order>
+    </div>
+
+    <div class="container-brands" *ngIf="filteredBrands && filteredBrands.length === 0">
+      <p class="empty">Não foi possível encontrar marcas</p>
+    </div>
+
+    <app-section-loading message="Carregando marcas" [loading]="!filteredBrands"> </app-section-loading>
+  </app-content-orbitta-club>
+</ion-content>
+<app-float-cart-pp *ngIf="isPP"></app-float-cart-pp>

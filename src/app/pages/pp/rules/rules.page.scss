@@ -1,0 +1,16 @@
+ion-content {
+  ion-accordion-group {
+    // padding-top: 2em;
+    padding-bottom: 2em;
+    ion-accordion {
+      ion-item {
+        ion-label {
+          font-weight: bold;
+        }
+        .text {
+          color: #6c6c6c;
+        }
+      }
+    }
+  }
+}

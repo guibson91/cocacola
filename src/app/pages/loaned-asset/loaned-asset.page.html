@@ -1,0 +1,31 @@
+<app-header title="Ativos comodato" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Ativos comodatos"></app-header-web>
+
+  <app-container-with-menu>
+    <app-search placeholder="Busque o ativo que deseja" [list]="loanedAssets || []" *ngIf="!shared.web" (filterList)="filterList($event)" [filters]="['plate', 'description', 'brand']"> </app-search>
+    <div class="container">
+      <section *ngIf="filteredLoanedAssets && filteredLoanedAssets.length > 0">
+        <div class="item" *ngFor="let item of filteredLoanedAssets">
+          <div class="left">
+            <h1>Placa do Ativo</h1>
+            <p class="code">{{item.plate}}</p>
+            <!-- <p class="description">{{item.desc_tipo}} | {{item.marca}} | {{item.descricao}}</p> -->
+            <p class="description">{{item.description}}<span *ngIf="item.brand"> - {{item.brand}}</span></p>
+          </div>
+          <div class="right">
+            <h1>{{item.type}}</h1>
+          </div>
+        </div>
+      </section>
+      <section *ngIf="filteredLoanedAssets && filteredLoanedAssets.length === 0">
+        <p class="empty">Não foi encontrado ativos para esse filtro</p>
+      </section>
+
+      <ion-button color="dark" fill="outline" expand="block" (click)="openSupport()" *ngIf="loanedAssets" style="margin-top: 1em">Solicitar serviços</ion-button>
+    </div>
+
+    <app-section-loading message="Carregando ativos comodatados" [loading]="!loanedAssets" margin="0"> </app-section-loading>
+  </app-container-with-menu>
+</ion-content>

@@ -1,0 +1,301 @@
+.container {
+  &.web.summary {
+    &.flat {
+      &.cancelled {
+        .left > .title,
+        .unit {
+          text-decoration: line-through;
+        }
+        p.rejectionMessage {
+          color: var(--ion-color-danger);
+          font-weight: bold;
+          margin-top: 0.5em;
+          text-decoration: none !important;
+          font-size: 0.8em;
+        }
+      }
+      p.round-quantity {
+        left: 5px !important;
+        top: 5px !important;
+      }
+      section {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .container-product {
+        box-shadow: none !important;
+        border-radius: 0px !important;
+      }
+      .product {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+    .product {
+      min-width: 26vw;
+      max-width: 26vw;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      .content.summary {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+      }
+    }
+  }
+  &.web.catalog {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    .product {
+      min-width: 380px;
+      max-width: 380px;
+      min-height: 230px;
+      max-height: 230px;
+    }
+
+    .tarja-scalable {
+      min-width: 380px !important;
+      max-width: 380px !important;
+    }
+  }
+
+  &.web {
+    &.summary {
+      .container-bottom-price {
+        display: flex;
+        align-items: flex-end;
+      }
+    }
+    .product {
+      min-width: 352px;
+      max-width: 352px;
+    }
+
+    .container-product {
+      min-height: 250px;
+      max-height: 250px;
+    }
+
+    .container-payment {
+      .container-main-price {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2px;
+        .price-old {
+          color: var(--ion-color-medium);
+          font-size: 0.9em;
+          text-decoration: line-through;
+          margin-bottom: 0px;
+        }
+      }
+
+      &.summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .price-unit {
+          margin-top: 0 !important;
+          margin-left: 7px;
+        }
+      }
+    }
+  }
+
+  .container-product {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(91, 75, 75, 0.2);
+  }
+
+  .product {
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .round-quantity {
+      background-color: var(--ion-color-primary);
+      border-radius: 50%;
+      padding: 4px 7px;
+      font-size: 0.9em;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      position: absolute;
+      left: 20px;
+      top: 23px;
+      z-index: 10;
+
+      &.number-one {
+        padding: 4px 9px;
+      }
+
+      &.two-decimals {
+        padding: 7px 6px;
+        font-size: 0.8em;
+        left: 18px;
+
+        &.number-one {
+          padding: 7px 8px;
+        }
+      }
+
+      &.three-decimals {
+        padding: 7px 6px;
+        font-size: 0.8em;
+        left: 18px;
+      }
+    }
+
+    .content {
+      margin-left: 0.5em;
+      &.pp {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 165px;
+      }
+
+      .container-title {
+        display: flex;
+        margin-bottom: 0.6em;
+
+        .container-trash {
+          border-radius: 50%;
+          min-width: 36px;
+          height: 37px;
+        }
+      }
+
+      .container-promotional {
+        p {
+          color: var(--ion-color-success);
+          font-weight: bold;
+        }
+      }
+
+      h1 {
+        margin-top: 2px;
+        margin-bottom: 3px;
+        margin-right: 0.5em;
+        font-size: 0.93em;
+        font-weight: 700;
+        line-height: 13px;
+        letter-spacing: 0em;
+        text-align: left;
+      }
+
+      p.unit {
+        font-size: 12px;
+        color: var(--ion-color-medium);
+      }
+
+      p.label-payment {
+        font-size: 0.7em;
+      }
+
+      p.price-payment {
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+
+      p.price-unit {
+        font-weight: normal;
+        font-size: 0.8em;
+        margin-top: 5px;
+      }
+
+      p.points {
+        font-weight: 700;
+        font-size: 0.7em;
+        margin-top: 0.5em;
+        margin-bottom: 1em;
+        color: var(--ion-color-success);
+        font-weight: 500;
+
+        span {
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+
+  &.scalable {
+    .product {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+
+      .container-img {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+
+        p {
+          font-size: 0.75em;
+          font-weight: 500;
+          background-color: var(--ion-color-success);
+          color: white;
+          text-align: center;
+          border-top-right-radius: 8px;
+          border-top-left-radius: 8px;
+          padding-top: 3px;
+          padding-bottom: 3px;
+
+          span {
+            font-size: 1.1em;
+          }
+        }
+      }
+    }
+  }
+
+  .tarja-scalable {
+    background-color: green;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 1px 3px 0 rgba(91, 75, 75, 0.2);
+
+    p {
+      color: white;
+      text-align: center;
+      font-size: 0.82em;
+      font-weight: 500;
+    }
+  }
+}
+
+.pp {
+  .container-total {
+    margin-top: 1em;
+    p {
+      font-size: 0.8em;
+    }
+    h1 {
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+  }
+  ion-button {
+    margin-top: 0.5em;
+    margin-left: 0;
+  }
+}
+
+.disabled-primary {
+  background-color: var(--ion-color-primary) !important;
+  color: white !important;
+  width: 8em;
+  // width: 100%;
+  &.mobile {
+    width: 100% !important;
+  }
+}
+
+.container-product.summary {
+  min-height: 0 !important;
+  .product {
+    max-width: none !important;
+    min-width: 100%;
+  }
+}

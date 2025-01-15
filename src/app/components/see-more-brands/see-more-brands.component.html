@@ -1,0 +1,14 @@
+<section *ngIf="brands && brands.length > 0" [ngClass]="{ web: shared.web }">
+  <div class="container-title">
+    <h1>Veja também</h1>
+  </div>
+  <div class="container-brands">
+    <div class="brand ion-activatable ripple-parent round" *ngFor="let brand of brands" (click)="chooseBrand(brand)">
+      <div class="content zoom-effect round">
+        <app-bg-image [image]="brand.image" width="70px" height="56px"></app-bg-image>
+        <p>{{ brand.label | fixLabel }}</p>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+</section>

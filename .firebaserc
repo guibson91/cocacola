@@ -1,0 +1,40 @@
+{
+  "projects": {
+    "default": "carteira-3f277"
+  },
+  "targets": {
+    "default": {
+      "hosting": {
+        "development": [
+          "orbitta-development"
+        ],
+        "homolog": [
+          "orbitta-homolog"
+        ],
+        "hext": [
+          "orbitta-hext"
+        ],
+        "production": [
+          "orbitta-production"
+        ]
+      }
+    },
+    "production": {
+      "hosting": {
+        "development": [
+          "orbitta-development"
+        ],
+        "homolog": [
+          "orbitta-homolog"
+        ],
+        "hext": [
+          "orbitta-hext"
+        ],
+        "production": [
+          "orbitta-production"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

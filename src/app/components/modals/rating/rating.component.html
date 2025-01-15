@@ -1,0 +1,30 @@
+<app-base-modal>
+  <h1 class="title">Avalie seu pedido</h1>
+  <form [formGroup]="form" class="content">
+    <div>
+      <p class="ask">O que você achou do pedido?</p>
+      <p class="description">Escolha de 1 a 5 estrelas para classificar</p>
+      <div class="container-stars">
+        <app-star [rating]="rating" size="3em" (changeRating)="changeRating($event)" [edit]="true"></app-star>
+      </div>
+      <div class="comment">
+        <p>Deixe seu comentário (opcional)</p>
+        <ion-textarea
+          formControlName="description"
+          [autoGrow]="false"
+          [rows]="5"
+          (ionInput)="changeDescription()"
+          [maxlength]="maxCharacterLimitDescription"
+          [debounce]="100"
+          placeholder="Conte-nos o que aconteceu (opcional)"
+        ></ion-textarea>
+        <small>{{ countCharacters }} / {{ maxCharacterLimitDescription }}</small>
+      </div>
+    </div>
+    <div class="btns">
+      <ion-button expand="block" [color]="rating >= 1 ? 'primary' : 'medium'" [round]="true" [fill]="rating >= 1 ? 'solid' : 'outline'" (click)="rate()" [ngClass]="{ active: rating >= 1 }"
+        >Avaliar</ion-button
+      >
+    </div>
+  </form>
+</app-base-modal>

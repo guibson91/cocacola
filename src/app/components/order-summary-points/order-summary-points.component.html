@@ -1,0 +1,6 @@
+<div class="line" *ngFor="let item of items" [ngClass]="{ highlight: item.label === 'Total do pedido' }">
+  <p>{{ item.label }}:</p>
+  <p *ngIf="item.value !== '0'">{{ item.value | number }} pontos</p>
+  <p *ngIf="item.value === '0'">Grátis</p>
+  <!-- <p *ngIf="item.price" class="price">R$ {{ item.redeemPoints | number }}</p> -->
+</div>

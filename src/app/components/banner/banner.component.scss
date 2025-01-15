@@ -1,0 +1,44 @@
+.container-banners {
+  margin: 1em;
+  &.web {
+    margin: 0 !important;
+    swiper-container.banners {
+      margin-top: 1em;
+      width: calc(100% - 2em);
+      margin-left: 1em;
+      margin-right: 1em;
+      margin-bottom: -0.9em;
+
+      swiper-slide {
+        margin-bottom: 2.5em;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    width: 100%;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    swiper-container.banners {
+      width: 90%;
+    }
+
+    .btns-slides {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: calc(50% - 25px);
+
+      ion-icon {
+        font-size: 50px;
+      }
+    }
+  }
+}

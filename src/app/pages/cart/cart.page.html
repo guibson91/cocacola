@@ -1,0 +1,20 @@
+<app-header *ngIf="!shared.web && !cartData.isEditing" title="Carrinho" [showBack]="true"></app-header>
+
+<ion-content>
+  <app-header-content
+    *ngIf="!shared.web && cartData.isEditing"
+    title="Editando pedido"
+    subtitle="Confira os detalhes do seu pedido antes de fechar a sua compra"
+    [showBack]="true"
+  ></app-header-content>
+  <app-cart-content></app-cart-content>
+</ion-content>
+
+<app-footer-cart
+  (action)="next()"
+  label="Subtotal"
+  [value]="cartData.subtotal"
+  [points]="cartData.totalPoints"
+  [disabled]="isEmpty"
+  *ngIf="!shared.web && !isEmpty"
+></app-footer-cart>

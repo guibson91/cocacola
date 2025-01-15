@@ -1,0 +1,30 @@
+<app-base-modal [showClose]="false">
+  <h1 class="title">{{ title }}</h1>
+  <div class="content">
+    <p class="subtitle">Agora você só precisa finalizar o pagamento</p>
+    <p class="expiration-pix" *ngIf="time && time > 0; else renewPix">O PIX irá expirar em {{ formattedTime }}</p>
+    <ng-template #renewPix>
+      <div class="renew-pix">
+        <ion-spinner></ion-spinner>
+        <p>Renovando PIX</p>
+      </div>
+    </ng-template>
+    <div class="steps">
+      <h2>Como Pagar com PIX?</h2>
+      <p>1. Copie o código</p>
+      <p>2. Abra o APP do seu banco ou instituição financeira e entre no ambiente <b>PIX</b></p>
+      <p>3. Escolha a opção <b>PIX</b> copia e cola</p>
+      <p>4. Cole o código, confira as informações e finalize o pedido</p>
+      <p>Ou você pode escanear o <b>QRCODE</b> abaixo:</p>
+      <div class="container-image">
+        <app-bg-image width="130px" height="130px" [image]="pix.qrCode" *ngIf="time && time > 0"> </app-bg-image>
+      </div>
+    </div>
+    <div class="btns">
+      <ion-button expand="block" color="primary" fill="solid" (click)="copyPix()" [disabled]="!(time && time > 0)"> {{ pixWasCopied ? "Código PIX copiado" : "Copiar Código PIX" }}</ion-button>
+      <ion-button expand="block" color="dark" fill="outline" (click)="closeModal('close', resPix)">
+        {{ type === "checkout" ? "Ver pedido" : "Voltar" }}
+      </ion-button>
+    </div>
+  </div>
+</app-base-modal>

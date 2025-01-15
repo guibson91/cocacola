@@ -1,0 +1,11 @@
+<section class="footer" *ngIf="showCart && totalItems > 0" [ngClass]="{'web': shared.web}">
+  <div class="container">
+    <div class="left">
+      <img src="assets/svgs/shop-bag.svg" />
+      <p>{{ totalItems }} itens</p>
+    </div>
+    <div class="right">
+      <ion-button (click)="openCartPP()">Ver resgate</ion-button>
+    </div>
+  </div>
+</section>

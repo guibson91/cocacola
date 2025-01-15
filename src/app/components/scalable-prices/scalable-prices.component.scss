@@ -1,0 +1,28 @@
+section {
+  &.mobile {
+    overflow-x: auto;
+    display: flex;
+    scrollbar-width: thin;
+  }
+
+  &.web {
+    flex-wrap: nowrap;
+  }
+
+  swiper-container {
+    width: 100%;
+    swiper-slide {
+      margin-right: 2em;
+      flex: 0 0 auto;
+    }
+  }
+
+  &.fullWidth {
+    width: 100%;
+
+    .product {
+      // width: 100%;
+      // max-width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<app-header title="Financeiro" [showBack]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Limite de crédito"></app-header-web>
+  <app-container-with-menu type="financial" *ngIf="shared.web" description="Veja aqui todas as soluções ligadas a parte financeira do seu negócio.">
+    <app-credit-limit-content></app-credit-limit-content>
+  </app-container-with-menu>
+  <div class="container" *ngIf="!shared.web">
+    <p class="title">Veja aqui todas as soluções ligadas a parte financeira do seu negócio.</p>
+    <app-menu-items [items]="menuItems"></app-menu-items>
+  </div>
+</ion-content>

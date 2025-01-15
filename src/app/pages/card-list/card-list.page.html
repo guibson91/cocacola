@@ -1,0 +1,28 @@
+<app-header title="Meus cartões" [showBack]="true" *ngIf="!shared.web"></app-header>
+
+<ion-content [ngClass]="{web: shared.web}">
+  <app-header-web *ngIf="shared.web" title="Meus cartões"></app-header-web>
+
+  <app-container-with-menu
+    *ngIf="type"
+    [menu]="menuItems"
+    [primary]="true"
+    [type]="type"
+    [description]="type === 'financial' ? 'Veja aqui todas as soluções ligadas a parte financeira do seu negócio.' : ''"
+  >
+    <section class="default">
+      <h1>Meus cartões</h1>
+      <app-loading-message message="Carregando cartões" [loading]="cards === undefined" [empty]="cards && cards.length === 0 ? true : false" emptyMessage="Você não possui cartões cadastrados">
+      </app-loading-message>
+      <div class="item" *ngFor="let card of cards">
+        <div class="left">{{card.brand | uppercase}} - Final {{card.lastDigits}}</div>
+        <div class="right">
+          <ion-button fill="clear" color="danger" (click)="askRemoveCard(card)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      <ion-button class="register" fill="outline" color="dark" expand="block" (click)="openModal()"> Cadastrar novo cartão</ion-button>
+    </section>
+  </app-container-with-menu>
+</ion-content>

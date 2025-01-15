@@ -1,0 +1,109 @@
+<app-header title="Meus pedidos" [showBack]="true" *ngIf="!shared.web && !isPP"></app-header>
+
+<ion-content [ngClass]="{web: shared.web, pp: isPP}">
+  <app-header-orbitta-club title="Meus Resgates" *ngIf="!shared.web && isPP" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web && isPP"></app-header-web>
+  <ion-refresher *ngIf="!shared.web" slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <app-header-web title="Meus pedidos" *ngIf="shared.web && !isPP"></app-header-web>
+
+  <!-- <app-header-orbitta-club title="Meus resgates" paddingBottom="2em" *ngIf="!shared.web && isPP"></app-header-orbitta-club>
+  <app-header-web *ngIf="shared.web" [title]="isPP ? 'Meus resgates' : 'Meus pedidos'" [isPP]="isPP"></app-header-web> -->
+
+  <div style="margin-top: -1em" *ngIf="allOrders && !shared.web && !isPP">
+    <app-search *ngIf="allOrders" placeholder="Busque número do seu pedido" [list]="allOrders" (filterList)="filterList($event)" [filters]="['id', 'orderId']"></app-search>
+  </div>
+
+  <app-container-with-menu *ngIf="!isPP">
+    <section class="default">
+      <h1 class="title">{{isPP ? 'Resgates' : 'Pedidos'}} em andamento</h1>
+      <p class="description">Veja os {{isPP ? 'resgates' : 'pedidos'}} em andamento</p>
+      <div *ngIf="filteredCurrentOrders && filteredCurrentOrders.length > 0">
+        <div class="order-in-progress ion-activatable ripple-parent" *ngFor="let order of filteredCurrentOrders" tappable (click)="openOrderDetail(order)">
+          <h1>Pedido {{order.id}} <span *ngIf="order.orderId"> / SR {{order.orderId}}</span></h1>
+          <p>{{order.description ? order.description : order.cartItems.length + ' itens'}}</p>
+          <ion-ripple-effect></ion-ripple-effect>
+        </div>
+      </div>
+      <div style="padding-top: 1em; padding-bottom: 1em">
+        <app-empty-message [message]="emptyInProgressMessage" [show]="!!(filteredCurrentOrders && filteredCurrentOrders.length === 0)"> </app-empty-message>
+        <app-loading-message [message]="loadingInProgressMessage" [loading]="!filteredCurrentOrders"> </app-loading-message>
+      </div>
+    </section>
+    <div class="container-rebuy" [ngStyle]="{'margin-top': isPP ? '1em' : '0', 'margin-bottom': isPP ? '1em' : '0'}">
+      <app-rebuy origem="order" *ngIf="!isPP"></app-rebuy>
+    </div>
+    <section class="default completed">
+      <h1 class="title">{{isPP ? 'Resgates' : 'Pedidos'}} concluídos</h1>
+      <p class="description">Veja os últimos {{isPP ? 'resgates' : 'pedidos'}} realizados</p>
+      <div *ngIf="filteredFinishedOrders && filteredFinishedOrders.length > 0">
+        <div *ngFor="let order of filteredFinishedOrders; let last = last" class="item" [ngClass]="{ border: !last }">
+          <div class="left">
+            <p class="title">Descrição do pedido</p>
+            <p class="description-order">
+              Pedido {{order.orderId}} -
+              <span class="status" *ngIf="order.status === 'delivered' && !order.canceled">Entregue</span>
+              <span class="status danger" *ngIf="order.status === 'returned' && !order.canceled">Devolvido</span>
+              <span class="status danger" *ngIf="order.canceled">Cancelado</span>
+            </p>
+          </div>
+          <div class="right" (click)="openOrderDetail(order)">
+            <ion-button size="small" round="true" fill="outline" color="dark">Ver </ion-button>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top: 1em; padding-bottom: 1em">
+        <app-empty-message [message]="emptyFishedMessage" [show]="!!(filteredFinishedOrders && filteredFinishedOrders.length === 0)"> </app-empty-message>
+        <app-loading-message [message]="loadingInProgressMessage" [loading]="!filteredFinishedOrders"> </app-loading-message>
+      </div>
+    </section>
+  </app-container-with-menu>
+  <app-content-orbitta-club *ngIf="isPP" [contentOrbitta]="true">
+    <div class="content-web-orbitta-club">
+      <section class="default" [ngClass]="{'web': shared.web}">
+        <h1 class="title">{{isPP ? 'Resgates' : 'Pedidos'}} em andamento</h1>
+        <p class="description">Veja os {{isPP ? 'resgates' : 'pedidos'}} em andamento</p>
+        <div *ngIf="filteredCurrentOrders && filteredCurrentOrders.length > 0">
+          <div class="order-in-progress ion-activatable ripple-parent" *ngFor="let order of filteredCurrentOrders" tappable (click)="openOrderDetail(order)">
+            <h1>Pedido {{order.id}} <span *ngIf="order.orderId"> / SR {{order.orderId}}</span></h1>
+            <p>{{order.description ? order.description : order.cartItems.length + ' itens'}}</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </div>
+        <div style="padding-top: 1em; padding-bottom: 1em">
+          <app-empty-message [message]="emptyInProgressMessage" [show]="!!(filteredCurrentOrders && filteredCurrentOrders.length === 0)"> </app-empty-message>
+          <app-loading-message [message]="loadingInProgressMessage" [loading]="!filteredCurrentOrders"> </app-loading-message>
+        </div>
+      </section>
+      <div class="container-rebuy" [ngStyle]="{'margin-top': isPP ? '1em' : '0', 'margin-bottom': isPP ? '1em' : '0'}">
+        <app-rebuy origem="order" *ngIf="!isPP"></app-rebuy>
+      </div>
+      <section class="default completed">
+        <h1 class="title">{{isPP ? 'Resgates' : 'Pedidos'}} concluídos</h1>
+        <p class="description">Veja os últimos {{isPP ? 'resgates' : 'pedidos'}} realizados</p>
+        <div *ngIf="filteredFinishedOrders && filteredFinishedOrders.length > 0">
+          <div *ngFor="let order of filteredFinishedOrders; let last = last" class="item" [ngClass]="{ border: !last }">
+            <div class="left">
+              <p class="title">Descrição do pedido</p>
+              <p class="description-order">
+                Pedido {{order.orderId}} -
+                <span class="status" *ngIf="order.status === 'delivered' && !order.canceled">Entregue</span>
+                <span class="status danger" *ngIf="order.status === 'returned' && !order.canceled">Devolvido</span>
+                <span class="status danger" *ngIf="order.canceled">Cancelado</span>
+              </p>
+            </div>
+            <div class="right" (click)="openOrderDetail(order)">
+              <ion-button size="small" round="true" fill="outline" color="dark">Ver </ion-button>
+            </div>
+          </div>
+        </div>
+        <div style="padding-top: 1em; padding-bottom: 1em">
+          <app-empty-message [message]="emptyFishedMessage" [show]="!!(filteredFinishedOrders && filteredFinishedOrders.length === 0)"> </app-empty-message>
+          <app-loading-message [message]="loadingFinishedMessage" [loading]="!filteredFinishedOrders"> </app-loading-message>
+        </div>
+      </section>
+    </div>
+  </app-content-orbitta-club>
+</ion-content>

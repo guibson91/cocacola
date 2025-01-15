@@ -1,0 +1,38 @@
+<app-header-form
+  title="Bem-vindo ao Orbitta!"
+  subtitle="Vimos que você já faz pedidos com seu vendedor, mas precisamos que se cadastre no app."
+  [bigger]="true"
+  *ngIf="register.isCpf"
+></app-header-form>
+
+<form [formGroup]="form" (ngSubmit)="nextClick()">
+  <ion-item [ngClass]="{ error: form.controls.cpfPartner.invalid && form.controls.cpfPartner.touched }">
+    <ion-input type="tel" inputmode="tel" formControlName="cpfPartner" [maskito]="cpfCnpjMask" [maskitoElement]="maskPredicate" placeholder="Seu CPF*" maxlength="14"></ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.cpfPartner.errors?.required && form.controls.cpfPartner.touched" class="danger">CPF é obrigatório</p>
+  <p *ngIf="form.controls.cpfPartner.errors?.invalidCPF && form.controls.cpfPartner.touched" class="danger">CPF inválido</p>
+
+  <ion-item [ngClass]="{ error: form.controls.firstName.invalid && form.controls.firstName.touched }">
+    <ion-input type="text" inputmode="text" formControlName="firstName" placeholder="Seu nome*"> </ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.firstName.errors?.required && form.controls.firstName.touched" class="danger">Nome é obrigatório</p>
+
+  <ion-item [ngClass]="{ error: form.controls.lastName.invalid && form.controls.lastName.touched }">
+    <ion-input type="text" inputmode="text" formControlName="lastName" placeholder="Seu sobrenome*"> </ion-input>
+  </ion-item>
+  <p *ngIf="form.controls.lastName.errors?.required && form.controls.lastName.touched" class="danger">Sobrenome é obrigatório</p>
+
+  <ion-item [ngClass]="{ error: form.controls.birthday.invalid && form.controls.birthday.touched }">
+    <ion-input type="tel" inputmode="tel" [maskito]="birthdayMask" formControlName="birthday" [maskitoElement]="maskPredicate" placeholder="Data de nascimento*"> </ion-input>
+    <img src="assets/svgs/calendar.svg" alt="" />
+  </ion-item>
+  <p *ngIf="form.controls.birthday.errors?.required && form.controls.birthday.touched" class="danger">A data de nascimento é obrigatória</p>
+  <p *ngIf="form.controls.birthday.errors?.invalidDateFormat && form.controls.birthday.touched" class="danger">A data de nascimento está mal formatada. Padrão deve ser dd/mm/aaaa</p>
+  <p *ngIf="form.controls.birthday.errors?.invalidDate && form.controls.birthday.touched" class="danger">A data de nascimento é inválida</p>
+  <p *ngIf="form.controls.birthday.errors?.futureDate && form.controls.birthday.touched" class="danger">A data de nascimento deve ser anterior ao dia atual</p>
+  <p *ngIf="form.controls.birthday.errors?.underAge && form.controls.birthday.touched" class="danger">O administrador precisa ter mais que 18 anos</p>
+
+  <p class="obs-required">(*) Este campo é obrigatório</p>
+
+  <ion-button type="submit" expand="block" color="primary" [disabled]="!form.valid">Continuar </ion-button>
+</form>

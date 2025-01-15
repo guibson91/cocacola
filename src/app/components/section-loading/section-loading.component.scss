@@ -1,0 +1,14 @@
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ion-spinner {
+    margin-right: 0.5em;
+    width: 1em;
+    color: var(--ion-color-medium);
+  }
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.9em;
+  }
+}

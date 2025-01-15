@@ -1,0 +1,49 @@
+<app-header title="Produtos" [showBack]="true" *ngIf="!shared.web && !isPP"></app-header>
+<app-header-orbitta-club title="Resgate" subtitle="Categorias" *ngIf="!shared.web && isPP"></app-header-orbitta-club>
+<app-header-web [showClubOrbitta]="true" *ngIf="shared.web && isPP"></app-header-web>
+
+<ion-content [ngClass]="{web: shared.web, pp: isPP}">
+  <app-header-web *ngIf="shared.web && !isPP"></app-header-web>
+
+  <app-search placeholder="Busque a categoria que deseja" [list]="categories ?? []" (filterList)="filterList($event)" [filters]="['label']" *ngIf="!shared.web"></app-search>
+
+  <app-rebuy *ngIf="!isPP"></app-rebuy>
+
+  <div class="container-title" *ngIf="shared.web && !isPP">
+    <h1>Produtos</h1>
+  </div>
+
+  <div class="container-title" style="margin-top: 1em; margin-bottom: 1em" *ngIf="shared.web && isPP">
+    <h1>Categorias</h1>
+  </div>
+
+  <div class="container-categories" *ngIf="filteredCategories && filteredCategories.length > 0 && !shared.web && !isPP">
+    <div class="category shadow ion-activatable ripple-parent" *ngFor="let category of filteredCategories" tappable (click)="openCategory(category)">
+      <app-bg-image [image]="category.image" width="105px" height="105px"></app-bg-image>
+      <h1>{{category.label | fixLabel | fixCategory}}</h1>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+
+  <div class="container-categories-pp" *ngIf="filteredCategories && filteredCategories.length > 0 && isPP">
+    <div class="category shadow ion-activatable ripple-parent" *ngFor="let category of filteredCategories" (click)="openCategory(category)">
+      <div class="content">
+        <h1>{{category.label | fixLabel | fixCategory }}</h1>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </div>
+  </div>
+
+  <div class="container-categories" *ngIf="filteredCategories && filteredCategories.length > 0 && shared.web && !isPP">
+    <div class="category-web" *ngFor="let category of filteredCategories" tappable (click)="openCategory(category)">
+      <app-category-item [category]="category"></app-category-item>
+    </div>
+  </div>
+
+  <div class="container-categories" *ngIf="!filteredCategories || filteredCategories.length === 0">
+    <p class="empty">Não foi possível encontrar categorias</p>
+  </div>
+
+  <app-suggested-order></app-suggested-order>
+</ion-content>
+<app-float-cart-pp *ngIf="isPP"></app-float-cart-pp>

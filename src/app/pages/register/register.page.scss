@@ -1,0 +1,37 @@
+ion-content {
+  h1.title-web {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-bottom: 0;
+    // margin-top: -1.5em;
+  }
+  p.description-web {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 0;
+    margin-top: 0.5em;
+  }
+  .container-step {
+    margin: 1em;
+    margin-bottom: 1.5em;
+  }
+  .container {
+    margin-left: 1em;
+    margin-right: 1em;
+    // position: relative;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // min-height: 100%;
+    padding-bottom: 2em;
+
+    &.fix-height {
+      min-height: calc(100% - 6em);
+    }
+    &.web {
+      padding-bottom: 0 !important;
+    }
+  }
+}

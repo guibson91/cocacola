@@ -1,0 +1,29 @@
+h1.title {
+  font-size: 1.2em;
+  margin-bottom: 0.2em;
+}
+.content {
+  text-align: center;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  p.danger {
+    font-weight: bold;
+    font-size: 0.8em;
+    color: var(--ion-color-primary);
+    margin-bottom: 2em;
+  }
+  p.msg {
+    font-size: 0.8em;
+    margin-bottom: 2em;
+  }
+  .container-image {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  ion-button {
+    font-weight: bold;
+    margin-top: 1em;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="top-content" *ngIf="user">
+  <div class="left">
+    <ion-icon name="person-circle-outline" tappable (click)="openConfig()"></ion-icon>
+    <div class="user" *ngIf="user.responsible">
+      <h1>
+        Olá, <span>{{ user.responsible.firstName | fixLabel }}</span>
+      </h1>
+      <p *ngIf="user.cpfCnpj && !points">{{ user.cpfCnpj | formatCpfCnpj }}</p>
+      <p *ngIf="points">
+        Saldo: <b>{{ customer?.balanceAvailable || 0 | number : "1.0-0" }} pontos</b>
+      </p>
+    </div>
+  </div>
+  <div class="right" tappable (click)="openNotifications()" *ngIf="!showCart">
+    <div class="red-ball" *ngIf="notifications && notifications.length > 0"></div>
+    <ion-icon name="notifications-outline"></ion-icon>
+  </div>
+  <div class="right" tappable (click)="openCartPP()" *ngIf="showCart">
+    <img src="assets/svgs/cart-pp.svg" alt="" />
+  </div>
+</div>

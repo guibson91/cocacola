@@ -1,0 +1,35 @@
+<div class="product">
+  <app-bg-image
+    [showLoadingSpinner]="true"
+    width="112px"
+    height="180px"
+    [image]="product.image"
+    *ngIf="product.image"
+    (click)="openProductDetails(product, 'recommended', isPP)"
+  ></app-bg-image>
+  <div class="content" *ngIf="product.currentScalable" [ngClass]="{ pp: isPP }">
+    <div style="margin-bottom: 0.5em" tappable (click)="openProductDetails(product, 'recommended', isPP)">
+      <h1 class="title">{{ product.label }}</h1>
+      <p class="unit">{{ product.attributes?.quantityPerPackage }} un • {{ product.attributes?.capacityLabel }}</p>
+      <ng-container *ngIf="!isPP; else showPP">
+        <p class="label-payment">{{ product.paymentConditionDescription }}</p>
+        <p class="price-payment">R$ {{ product.currentScalable.price / 100 | number : "1.2-2" }}</p>
+        <p class="label-unit">Valor da unidade</p>
+        <p class="price-unit" *ngIf="product.currentScalable.unitPrice">R$ {{ product.currentScalable.unitPrice / 100 | number : "1.2-2" }}</p>
+        <p class="label-points" *ngIf="product.currentScalable.points">Você ganha</p>
+        <p class="points" *ngIf="product.currentScalable.points">{{ product.currentScalable.points | number : "1.0" }} pontos</p>
+      </ng-container>
+      <ng-template #showPP>
+        <p class="label-payment">Total</p>
+        <p class="price-points">{{ product.redeemPoints ?? 0 | number : "1.0-0" }} pontos</p>
+      </ng-template>
+    </div>
+    <app-plus-minus *ngIf="!isPP" [product]="product" [quantity]="product.inputQuantity" type="recommended"> </app-plus-minus>
+    <ion-button *ngIf="isPP && !(product.quantity && cartIsRedeemable)" fill="solid" expand="block" color="primary" [disabled]="isLoading" (click)="addProductPP(product)">{{
+      isLoading ? "Processando" : "Adicionar"
+    }}</ion-button>
+    <ion-button *ngIf="isPP && product.quantity && cartIsRedeemable" fill="solid" color="primary" class="disabled-primary"
+      ><ion-icon name="checkmark-outline"></ion-icon
+    ></ion-button>
+  </div>
+</div>

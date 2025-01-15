@@ -1,0 +1,14 @@
+<div class="container" [ngClass]="{ web: shared.web, order: origem === 'order' }">
+  <section *ngIf="isSectionVisible" class="shadow" [@fadeOut]="fadeOutState" (@fadeOut.done)="animationDone($event)">
+    <ion-button fill="clear" class="close" (click)="closeLastPurchase()" *ngIf="origem !== 'order'">
+      <ion-icon name="close" color="dark"></ion-icon>
+    </ion-button>
+    <div class="container-flex">
+      <div class="left">
+        <h1>Refazer a última compra</h1>
+        <p>Gostaria de encher seu carrinho com os mesmos produtos?</p>
+      </div>
+      <ion-button size="small" (click)="addLastPurchaseProducts()" class="add hover-effect"> Adicionar</ion-button>
+    </div>
+  </section>
+</div>

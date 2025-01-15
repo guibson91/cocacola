@@ -1,0 +1,14 @@
+<section *ngIf="isSectionVisible && cartIsAlive" class="rebuy shadow" [@fadeOut]="fadeOutState" (@fadeOut.done)="animationDone($event)" [ngClass]="{ web: shared.web }">
+  <ion-button fill="clear" class="close" (click)="closeLastPurchase()">
+    <ion-icon name="close" color="dark"></ion-icon>
+  </ion-button>
+  <div class="container-flex">
+    <!-- <ion-icon name="cart-outline"></ion-icon> -->
+    <img src="assets/svgs/carrinho-primary.svg" alt="" />
+    <div class="content">
+      <h1>Você tem produtos no carrinho!</h1>
+      <p *ngIf="!shared.web">Para finalizar o pedido clique em “Carrinho” na barra de menu abaixo.</p>
+      <p *ngIf="shared.web">Para finalizar o pedido clique no ícone do caminhão acima na barra de menu.</p>
+    </div>
+  </div>
+</section>

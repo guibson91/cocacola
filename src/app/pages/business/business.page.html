@@ -1,0 +1,53 @@
+<ion-header class="ion-no-border primary" mode="md" *ngIf="!shared.web" [ngClass]="{'my-ios': shared.ios}">
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div class="container-title">
+      <h1><span>Meu Negócio</span></h1>
+    </div>
+  </ion-toolbar>
+  <img src="assets/svgs/meu-negocio-art.svg" />
+</ion-header>
+
+<ion-content [ngClass]="{web: shared.web, mobile: !shared.web}">
+  <app-header-web *ngIf="shared.web"></app-header-web>
+  <app-container-with-menu type="business" [paddingTop]="shared.web ? '7em' : '0'">
+    <section class="graph" *ngIf="data && chartData && hasContent">
+      <div class="card-default-header">
+        <h2>{{data.title}}</h2>
+      </div>
+      <div class="card-default-content">
+        <canvas baseChart [data]="chartData" [options]="chartOptions" chartType="bar"> </canvas>
+      </div>
+    </section>
+    <app-section-info [margin]="shared.web ? '0' : '1em'" title="Dados da Empresa" description="Veja seus dados da empresa">
+      <app-item-info *ngIf="user && user.cpfCnpj" title="CPF/CNPJ" [description]="user.cpfCnpj | formatCpfCnpj"> </app-item-info>
+      <app-item-info *ngIf="user && user.responsible && user.responsible.cpfPartner" title="CPF (sócio admin)" [description]="user.responsible.cpfPartner | formatCpfCnpj">
+      </app-item-info>
+      <!-- <app-item-info *ngIf="user" title="Nome do estabelecimento" description="Bar da Sorocaba Refrescos">
+      </app-item-info> -->
+      <!-- <app-item-info title="Endereço (o produto será entregue nesse endereço)"
+        description="Rua da Sorocaba Refrescos, 123 - Sorocaba SP"></app-item-info> -->
+      <app-item-info *ngIf="creditLimit?.channelDescription" title="Área de atuação" [description]="creditLimit.channelDescription"></app-item-info>
+      <app-item-info *ngIf="creditLimit?.subchannelDescription" title="Atividade principal" [description]="creditLimit.subchannelDescription" [showBorder]="false"></app-item-info>
+    </app-section-info>
+
+    <!-- <app-section-info title="Visita e entrega" description="Veja como você quer seu atendimento">
+    <app-item-info title="Gostaria de receber a visita de um representante SR?" description="Sim"
+      [showButton]="false"></app-item-info>
+    <app-item-info title="Qual o status do seu estabelecimento"
+      description="Meu estabelecimento vai abrir em 30 dias" [showButton]="false"></app-item-info>
+    <app-item-info title="Quais os dias que está disponível para o recebimento"
+      description="Quinta, Sexta, Sábado e Domingo" [showButton]="false"></app-item-info>
+    <app-item-info title="Qual o horário disponível para entrega" description="Manhã e Noite"
+      [showButton]="false"></app-item-info>
+  </app-section-info> -->
+  </app-container-with-menu>
+
+  <section *ngIf="!shared.web">
+    <app-menu-items [items]="menu" [showBusiness]="false"></app-menu-items>
+  </section>
+</ion-content>

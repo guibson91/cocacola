@@ -1,0 +1,17 @@
+<app-base-modal [showClose]="showClose">
+  <h1 class="title" [ngClass]="{ warn: type === 'warn' || type === 'none' || !type, default: type === 'default' }" [innerHTML]="title"></h1>
+  <div class="content">
+    <div class="container-image" *ngIf="image">
+      <img [src]="image" />
+    </div>
+    <p class="msg" [innerHTML]="description"></p>
+    <div class="footer-buttons" *ngIf="mainLabel || secondaryLabel">
+      <ion-button color="primary" fill="solid" expand="block" (click)="closeModal('main', null, mainEvent)" *ngIf="mainLabel">
+        {{ mainLabel }}
+      </ion-button>
+      <ion-button [color]="type === 'warn' ? 'primary' : 'dark'" style="margin-top: 0.9em" fill="outline" expand="block" (click)="closeModal('secondary', null, secondaryEvent)" *ngIf="secondaryLabel">
+        {{ secondaryLabel }}
+      </ion-button>
+    </div>
+  </div>
+</app-base-modal>

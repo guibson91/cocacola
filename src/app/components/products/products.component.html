@@ -1,0 +1,41 @@
+<ng-container *ngIf="!isPP || type === 'recommended'; else PP">
+  <!-- Pedido Sugerido MOBILE -->
+  <section class="horizontal app" *ngIf="type && type === 'recommended' && products && !shared.web">
+    <div *ngFor="let product of products" class="product">
+      <app-suggested-product [product]="product" [isPP]="isPP"></app-suggested-product>
+    </div>
+  </section>
+
+  <!-- Pedido Sugerido WEB -->
+  <section class="horizontal" *ngIf="type && type === 'recommended' && products && shared.web">
+    <swiper-container [slidesPerView]="'auto'" [slidesPerGroup]="1" [loop]="false" [autoplay]="false" mode="ios">
+      <swiper-slide *ngFor="let product of products">
+        <app-product-default [product]="product" [type]="type" [isPP]="isPP"></app-product-default>
+      </swiper-slide>
+    </swiper-container>
+  </section>
+
+  <!-- Catálogo de Produtos / Carrinho / Resumo do Carrinho / Detalhes do pedido -->
+  <section class="vertical" *ngIf="type && type !== 'recommended'" [ngClass]="{ web: shared.web }">
+    <div class="container-product" *ngIf="products">
+      <div class="subcontainer-product" [ngClass]="{ summary: type === 'summary' }" *ngFor="let product of products; let i = index">
+        <app-product-default [product]="product" [type]="type" (remove)="removeItem($event)" [isPP]="isPP" [flat]="flat"> </app-product-default>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #PP>
+  <section class="horizontal horizontal-pp" *ngIf="!shared.web">
+    <div *ngFor="let product of products" class="product-pp">
+      <app-suggested-product [product]="product" [isPP]="isPP"></app-suggested-product>
+    </div>
+  </section>
+  <section class="vertical web" *ngIf="shared.web">
+    <div class="container-product" *ngIf="products">
+      <div class="subcontainer-product" [ngClass]="{ summary: type === 'summary' }" *ngFor="let product of products; let i = index">
+        <app-product-default [product]="product" [type]="type" (remove)="removeItem($event)" [isPP]="isPP"> </app-product-default>
+      </div>
+    </div>
+  </section>
+</ng-template>

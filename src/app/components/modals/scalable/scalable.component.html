@@ -1,0 +1,15 @@
+<app-base-modal>
+  <app-product-detail-header></app-product-detail-header>
+  <div class="content">
+    <h2>Compre por quantidade e economize</h2>
+    <div class="container-scalable" [ngClass]="{ web: shared.web }">
+      <app-scalable-prices [product]="product" *ngIf="product"></app-scalable-prices>
+    </div>
+    <div class="container-message">
+      <h1>Vantagens para você!!!</h1>
+      <p class="full-msg">Role para o lado e veja as possibilidades e vantagens em comprar em maior quantidade</p>
+      <p class="danger">Confira as opções que preparamos para você.</p>
+    </div>
+    <ion-button color="primary" fill="solid" expand="block" (click)="closeModal('confirm')">Vamos lá </ion-button>
+  </div>
+</app-base-modal>

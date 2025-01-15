@@ -1,0 +1,89 @@
+ion-content {
+  &.web {
+    h1 {
+      margin-top: -1em;
+    }
+    ion-item {
+      min-width: 12em;
+    }
+  }
+  img.enfeite {
+    width: 100%;
+  }
+  .container-title {
+    text-align: center;
+    margin-bottom: 1em;
+    h1 {
+      font-size: 1.5em;
+      margin-top: 10vh;
+      font-weight: bold;
+    }
+    p {
+      color: black;
+      margin-top: 4px;
+      font-size: 0.7em;
+      font-weight: bold;
+    }
+  }
+
+  p.update-time {
+    text-align: center;
+    font-size: 0.7em;
+    margin-top: 2em;
+    color: #5c5c5c;
+    font-weight: 500;
+  }
+
+  .form {
+    margin-left: 1em;
+    margin-right: 1em;
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 2px;
+      margin-left: 2px;
+      .container-forgot {
+        padding: 6px;
+        p {
+          font-size: 0.8em;
+          color: var(--ion-color-danger);
+        }
+      }
+    }
+  }
+  .btns {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 3em;
+    ion-button {
+      margin-bottom: 0.5em;
+    }
+    &.biometric {
+      margin-top: 0em;
+      ion-item {
+        --padding-start: 2px;
+        ion-toggle {
+          font-size: 0.9em;
+          color: var(--ion-color-text);
+        }
+      }
+    }
+  }
+}
+
+ion-footer {
+  background-color: var(--ion-color-background);
+  .btns {
+    padding-bottom: 2em;
+    background-color: var(--ion-color-background);
+    margin-left: 1em;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    ion-button {
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<ion-content [ngClass]="{web: shared.web, pp: isPP}">
+  <app-header-orbitta-club title="Resgate" paddingBottom="2em" *ngIf="!shared.web"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club [marginTop]="isPP ? '-2em' : '0'">
+    <ion-refresher slot="fixed" [pullFactor]="1" [pullMin]="50" [pullMax]="300" (ionRefresh)="handleRefresh($event)" *ngIf="!shared.web">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <section class="section-card-user">
+      <app-card-user *ngIf="!shared.web" [points]="true"></app-card-user>
+    </section>
+
+    <app-search-products *ngIf="!shared.web" (callback)="selectFilter()"></app-search-products>
+
+    <app-banner [isPP]="true"></app-banner>
+
+    <app-loading-message message="Carregando categorias" emptyMessage="Não foi possível carregar categorias no momento" [loading]="categories === undefined"> </app-loading-message>
+
+    <app-categories-slide *ngIf="categories && categories.length > 0" [categories]="categories" title="Categorias destaque"></app-categories-slide>
+
+    <app-categories-slide *ngIf="brands && brands.length > 0" [categories]="brands" title="Marcas destaque" [isBrand]="true"></app-categories-slide>
+
+    <section>
+      <app-suggested-order></app-suggested-order>
+    </section>
+  </app-content-orbitta-club>
+</ion-content>
+<app-float-cart-pp></app-float-cart-pp>

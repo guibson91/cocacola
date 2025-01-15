@@ -1,0 +1,7 @@
+<div class="message" *ngIf="!entity">
+  <ion-spinner></ion-spinner>
+  <p>{{ loadingMessage }}</p>
+</div>
+<div class="message" *ngIf="entity?.length === 0">
+  <p>{{ emptyMessage }}</p>
+</div>

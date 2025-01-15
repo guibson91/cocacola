@@ -1,0 +1,17 @@
+<app-header title="Compra" (back)="back()"></app-header>
+
+<ion-content>
+  <section class="default">
+    <h1 class="title">Informações de Compra</h1>
+    <div class="item" *ngFor="let item of items">
+      <h1>{{item.label}}</h1>
+      <p *ngIf="item.description">{{item.description}}</p>
+      <p *ngIf="item.value">R$ {{item.value | number:'1.2-2'}}</p>
+    </div>
+    <app-payment-methods *ngIf="payment" [paymentConditions]="payment" (selectPayment)="selectPayment($event)" (update)="updatePayment($event)" [disabledAccordion]="true"> </app-payment-methods>
+  </section>
+
+  <ion-button style="margin-left: 1em; margin-right: 1em" fill="solid" expand="block" color="primary" (click)="finishPayment()" [disabled]="paymentForm === 'X' && !selectedCard">
+    Efetuar compra</ion-button
+  >
+</ion-content>

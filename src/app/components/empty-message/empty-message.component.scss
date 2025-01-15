@@ -1,0 +1,13 @@
+.empty {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  p {
+    color: var(--ion-color-medium);
+    font-size: 0.86em;
+  }
+}

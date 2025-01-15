@@ -1,0 +1,16 @@
+<div class="content" tappable (click)="selectScalablePrice(scalablePrice, index)">
+  <div class="head" [ngClass]="{ active: scalablePrice.active }">
+    <h1>{{ product.label }}</h1>
+    <p>({{ scalablePrice.description }})</p>
+  </div>
+  <div class="content-card">
+    <p class="label-payment">{{ product.paymentConditionDescription }}</p>
+    <p class="price">R$ {{ scalablePrice.price / 100 | number : "1.2-2" }}</p>
+    <p class="unit" *ngIf="scalablePrice.unitPrice">(R$ {{ scalablePrice.unitPrice / 100 | number : "1.2-2" }} / unidade)</p>
+    <p class="points" *ngIf="scalablePrice.points">
+      Você ganha
+      {{ scalablePrice.points | number : "1.0" }}
+      {{ scalablePrice.points === 1 ? "ponto" : "pontos" }}
+    </p>
+  </div>
+</div>

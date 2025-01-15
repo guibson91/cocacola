@@ -1,0 +1,20 @@
+<app-base-modal>
+  <h1 class="title">Selecionar cartão</h1>
+  <div class="content">
+    <ion-radio-group [(ngModel)]="selectedCard" mode="md" *ngIf="cards && cards.length > 0">
+      <div class="card" *ngFor="let card of cards">
+        <ion-radio justify="start" mode="md" labelPlacement="end" [value]="card">
+          <h1 class="bold">{{ card.brand | fixLabel }} - Final {{ card.lastDigits }}</h1>
+        </ion-radio>
+      </div>
+    </ion-radio-group>
+    <app-loading-message message="Carregando cartões" [loading]="cards === undefined"> </app-loading-message>
+    <div class="empty" *ngIf="cards && cards.length === 0">
+      <p>Você não possui cartões cadastrados</p>
+    </div>
+    <div class="container-buttons">
+      <ion-button color="primary" fill="solid" expand="block" (click)="select()" [disabled]="!selectedCard">Selecionar cartão</ion-button>
+      <ion-button color="dark" fill="outline" expand="block" (click)="openNewCard()" class="register">Cadastrar novo cartão</ion-button>
+    </div>
+  </div>
+</app-base-modal>

@@ -1,0 +1,117 @@
+<ion-content [ngClass]="{'web': shared.web}">
+  <app-header-orbitta-club [home]="true"
+    *ngIf="!shared.web" paddingBottom="2em"></app-header-orbitta-club>
+  <app-header-web [showClubOrbitta]="true" *ngIf="shared.web"></app-header-web>
+  <app-content-orbitta-club>
+    <h1 *ngIf="shared.web" class="title">Extrato</h1>
+    <div class="default container">
+      <section class="fixed-period">
+        <h1>Período</h1>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let day of periodRange"
+              [size]="12/periodRange.length">
+              <ion-button [fill]="day === selectedPeriod ? 'solid' : 'outline'"
+                (click)="choosePeriod(day)" color="primary">{{day}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </section>
+      <section class="specific-period">
+        <h1 style="margin-bottom: 5px">Período específico</h1>
+        <form [formGroup]="form">
+          <ion-grid>
+            <ion-row>
+              <ion-col [size]="6" style="padding-right: 5px">
+                <ion-item
+                  [ngClass]="{ error: form.controls.fromDate.invalid && form.controls.fromDate.touched }">
+                  <img src="assets/svgs/calendar.svg" alt />
+                  <ion-input
+                    type="tel"
+                    inputmode="tel"
+                    [maskito]="fullDateMask"
+                    formControlName="fromDate"
+                    [maskitoElement]="maskPredicate"
+                    placeholder="De"
+                    (ionChange)="changeDate()"
+                    [debounce]="500">
+                  </ion-input>
+                </ion-item>
+                <p
+                  *ngIf="form.controls.fromDate.errors?.required && form.controls.fromDate.touched"
+                  class="danger">A data inicial é obrigatória</p>
+                <p
+                  *ngIf="form.controls.fromDate.errors?.invalidDateFormat && form.controls.fromDate.touched"
+                  class="danger">A data inicial está mal formatada. Padrão deve
+                  ser dd/mm/aaaa</p>
+                <p
+                  *ngIf="form.controls.fromDate.errors?.invalidDate && form.controls.fromDate.touched"
+                  class="danger">A data inicial é inválida</p>
+                <p
+                  *ngIf="form.controls.fromDate.errors?.futureDate && form.controls.fromDate.touched"
+                  class="danger">A data inicial deve ser anterior ao dia
+                  atual</p>
+              </ion-col>
+              <ion-col [size]="6">
+                <ion-item
+                  [ngClass]="{ error: form.controls.toDate.invalid && form.controls.toDate.touched }">
+                  <img src="assets/svgs/calendar.svg" alt />
+                  <ion-input
+                    type="tel"
+                    inputmode="tel"
+                    [maskito]="fullDateMask"
+                    formControlName="toDate"
+                    [maskitoElement]="maskPredicate"
+                    placeholder="Até"
+                    (ionChange)="changeDate()"
+                    [debounce]="500">
+                  </ion-input>
+                </ion-item>
+                <p
+                  *ngIf="form.controls.toDate.errors?.required && form.controls.toDate.touched"
+                  class="danger">A data final é obrigatória</p>
+                <p
+                  *ngIf="form.controls.toDate.errors?.invalidDateFormat && form.controls.toDate.touched"
+                  class="danger">A data final está mal formatada. Padrão deve
+                  ser dd/mm/aaaa</p>
+                <p
+                  *ngIf="form.controls.toDate.errors?.invalidDate && form.controls.toDate.touched"
+                  class="danger">A data final é inválida</p>
+                <p
+                  *ngIf="form.controls.toDate.errors?.futureDate && form.controls.toDate.touched"
+                  class="danger">A data final deve ser anterior ao dia atual</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </section>
+      <app-loading-message message="Carregando extrato"
+        emptyMessage="Sem extrato para esse período"
+        [loading]="(extracts === undefined)"
+        [empty]="extracts?.length === 0"></app-loading-message>
+      <section class="content">
+        <div class="item" *ngFor="let extract of extracts">
+          <div class="top">
+            <div class="left">
+              <img [src]="extract | iconExtract" alt="">
+              <!-- <ion-icon name="mail-outline"></ion-icon> -->
+              <p class="title">{{extract | titleExtract}}</p>
+            </div>
+            <p class="points"><span *ngIf="extract.balance > 0">+
+              </span>{{extract.balance | number:'0.0-0'}}</p>
+          </div>
+          <div class="container-bottom">
+            <aside></aside>
+            <div class="bottom">
+              <p class="description">{{extract.dateCreate | date:'dd/MM/yyyy'}}
+                {{extract.dateCreate | date:'HH:mm'}}</p>
+            </div>
+          </div>
+        </div>
+        <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </section>
+    </div>
+  </app-content-orbitta-club>
+</ion-content>

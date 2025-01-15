@@ -1,0 +1,11 @@
+<section *ngIf="stepIndex >= 0">
+  <div class="timeline">
+    <div class="container" [ngClass]="{ last: last }" *ngFor="let label of labels; let i = index; let last = last">
+      <div class="container-circle">
+        <div class="circle" [ngClass]="{ active: stepIndex >= i }"></div>
+        <p [ngClass]="{ active: stepIndex >= i }" [innerHTML]="label" [ngStyle]="{ marginTop: marginTop }"></p>
+      </div>
+      <div class="line" [ngClass]="{ active: stepIndex > i }" *ngIf="!last"></div>
+    </div>
+  </div>
+</section>

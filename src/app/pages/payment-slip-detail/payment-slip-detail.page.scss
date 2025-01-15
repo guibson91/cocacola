@@ -1,0 +1,48 @@
+ion-content {
+  section {
+    h1.title {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    p.value {
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      font-size: 1.5em;
+    }
+    p.status {
+      color: var(--ion-color-medium);
+      font-size: 0.8em;
+      font-weight: normal;
+      margin-bottom: 1em;
+    }
+    .truncate {
+      width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .container-expiration {
+      border-bottom: 1px solid var(--ion-color-light);
+      margin-bottom: 1em;
+      p.title {
+        font-weight: bold;
+        font-size: 0.9em;
+      }
+      p.date {
+        color: var(--ion-color-medium);
+        font-size: 0.8em;
+        font-weight: normal;
+        margin-bottom: 1em;
+      }
+    }
+    ion-button.code {
+      font-weight: normal;
+      color: var(--ion-color-medium);
+      margin-bottom: 0.5em;
+    }
+    ion-button.view {
+      font-weight: bold;
+    }
+  }
+}

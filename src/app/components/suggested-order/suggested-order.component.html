@@ -1,0 +1,17 @@
+<section *ngIf="!isPP && recommendedProducts && recommendedProducts.length > 0" [ngClass]="{ web: shared.web }">
+  <div class="container-title">
+    <h1 [ngStyle]="{ 'font-size': labelSize }">{{ label }}</h1>
+  </div>
+  <div class="container-products" [ngClass]="{ web: shared.web }">
+    <app-products type="recommended" [isPP]="isPP"></app-products>
+  </div>
+</section>
+
+<section *ngIf="isPP && recommendedPointsProducts && recommendedPointsProducts.length > 0" [ngClass]="{ web: shared.web }">
+  <div class="container-title">
+    <h1 [ngStyle]="{ 'font-size': labelSize }">{{ label }}</h1>
+  </div>
+  <div class="container-products" [ngClass]="{ web: shared.web }">
+    <app-products type="recommended" [isPP]="isPP"></app-products>
+  </div>
+</section>

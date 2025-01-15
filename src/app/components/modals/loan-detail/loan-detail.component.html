@@ -1,0 +1,37 @@
+<app-base-modal>
+  <h1 class="title">
+    Financiamento<br />
+    <span>{{ invoice.code }}</span>
+  </h1>
+  <div class="content" *ngIf="invoice.details">
+    <div class="item">
+      <p>Compra</p>
+      <h1>R$ {{ invoice.details.loan.orderedAmount / 100 | number: "1.2-2" }}</h1>
+    </div>
+    <div class="item">
+      <p>Juros (mensal)</p>
+      <h1>{{ invoice.details.loan.monthlyFeePercentage | number: "1.0-2" }}%</h1>
+    </div>
+    <div class="item primary">
+      <p>CET (mensal)</p>
+      <h1>{{ invoice.details.loan.monthlyCetPercentage | number: "1.0-2" }}%</h1>
+    </div>
+    <div class="item">
+      <p>IOF (mensal)</p>
+      <h1>{{ invoice.details.loan.monthlyFTTPercentage | number: "1.0-2" }}%</h1>
+    </div>
+    <div class="item primary">
+      <p>Total a pagar</p>
+      <h1 *ngIf="invoice.invoiceValue">R$ {{ invoice.invoiceValue / 100 | number: "1.2-2" }}</h1>
+    </div>
+    <div class="item">
+      <p>Parcelas</p>
+      <h1>{{ invoice.details.loan.installments }}x</h1>
+    </div>
+    <div class="item primary">
+      <p>Vencimento 1ª parcela</p>
+      <h1>{{ invoice.details.loan.firstDueDate | date: "dd/MM/yyyy" }}</h1>
+    </div>
+    <ion-button expand="block" color="dark" fill="outline" (click)="closeModal()">Voltar </ion-button>
+  </div>
+</app-base-modal>

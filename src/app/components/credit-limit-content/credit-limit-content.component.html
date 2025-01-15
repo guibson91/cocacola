@@ -1,0 +1,25 @@
+<section class="default" *ngIf="creditLimit">
+  <div class="item">
+    <h1>R$ {{ creditLimit.limit / 100 | number: "1.2-2" }}</h1>
+    <p>Limite de crédito total</p>
+  </div>
+  <div class="item">
+    <h1>R$ {{ creditLimit.spentAmount / 100 | number: "1.2-2" }}</h1>
+    <p>Valor gasto</p>
+  </div>
+  <div class="item" *ngIf="creditLimit.remainingBalance">
+    <h1>R$ {{ creditLimit.remainingBalance / 100 | number: "1.2-2" }}</h1>
+    <p>Recebimento de Saldo Remanescente</p>
+  </div>
+  <div class="item">
+    <h1>R$ {{ creditLimit.minOrderAmount / 100 | number: "1.2-2" }}</h1>
+    <p>Pedido mínimo</p>
+  </div>
+  <div class="item highlight">
+    <h1>R$ {{ creditLimit.availableLimit / 100 | number: "1.2-2" }}</h1>
+    <p>Limite de crédito disponível</p>
+  </div>
+</section>
+<div class="container-bottom" *ngIf="creditLimit">
+  <ion-button fill="solid" expand="block" color="primary" (click)="openSupport()">Falar sobre limite de crédito </ion-button>
+</div>
