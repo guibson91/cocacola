@@ -31,17 +31,10 @@ Orbitta follows a modular architecture based on Angular best practices with the 
 
 - **Frontend Framework**: Angular 16.x with Ionic 7.x
 - **Mobile Framework**: Capacitor 5.x
-- **Authentication**: Supabase Auth
-- **Database**: Drizzle ORM + Neon
-- **API Layer**: Next.js with API endpoints in app/api/_.ts
 - **State Management**: RxJS
-- **Containerization**: Docker
-- **CSS Framework**: Tailwind CSS
+- **CSS Framework**: SCSS
 - **Programming Language**: TypeScript
 - **Testing Framework**: Jest
-- **Caching**: Redis + Upstash
-- **Message Queue**: BullMQ
-- **Connection Pooling**: PgBouncer
 
 ## Project Structure
 
@@ -101,8 +94,6 @@ npx cap init
 ```bash
 npm start
 ```
-
-This will start a development server with hot reloading at `http://localhost:4200/`.
 
 ### Adding Native Functionality
 
