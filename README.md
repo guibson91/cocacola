@@ -4,8 +4,6 @@
 
 Orbitta is a comprehensive mobile application built with Ionic, Angular, and Capacitor. The application is designed to provide a seamless cross-platform experience for both Android and iOS devices, leveraging modern web technologies combined with native device capabilities.
 
-![Orbitta App](https://via.placeholder.com/800x400?text=Orbitta+App+Screenshot)
-
 ## Table of Contents
 
 - [Architecture](#architecture)
